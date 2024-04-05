@@ -25,6 +25,9 @@ import java.util.Optional;
 import java.util.Set;
 import org.springframework.data.domain.Pageable;
 
+/**
+ * defines methods for creating and managing communities in a Spring Boot application.
+ */
 public interface CommunityService {
   Community createCommunity(CommunityDto communityDto);
 
