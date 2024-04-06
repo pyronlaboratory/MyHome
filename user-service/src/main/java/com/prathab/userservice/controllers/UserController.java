@@ -52,13 +52,16 @@ public class UserController {
   }
 
   /**
-   * logs an informational message to the trace log and returns the string "Working".
+   * logs information to the log and returns a constant message "Working".
    * 
-   * @returns "Working".
+   * @returns a brief message indicating that the function is working properly.
    * 
-   * 	- The log statement trace() is called with two properties, "port" and "jwt_secret",
-   * which are obtained from environment variables.
-   * 	- The return statement returns a string value of "Working".
+   * The output is a string value of "Working".
+   * The function uses two environment properties, `local.server.port` and `token.secret`,
+   * to generate the output.
+   * The log statement `trace("Running on port{} with jwt_secret{}",
+   * environment.getProperty("local.server.port"), environment.getProperty("token.secret"));`
+   * is used to provide additional information about the function's execution.
    */
   @GetMapping("/users/status")
   public String status() {
@@ -69,37 +72,34 @@ public class UserController {
   }
 
   /**
-   * maps a `CreateUserRequest` to a `CreateUserResponse` by using the `userApiMapper`
-   * to transform the request into a `UserDto`, creating a new user using the `userService`,
-   * and then mapping the resulting `UserDto` back to the `CreateUserResponse`.
+   * maps a `CreateUserRequest` to a `UserDto`, creates a new user in the system, and
+   * maps the created user back to a `CreateUserResponse`.
    * 
-   * @param request CreateUserRequest object sent from the client, containing user
-   * details to be created in the system.
+   * @param request user creation request provided by the client, which is used to
+   * create a new user entity in the system.
    * 
-   * 	- `@Valid`: Indicates that the `request` object is validated using bean validation.
-   * 	- `@RequestBody`: Represents the input request as a JSON or XML body in the HTTP
-   * request message.
-   * 	- `CreateUserRequest`: The request class that represents the request body, which
-   * contains the user details to be created.
-   * 	- `userApiMapper`: A mapping object used for converting the `CreateUserRequest`
-   * to a `UserDTO`.
-   * 	- `userService`: A service class that handles the creation of a new user in the
-   * application.
-   * 	- `createdUserDto`: The resulting `UserDTO` object created by the `userService`
-   * after creating the new user.
-   * 	- `createdUserResponse`: The response object that represents the created user,
-   * which is constructed using the `createdUserDto`.
+   * 	- `@Valid`: Indicates that the request body must be validated using Java Bean validation.
+   * 	- `@RequestBody`: Annotation indicating that the request body is serialized and
+   * sent as a JSON or XML payload in the HTTP request.
+   * 	- `CreateUserRequest`: The class that represents the request body, which contains
+   * fields for user details such as name, email, and password.
    * 
-   * @returns a `ResponseEntity` with a status of `HttpStatus.CREATED` and a body
+   * @returns a `ResponseEntity` with a status code of `HttpStatus.CREATED` and a body
    * containing the created user response.
    * 
-   * 	- `ResponseEntity`: This is an instance of `ResponseEntity`, which represents a
-   * response with both status code and body.
-   * 	- `status`: The status code of the response, which in this case is `HttpStatus.CREATED`.
-   * 	- `body`: The body of the response, which contains the created user response.
-   * 	- `CreateUserResponse`: This is a class that represents the response containing
-   * information about the created user. It has properties such as `id`, `username`,
-   * `email`, and `password`.
+   * 	- `ResponseEntity`: This is an instance of the `ResponseEntity` class, which
+   * represents a response to a HTTP request. The `status` attribute specifies the HTTP
+   * status code of the response, and the `body` attribute contains the actual response
+   * data.
+   * 	- `HttpStatus`: This is an enumeration that represents the HTTP status code of
+   * the response. In this case, it is set to `CREATED`, which indicates that the request
+   * was successful and the requested resource was created.
+   * 	- `CreateUserResponse`: This is a class that represents the response to the sign-up
+   * request. It contains various attributes, including `id`, `username`, `password`,
+   * and `email`, which were provided in the `CreateUserRequest` object.
+   * 	- `userDto`: This is an instance of the `UserDto` class, which represents a user
+   * entity with its attributes. It was created by the `userService` using the
+   * `CreateUserRequest` object.
    */
   @PostMapping(
       path = "/users",
