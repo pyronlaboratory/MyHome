@@ -24,6 +24,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+/**
+ * TODO
+ */
 public class SecurityTokenSDJpaServiceTest {
 
   private final Duration TEST_TOKEN_LIFETIME_SECONDS = Duration.ofDays(1);
@@ -34,6 +37,9 @@ public class SecurityTokenSDJpaServiceTest {
   @InjectMocks
   private SecurityTokenSDJpaService securityTokenSDJpaService;
 
+  /**
+   * initializes MockitoAnnotations and sets field values for a `securityTokenSDJpaService`.
+   */
   @BeforeEach
   private void init() {
     MockitoAnnotations.initMocks(this);
@@ -43,6 +49,10 @@ public class SecurityTokenSDJpaServiceTest {
         TEST_TOKEN_LIFETIME_SECONDS);
   }
 
+  /**
+   * creates a new security token for a user based on specified parameters, saves it
+   * to the repository, and returns the token object.
+   */
   @Test
   void createSecurityToken() {
     // given
@@ -67,6 +77,10 @@ public class SecurityTokenSDJpaServiceTest {
     verify(securityTokenRepository).save(any());
   }
 
+  /**
+   * generates a security token for a user to reset their password, sets its expiration
+   * date and lifetime, and saves it to the repository.
+   */
   @Test
   void createPasswordResetToken() {
     // given
@@ -90,6 +104,10 @@ public class SecurityTokenSDJpaServiceTest {
     verify(securityTokenRepository).save(any());
   }
 
+  /**
+   * creates an email confirm token for a given user using a JPA service, saving it to
+   * a repository and returning the token.
+   */
   @Test
   void createEmailConfirmToken() {
     // given

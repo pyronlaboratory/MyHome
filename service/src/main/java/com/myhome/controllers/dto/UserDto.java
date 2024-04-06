@@ -21,6 +21,24 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * is an immutable DTO class for representing a user in a Java application, with
+ * fields for user ID, name, email, password, and community IDs, as well as a builder
+ * and getter/setter methods for convenient construction and accessor methods.
+ * Fields:
+ * 	- id (Long): in UserDto represents a unique identifier for each user.
+ * 	- userId (String): represents a unique identifier for a user in the application.
+ * 	- name (String): in the UserDto class stores a user's name.
+ * 	- email (String): in the UserDto class is used to store an email address for
+ * identification purposes.
+ * 	- password (String): stores a string value representing a password for a user account.
+ * 	- encryptedPassword (String): in UserDto represents an encoded version of the
+ * user's password.
+ * 	- communityIds (Set<String>): in UserDto represents a set of strings indicating
+ * the user's membership in various communities.
+ * 	- emailConfirmed (boolean): in the UserDto class indicates whether an email address
+ * associated with the user has been confirmed through a verification process.
+ */
 @Builder
 @Getter
 @Setter

@@ -33,6 +33,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.servlet.Filter;
 
+/**
+ * TODO
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -43,6 +46,36 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   private final PasswordEncoder passwordEncoder;
   private final AppJwtEncoderDecoder appJwtEncoderDecoder;
 
+  /**
+   * sets up security for an API gateway by disabling CSRF and frame options, enabling
+   * stateful session management, adding a filter after the `CommunityFilter`, and
+   * authorizing requests based on Ant-based patterns.
+   * 
+   * @param http HTTP security configuration object, which is used to configure various
+   * settings related to request processing and authentication.
+   * 
+   * 	- `cors()` - Enables Cross-Origin Resource Sharing (CORS) for this HTTP security
+   * object.
+   * 	- `csrf()`.disable() - Disables Cross-Site Request Forgery (CSRF) protection for
+   * this HTTP security object.
+   * 	- `headers().frameOptions()`.disable() - Disables the setting of the `X-Frame-Options`
+   * header for this HTTP security object.
+   * 	- `sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)` -
+   * Specifies that sessions are not created for this HTTP security object.
+   * 	- `addFilterAfter(getCommunityFilter(), MyHomeAuthorizationFilter.class)` - Adds
+   * a filter after the `getCommunityFilter()` filter in the chain of filters.
+   * 	- `authorizeRequests()` - Configures which requests are authorized or unauthorized
+   * for this HTTP security object.
+   * 
+   * The properties of `http` include:
+   * 
+   * 	- `antMatchers()` - Matches HTTP methods (e.g., GET, POST, PUT) and URLs (e.g.,
+   * "/hello").
+   * 	- `permitAll()` - Allows any request to pass through without authentication or authorization.
+   * 	- `addFilter()` - Adds a filter to the chain of filters for this HTTP security object.
+   * 	- `and()` - Conjunctively combines multiple configuration options for this HTTP
+   * security object.
+   */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.cors().and().csrf().disable();
@@ -77,10 +110,35 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         .addFilterAfter(getCommunityFilter(), MyHomeAuthorizationFilter.class);
   }
 
+  /**
+   * creates an instance of the `CommunityAuthorizationFilter`, which combines
+   * authentication and community service functionality to filter access to community
+   * resources.
+   * 
+   * @returns a `Filter` object that implements authentication and community service functionality.
+   * 
+   * 	- `authenticationManager()` is an instance of `AuthenticationManager`. This
+   * parameter represents the authentication management component of the system.
+   * 	- `communityService` is an instance of `CommunityService`. This parameter represents
+   * the community service component of the system, which provides data and functionality
+   * related to communities.
+   */
   private Filter getCommunityFilter() throws Exception {
     return new CommunityAuthorizationFilter(authenticationManager(), communityService);
   }
 
+  /**
+   * sets up authentication-related configurations by providing a user details service
+   * and password encoder.
+   * 
+   * @param auth AuthenticationManagerBuilder, which is used to configure the authentication
+   * settings for the application.
+   * 
+   * 	- `userDetailsService`: This is an instance of `UserDetailsService`, which provides
+   * user details for authentication.
+   * 	- `passwordEncoder`: This is an instance of a `PasswordEncoder`, which is responsible
+   * for encoding and decoding passwords securely.
+   */
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);

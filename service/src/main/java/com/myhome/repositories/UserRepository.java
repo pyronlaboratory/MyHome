@@ -26,6 +26,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+/**
+ * provides methods for querying and manipulating data related to users in a Spring
+ * Data JPA repository context.
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 

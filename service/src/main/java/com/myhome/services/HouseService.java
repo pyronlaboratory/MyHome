@@ -23,6 +23,10 @@ import java.util.Optional;
 import java.util.Set;
 import org.springframework.data.domain.Pageable;
 
+/**
+ * provides methods for managing houses and their members, including listing all
+ * houses, houses for a specific user, and adding or deleting members from a house.
+ */
 public interface HouseService {
   Set<CommunityHouse> listAllHouses();
 

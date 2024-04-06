@@ -30,6 +30,33 @@ import lombok.NoArgsConstructor;
  * doing this, you can avoid having to specify all the extra details in the request and just use the
  * IDs to get the data to enrich this request
  */
+/**
+ * is an extension of the SchedulePaymentRequest class with additional fields to
+ * provide more details about the admin and house member, allowing for easier mapping
+ * to User and HouseMember fields during payment processing.
+ * Fields:
+ * 	- adminEntityId (Long): represents an entity associated with the admin account,
+ * which may be used to enrich the SchedulePaymentRequest with additional information.
+ * 	- adminName (String): represents the name of an administrator associated with the
+ * Schedule Payment Request.
+ * 	- adminEmail (String): represents the email address of an administrator associated
+ * with the payment request.
+ * 	- adminEncryptedPassword (String): in the EnrichedSchedulePaymentRequest class
+ * likely stores an encrypted password for an administrative user of the application,
+ * as indicated by the presence of the `adminEncryptedPassword` field in the class definition.
+ * 	- adminCommunityIds (Set<String>): in the EnrichedSchedulePaymentRequest class
+ * contains a set of strings representing community IDs associated with the administrative
+ * entity identified by the adminEntityId field.
+ * 	- memberEntityId (Long): in the EnrichedSchedulePaymentRequest class represents
+ * an identifier for a member entity associated with the payment request.
+ * 	- houseMemberDocumentName (String): represents the name of the document associated
+ * with the member in the household.
+ * 	- houseMemberName (String): in the EnrichedSchedulePaymentRequest class contains
+ * the name of a member residing in a specific house, as indicated by the houseMemberHouseID
+ * field.
+ * 	- houseMemberHouseID (String): represents an identifier for a specific house
+ * within which the member resides.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

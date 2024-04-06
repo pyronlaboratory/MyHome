@@ -23,6 +23,10 @@ import org.mapstruct.Mapper;
 /**
  * Provides conversion between DTO and entity object.
  */
+/**
+ * maps between a DTO representation of a user and the underlying entity object in
+ * the domain model.
+ */
 @Mapper
 public interface UserMapper {
   User userDtoToUser(UserDto userDto);

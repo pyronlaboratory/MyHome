@@ -22,6 +22,26 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * is an immutable DTO object representing payment information, including payment ID,
+ * charge amount, payment type, description, recurrence status, and due date for a
+ * particular user or member in a house.
+ * Fields:
+ * 	- paymentId (String): represents a unique identifier for a payment transaction
+ * within a system.
+ * 	- charge (BigDecimal): in the PaymentDto class represents a monetary value, likely
+ * used to represent a payment made by a user or member to a particular entity.
+ * 	- type (String): in the PaymentDto class represents a category or label for the
+ * payment, such as "Rent" or "Utilities".
+ * 	- description (String): in the PaymentDto class represents a human-readable string
+ * describing the payment's purpose or details.
+ * 	- recurring (boolean): in the PaymentDto class indicates whether the payment is
+ * a recurring one.
+ * 	- dueDate (String): represents the date on which payment is expected to be made.
+ * 	- admin (UserDto): in the PaymentDto class represents an user who manages payments.
+ * 	- member (HouseMemberDto): in PaymentDto represents a HouseMemberDto object
+ * containing information about a member of a household.
+ */
 @Builder
 @Getter
 @Setter

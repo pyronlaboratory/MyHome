@@ -21,6 +21,11 @@ import com.myhome.model.GetHouseDetailsResponseCommunityHouse;
 import java.util.Set;
 import org.mapstruct.Mapper;
 
+/**
+ * defines a mapping between CommunityHouse and GetHouseDetailsResponseCommunityHouse
+ * objects through two methods: communityHouseSetToRestApiResponseCommunityHouseSet
+ * and communityHouseToRestApiResponseCommunityHouse.
+ */
 @Mapper
 public interface HouseApiMapper {
   Set<GetHouseDetailsResponseCommunityHouse> communityHouseSetToRestApiResponseCommunityHouseSet(

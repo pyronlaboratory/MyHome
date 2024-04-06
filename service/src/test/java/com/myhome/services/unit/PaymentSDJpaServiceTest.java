@@ -41,6 +41,9 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+/**
+ * TODO
+ */
 class PaymentSDJpaServiceTest {
 
   private final BigDecimal TEST_PAYMENT_CHARGE = new BigDecimal(1000);
@@ -65,11 +68,19 @@ class PaymentSDJpaServiceTest {
   @InjectMocks
   private PaymentSDJpaService paymentSDJpaService;
 
+  /**
+   * initializes Mockito Annotations for testing purposes by calling `MockitoAnnotations.initMocks(this)`.
+   */
   @BeforeEach
   private void init() {
     MockitoAnnotations.initMocks(this);
   }
 
+  /**
+   * takes a `PaymentDto` object as input and persist it in the database, associating
+   * it with a user and logging the event. It then generates a unique payment ID and
+   * returns the scheduled payment DTO.
+   */
   @Test
   void schedulePayment() {
     //given
@@ -89,6 +100,11 @@ class PaymentSDJpaServiceTest {
     assertEquals(basePaymentDto,testPaymentScheduled); //Completion: method returns what is expected
   }
 
+  /**
+   * retrieves a payment detail by its ID and converts it to a PaymentDto object using
+   * a mapper. It also verifies that the payment repository can find the payment by its
+   * ID when called with a specific ID.
+   */
   @Test
   void getPaymentDetails() {
     //when
@@ -108,6 +124,11 @@ class PaymentSDJpaServiceTest {
     assertEquals(optionalOfTestPaymentDto,testPaymentDetails); //Completion: method returns what is expected
   }
 
+  /**
+   * retrieves a House Member object from the repository based on the given member ID.
+   * It verifies the data fetched from the repository and asserts that the method returns
+   * the expected value.
+   */
   @Test
   void getHouseMember() {
     //given
@@ -126,6 +147,12 @@ class PaymentSDJpaServiceTest {
     assertEquals(baseHouseMemberOptional,testHouseMember); //Completion: method returns what is expected
   }
 
+  /**
+   * retrieves payments belonging to a specific member by querying the payment repository.
+   * It verifies and captures the first execution of the method, then retrieves payments
+   * for the second member and verifies their member ID and fields. Finally, it asserts
+   * that the method returns what is expected.
+   */
   @Test
   void getPaymentsByMember() {
     //given
@@ -159,6 +186,11 @@ class PaymentSDJpaServiceTest {
     assertEquals(expectedReturn1,testPaymentByMember1); //Completion: method returns what is expected
   }
 
+  /**
+   * retrieves a list of payments associated with a given administrator by executing
+   * the `paymentRepository.findAll()` method twice, once for each administrator parameter
+   * passed. The retrieved payments are then returned to the caller.
+   */
   @Test
   void getPaymentsByAdmin() {
     //given

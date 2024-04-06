@@ -24,6 +24,9 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+/**
+ * TODO
+ */
 public class AuthenticationSDJpaServiceTest {
 
   private final String USER_ID = "test-user-id";
@@ -44,6 +47,10 @@ public class AuthenticationSDJpaServiceTest {
       new AuthenticationSDJpaService(TOKEN_LIFETIME, SECRET, userSDJpaService, appJwtEncoderDecoder,
           passwordEncoder);
 
+  /**
+   * tests the `login` method of a service by providing a valid user and password, and
+   * verifying that the correct JWT token is generated and returned.
+   */
   @Test
   void loginSuccess() {
     // given
@@ -70,6 +77,10 @@ public class AuthenticationSDJpaServiceTest {
     verify(appJwtEncoderDecoder).encode(appJwt, SECRET);
   }
 
+  /**
+   * tests whether a `UserNotFoundException` is thrown when an email address that does
+   * not correspond to any user is provided for login authentication.
+   */
   @Test
   void loginUserNotFound() {
     // given
@@ -82,6 +93,10 @@ public class AuthenticationSDJpaServiceTest {
         () -> authenticationSDJpaService.login(request));
   }
 
+  /**
+   * tests the login functionality by providing invalid credentials and asserting that
+   * an exception is thrown.
+   */
   @Test
   void loginCredentialsAreIncorrect() {
     // given
@@ -97,10 +112,33 @@ public class AuthenticationSDJpaServiceTest {
         () -> authenticationSDJpaService.login(request));
   }
 
+  /**
+   * creates a new `LoginRequest` instance with the default email address `USER_EMAIL`
+   * and password `REQUEST_PASSWORD`.
+   * 
+   * @returns a `LoginRequest` object containing the email address of the user and the
+   * password for login.
+   * 
+   * 	- `email`: The email address of the user to be used for login.
+   * 	- `password`: The password associated with the user's account.
+   */
   private LoginRequest getDefaultLoginRequest() {
     return new LoginRequest().email(USER_EMAIL).password(REQUEST_PASSWORD);
   }
 
+  /**
+   * generates a default user DTO with user ID, name, email, encrypted password, and
+   * community IDs.
+   * 
+   * @returns a `UserDto` object with pre-populated fields for USER_ID, USERNAME,
+   * USER_EMAIL, and USER_PASSWORD.
+   * 
+   * 	- `userId`: An integer value representing the user's ID.
+   * 	- `name`: A string value representing the user's name.
+   * 	- `email`: A string value representing the user's email address.
+   * 	- `encryptedPassword`: A password value encrypted using a specific algorithm.
+   * 	- `communityIds`: A set of integers representing the user's community IDs.
+   */
   private UserDto getDefaultUserDtoRequest() {
     return UserDto.builder()
         .userId(USER_ID)
@@ -111,6 +149,23 @@ public class AuthenticationSDJpaServiceTest {
         .build();
   }
 
+  /**
+   * generates a JWT token with a specified expiration time based on the current date
+   * and time, and user ID.
+   * 
+   * @param userDto user information that is used to generate the JWT token's expiration
+   * time.
+   * 
+   * 	- `userId`: A long value representing the user ID associated with the token.
+   * 	- `expirationTime`: A `LocalDateTime` object indicating when the token will expire.
+   * The difference between this time and the current time is equal to `TOKEN_LIFETIME`.
+   * 
+   * @returns an AppJwt token with a generated user ID and expiration time.
+   * 
+   * 	- `userId`: This is the user ID of the user for whom the JWT token is being generated.
+   * 	- `expiration`: This is the expiration time of the JWT token in ISO format (e.g.,
+   * "2023-03-14T13:45:00Z"). The token will be valid until this date and time.
+   */
   private AppJwt getDefaultJwtToken(UserDto userDto) {
     final LocalDateTime expirationTime = LocalDateTime.now().plus(TOKEN_LIFETIME);
     return AppJwt.builder()

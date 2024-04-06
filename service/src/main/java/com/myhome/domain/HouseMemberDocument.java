@@ -24,6 +24,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+/**
+ * in the given Java file defines a new entity with a unique document filename and
+ * binary data content.
+ * Fields:
+ * 	- documentFilename (String): in the HouseMemberDocument class represents the
+ * filename of a document.
+ * 	- documentContent (byte[]): in the HouseMemberDocument class contains a byte array
+ * of unknown length.
+ */
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor

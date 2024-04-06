@@ -19,6 +19,9 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+/**
+ * TODO
+ */
 public class BookingSDJpaServiceTest {
 
   private static final String TEST_BOOKING_ID = "test-booking-id";
@@ -32,11 +35,17 @@ public class BookingSDJpaServiceTest {
   @InjectMocks
   private BookingSDJpaService bookingSDJpaService;
 
+  /**
+   * initializes mock objects using MockitoAnnotations.
+   */
   @BeforeEach
   private void init() {
     MockitoAnnotations.initMocks(this);
   }
 
+  /**
+   * deletes a booking item from the repository given its amenity booking item ID.
+   */
   @Test
   void deleteBookingItem() {
     // given
@@ -56,6 +65,10 @@ public class BookingSDJpaServiceTest {
     verify(bookingItemRepository).delete(testBookingItem);
   }
 
+  /**
+   * verifies that a booking with the given amenity ID and booking ID does not exist
+   * in the repository before deleting it using the `bookingSDJpaService`.
+   */
   @Test
   void deleteBookingNotExists() {
     // given
@@ -71,6 +84,10 @@ public class BookingSDJpaServiceTest {
     verify(bookingItemRepository, never()).delete(any());
   }
 
+  /**
+   * tests whether deleting a booking with an amenity ID that does not exist in the
+   * database throws an exception and the correct amenity is not updated.
+   */
   @Test
   void deleteBookingAmenityNotExists() {
     // given
@@ -90,6 +107,16 @@ public class BookingSDJpaServiceTest {
     verify(bookingItemRepository, never()).delete(any());
   }
 
+  /**
+   * generates a new instance of `AmenityBookingItem`. It sets the `amenityBookingItemId`
+   * field to a predefined value (`TEST_BOOKING_ID`).
+   * 
+   * @returns a `AmenityBookingItem` object with a unique identifier.
+   * 
+   * 	- `AmenityBookingItemId`: This is an identifier for the booking item, which is
+   * set to `TEST_BOOKING_ID`.
+   * 	- Other attributes: The function does not return any other attributes or properties.
+   */
   private AmenityBookingItem getTestBookingItem() {
     return new AmenityBookingItem()
         .withAmenityBookingItemId(TEST_BOOKING_ID);

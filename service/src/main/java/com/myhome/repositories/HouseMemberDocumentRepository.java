@@ -19,5 +19,9 @@ package com.myhome.repositories;
 import com.myhome.domain.HouseMemberDocument;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+/**
+ * is an extension of JpaRepository for storing and retrieving HouseMemberDocument
+ * entities in a Spring Data JPA environment.
+ */
 public interface HouseMemberDocumentRepository extends JpaRepository<HouseMemberDocument, Long> {
 }

@@ -19,6 +19,10 @@ package com.myhome.security.jwt;
 /**
  * Implementation should provide a logic to Encode and Decode Application's JWT.
  */
+/**
+ * defines an interface for encoding and decoding JWTs, with two methods provided:
+ * `decode(String encodedJwt, String secret)` and `encode(AppJwt jwt, String secret)`.
+ */
 public interface AppJwtEncoderDecoder {
   AppJwt decode(String encodedJwt, String secret);
 

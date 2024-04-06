@@ -27,6 +27,10 @@ import org.mapstruct.Mapper;
 /**
  * Interface to automatic conversion by Mapstruct
  */
+/**
+ * defines a set of mapping functions between business objects (UserDto and User) and
+ * REST API responses (GetUserDetailsResponseUser).
+ */
 @Mapper
 public interface UserApiMapper {
 

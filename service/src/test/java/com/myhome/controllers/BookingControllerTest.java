@@ -14,6 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
+/**
+ * TODO
+ */
 public class BookingControllerTest {
 
   private final String TEST_AMENITY_ID = "test-amenity-id";
@@ -25,11 +28,20 @@ public class BookingControllerTest {
   @InjectMocks
   private BookingController bookingController;
 
+  /**
+   * initializes mock objects using MockitoAnnotations, allowing for more efficient and
+   * reliable unit testing.
+   */
   @BeforeEach
   private void init() {
     MockitoAnnotations.initMocks(this);
   }
 
+  /**
+   * deletes a booking from the database using the given ammenity ID and booking ID.
+   * It returns a ResponseEntity with a null body and a status code of NO_CONTENT, and
+   * verifies that the booking was deleted successfully.
+   */
   @Test
   void deleteBooking() {
     // given
@@ -46,6 +58,12 @@ public class BookingControllerTest {
     verify(bookingSDJpaService).deleteBooking(TEST_AMENITY_ID, TEST_BOOKING_ID);
   }
 
+  /**
+   * tests whether a booking with the given ammenity ID and booking ID does not exist
+   * when deleted. It utilizes the `given` method to return false when asked if the
+   * booking was deleted, and then verifies that the response is null and the status
+   * code is 404 after calling the `deleteBooking` function on the controller.
+   */
   @Test
   void deleteBookingNotExists() {
     // given

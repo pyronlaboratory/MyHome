@@ -27,6 +27,11 @@ import org.springframework.data.domain.Pageable;
 /**
  * Interface for service layer.
  */
+/**
+ * provides methods for creating and managing users in a system, including creating
+ * new user accounts, resending email confirmation requests, listing all users, and
+ * resetting passwords.
+ */
 public interface UserService {
   Optional<UserDto> createUser(UserDto request);
 

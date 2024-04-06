@@ -24,6 +24,13 @@ import lombok.ToString;
 /**
  * Represents a JWT in the application.
  */
+/**
+ * represents a JWT in an application, having a user ID and an expiration date.
+ * Fields:
+ * 	- userId (String): represents a unique identifier for a user in the application.
+ * 	- expiration (LocalDateTime): represents the date and time after which the JWT
+ * will no longer be considered valid.
+ */
 @Builder
 @ToString
 @Getter

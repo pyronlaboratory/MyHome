@@ -36,6 +36,22 @@ import lombok.With;
 /**
  * Entity identifying a valid user in the service.
  */
+/**
+ * represents a valid user in the service and has attributes such as name, communityId,
+ * district, admins, houses, amenities, etc.
+ * Fields:
+ * 	- admins (Set<User>): in the Community class represents a set of user accounts
+ * that have administrative privileges within the community.
+ * 	- houses (Set<CommunityHouse>): in the Community class represents a set of houses
+ * associated with the community.
+ * 	- name (String): in the Community class represents a unique identifier for a
+ * community within a specific district.
+ * 	- communityId (String): represents a unique identifier for a particular community.
+ * 	- district (String): represents the geographic area in which a community is located.
+ * 	- amenities (Set<Amenity>): in the Community entity represents a set of Amenity
+ * objects related to the community, where each Amenity object has a reference to the
+ * corresponding community through the mappedBy attribute.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

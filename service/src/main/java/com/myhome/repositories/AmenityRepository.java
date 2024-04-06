@@ -23,6 +23,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+/**
+ * defines a set of methods for interacting with the Amenity entity in a Spring Data
+ * JPA repository context, including findByAmenityIdWithCommunity and findByAmenityId
+ * methods.
+ */
 public interface AmenityRepository extends JpaRepository<Amenity, Long> {
 
   @Query("from Amenity amenity where amenity.amenityId = :amenityId")

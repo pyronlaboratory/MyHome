@@ -28,6 +28,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;
 
+/**
+ * TODO
+ */
 class MailSDJpaServiceTest {
 
   @Mock
@@ -42,6 +45,12 @@ class MailSDJpaServiceTest {
 
   private MailProperties mailProperties = TestUtils.MailPropertiesHelper.getTestMailProperties();
 
+  /**
+   * initializes various objects and sets up the RequestContextHolder with a mock
+   * HttpServletRequest object, allowing for easier testing of servlets. It also creates
+   * an instance of the `MailSDJpaService` class, which is responsible for sending
+   * emails using JPA and other dependencies.
+   */
   @BeforeEach
   private void init() {
     MockitoAnnotations.initMocks(this);
@@ -54,6 +63,10 @@ class MailSDJpaServiceTest {
     mailSDJpaService = new MailSDJpaService(emailTemplateEngine, mailSender, messageSource, mailProperties);
   }
 
+  /**
+   * tests the mail sender's ability to send a password recover code email in case of
+   * an exception occurred during the sending process.
+   */
   @Test
   void sendPasswordRecoverCodeMailException() {
     // given
@@ -72,6 +85,10 @@ class MailSDJpaServiceTest {
     assertFalse(mailSent);
   }
 
+  /**
+   * tests whether an exception is thrown when sending a password change notification
+   * email using the `mailSender` service.
+   */
   @Test
   void sendPasswordSuccessfullyChangedMailException() {
     // given
@@ -90,6 +107,10 @@ class MailSDJpaServiceTest {
     assertFalse(mailSent);
   }
 
+  /**
+   * tests the failure of sending an account confirmed email through the mail sender
+   * service by throwing a MailSendException when creating the mime message.
+   */
   @Test
   void sendEmailConfirmedMailException() {
     // given
@@ -108,6 +129,10 @@ class MailSDJpaServiceTest {
     assertFalse(mailSent);
   }
 
+  /**
+   * tests whether the `mailSender` service throws a `MailSendException` when sending
+   * an email with an invalid token.
+   */
   @Test
   void sendEmailCreatedMailException() {
     // given
@@ -128,6 +153,14 @@ class MailSDJpaServiceTest {
     assertFalse(mailSent);
   }
 
+  /**
+   * creates a new `User` object and assigns an email address to it.
+   * 
+   * @returns a `User` object with an email address of "test-email".
+   * 
+   * 	- `Email`: The email address associated with the user.
+   * 	- `User`: A class representing a user object with an email property.
+   */
   private User getTestUser() {
     User user = new User();
     user.setEmail("test-email");

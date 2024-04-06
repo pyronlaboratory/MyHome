@@ -27,6 +27,10 @@ import org.springframework.data.domain.Pageable;
 /**
  * Interface for service layer
  */
+/**
+ * provides methods for scheduling payments, retrieving payment details, and getting
+ * payments by member or administrator, as well as providing access to HouseMember information.
+ */
 public interface PaymentService {
   PaymentDto schedulePayment(PaymentDto request);
 

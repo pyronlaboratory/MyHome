@@ -19,6 +19,10 @@ import com.myhome.domain.Payment;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+/**
+ * provides methods for querying and deleting payments based on their IDs using
+ * Optional and void methods respectively.
+ */
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
   Optional<Payment> findByPaymentId(String paymentId);
 
