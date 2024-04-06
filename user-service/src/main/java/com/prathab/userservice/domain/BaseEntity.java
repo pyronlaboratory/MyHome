@@ -30,11 +30,11 @@ import lombok.Setter;
  * Base class for all JPA Entities. Try not to expose id value outside of the service.
  */
 /**
- * serves as a base class for all JPA Entities and provides an automatically generated
- * identifier using the @Id annotation in Java.
+ * provides a base implementation for all JPA Entities with an automatically generated
+ * ID.
  * Fields:
- * 	- id (Long): in the BaseEntity class represents an automatically generated unique
- * identifier for each entity instance.
+ * 	- id (Long): in the BaseEntity class is an automatically generated unique identifier
+ * assigned by the database during persistence, using the IDENTITY strategy.
  */
 @Getter
 @Setter
