@@ -28,6 +28,10 @@ import org.springframework.data.domain.Pageable;
 /**
  * defines methods for creating and managing communities in a Spring Boot application.
  */
+/**
+ * provides methods for creating and managing communities in a Spring Boot application,
+ * including adding admins and houses, listing all communities, and deleting communities.
+ */
 public interface CommunityService {
   Community createCommunity(CommunityDto communityDto);
 
