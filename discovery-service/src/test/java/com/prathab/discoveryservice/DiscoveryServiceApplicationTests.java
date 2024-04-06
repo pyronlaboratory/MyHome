@@ -19,9 +19,16 @@ package com.prathab.discoveryservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * TODO
+ */
 @SpringBootTest
 class DiscoveryServiceApplicationTests {
 
+  /**
+   * is called when the application starts and sets up the necessary resources for the
+   * program to run.
+   */
   @Test
   void contextLoads() {
   }

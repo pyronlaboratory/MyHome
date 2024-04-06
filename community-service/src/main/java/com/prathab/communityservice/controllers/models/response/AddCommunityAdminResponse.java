@@ -22,6 +22,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * represents a set of admins added to a community.
+ * Fields:
+ * 	- admins (Set<String>): in the AddCommunityAdminResponse class represents a set
+ * of strings containing the community administrators.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

@@ -21,6 +21,10 @@ import com.prathab.communityservice.dto.CommunityDto;
 import java.util.Set;
 import org.mapstruct.Mapper;
 
+/**
+ * defines a set of mappings between domain models (Community) and data transfer
+ * objects (CommunityDto), allowing for efficient translation between these representations.
+ */
 @Mapper
 public interface CommunityMapper {
   CommunityDto communityToCommunityDto(Community community);

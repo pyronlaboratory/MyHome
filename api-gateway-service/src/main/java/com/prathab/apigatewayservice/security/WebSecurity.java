@@ -24,6 +24,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
+/**
+ * TODO
+ */
 @EnableWebSecurity
 @Configuration
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -33,6 +36,29 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     this.environment = environment;
   }
 
+  /**
+   * disables CSRF protection and frame options, and sets authorization rules for API
+   * endpoints. It also configures session management to use a stateless policy.
+   * 
+   * @param http HTTP security configuration object that can be customized to implement
+   * various security features, including disabling CSRF and frames options, authorizing
+   * requests based on AntMatchers, and setting session management policies.
+   * 
+   * 	- `csrf()`. Disable CSRF protection for this security configuration.
+   * 	- `headers()`. Disable frame options protection for this security configuration.
+   * 	- `authorizeRequests()`. Specifies which HTTP methods and URL paths are authorized
+   * or unauthorized based on the configured permissions. The `antMatchers` method is
+   * used to match against specific URLs and HTTP methods, while the `permitAll()`
+   * method allows all requests without any restrictions.
+   * 	- `addFilter(new AuthorizationFilter(authenticationManager(), environment))`.
+   * Adds an authorization filter that checks if the user is authenticated before
+   * allowing access to the requested resource. The `authorizationManager` is used to
+   * retrieve the authentication manager, and the `environment` variable contains
+   * configuration properties related to security.
+   * 	- `sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)`.
+   * Configures the session creation policy for this security configuration. `STATELESS`
+   * means that sessions are not stored persistently across requests.
+   */
   @Override protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();
     http.headers().frameOptions().disable();

@@ -21,6 +21,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * represents a data transfer object (DTO) for community admin information, containing
+ * a single field for the admin ID.
+ * Fields:
+ * 	- adminId (String): in the CommunityAdminDto class represents a unique identifier
+ * for an administrator within a community.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

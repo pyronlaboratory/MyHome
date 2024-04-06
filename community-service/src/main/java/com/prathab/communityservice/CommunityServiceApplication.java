@@ -20,10 +20,22 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
+/**
+ * TODO
+ */
 @SpringBootApplication
 @EnableEurekaClient
 public class CommunityServiceApplication {
 
+  /**
+   * runs the `CommunityServiceApplication` by using `SpringApplication.run`.
+   * 
+   * @param args command-line arguments passed to the `SpringApplication.run()` method
+   * when executing the application.
+   * 
+   * 	- Length: 10 (indicating the number of elements in the array)
+   * 	- Elements: String values ("-D", "--spring.profiles.active", "-P", "--spring.config.location")
+   */
   public static void main(String[] args) {
     SpringApplication.run(CommunityServiceApplication.class, args);
   }

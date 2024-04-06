@@ -19,9 +19,16 @@ package com.prathab.userservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * TODO
+ */
 @SpringBootTest
 class UserServiceApplicationTests {
 
+  /**
+   * is designed to execute upon application startup, loading necessary components and
+   * settings into memory for smooth user experience.
+   */
   @Test
   void contextLoads() {
   }

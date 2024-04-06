@@ -24,6 +24,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * TODO
+ */
 @SpringBootTest
 class CommunityMapperTest {
   private final long id = 1L;
@@ -35,6 +38,10 @@ class CommunityMapperTest {
   @Autowired
   private CommunityMapper communityMapper;
 
+  /**
+   * maps a `Community` object to a `CommunityDTO` object, preserving its essential
+   * properties and IDs.
+   */
   @Test
   void communityToCommunityDto() {
     // given
@@ -55,6 +62,10 @@ class CommunityMapperTest {
     assertEquals(communityDto.getCommunityId(), communityId);
   }
 
+  /**
+   * maps a `CommunityDto` object to a `Community` object, mapping its fields and values
+   * correctly.
+   */
   @Test
   void communityDtoToCommunity() {
     // given

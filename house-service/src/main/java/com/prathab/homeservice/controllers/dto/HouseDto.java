@@ -21,6 +21,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * is a data transfer object (DTO) for representing house-related information with a
+ * single field for community ID.
+ * Fields:
+ * 	- communityId (String): in the HouseDto class represents a unique identifier for
+ * a specific community or neighborhood.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

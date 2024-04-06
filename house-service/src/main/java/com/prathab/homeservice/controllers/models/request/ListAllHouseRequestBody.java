@@ -26,6 +26,12 @@ import lombok.Setter;
  * Do you think it is weird to get a request body as part of GET? Yeah, I too feel the same. But,
  * stay with me until I refactor this.
  */
+/**
+ * has a String field for communityId which must not be blank.
+ * Fields:
+ * 	- communityId (String): in the ListAllHouseRequestBody class represents a non-empty
+ * string value used to identify a specific community or neighborhood.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

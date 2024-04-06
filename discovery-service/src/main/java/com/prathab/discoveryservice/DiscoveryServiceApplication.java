@@ -20,10 +20,24 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
+/**
+ * TODO
+ */
 @SpringBootApplication
 @EnableEurekaServer
 public class DiscoveryServiceApplication {
 
+  /**
+   * runs a Spring application named `DiscoveryServiceApplication`, passing any arguments
+   * provided in the `args` array to the application.
+   * 
+   * @param args command-line arguments passed to the `SpringApplication.run()` method
+   * when the application is launched.
+   * 
+   * The `SpringApplication.run()` method takes two arguments: `DiscoveryServiceApplication.class`
+   * and `args`. The `args` argument is a string array containing the application's
+   * command-line arguments.
+   */
   public static void main(String[] args) {
     SpringApplication.run(DiscoveryServiceApplication.class, args);
   }

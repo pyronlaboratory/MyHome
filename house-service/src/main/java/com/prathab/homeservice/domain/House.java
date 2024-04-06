@@ -23,6 +23,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * is a Java class representing a house with three attributes: communityId, houseId,
+ * and name.
+ * Fields:
+ * 	- communityId (String): in the House class represents an identification number
+ * for a specific community or neighborhood where the house is located.
+ * 	- houseId (String): in the House class represents a unique identifier for a
+ * specific house within a community.
+ * 	- name (String): in the House class represents the name of the house.
+ */
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor

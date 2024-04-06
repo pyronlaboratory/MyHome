@@ -20,10 +20,24 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
+/**
+ * TODO
+ */
 @SpringBootApplication
 @EnableEurekaClient
 public class HomeServiceApplication {
 
+  /**
+   * initiates the execution of the `HomeServiceApplication`, a Java application using
+   * the `SpringApplication` class.
+   * 
+   * @param args command line arguments passed to the `SpringApplication.run()` method
+   * when it is invoked.
+   * 
+   * 	- `SpringApplication.run()` method calls the `HomeServiceApplication` class.
+   * 	- The `args` array is passed as an argument to this method.
+   * 	- `args` can be manipulated and modified within the `main` function.
+   */
   public static void main(String[] args) {
     SpringApplication.run(HomeServiceApplication.class, args);
   }

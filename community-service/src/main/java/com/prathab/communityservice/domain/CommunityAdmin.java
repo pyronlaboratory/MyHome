@@ -26,6 +26,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * represents a community administrator with a unique admin ID and relationships with
+ * multiple communities through a many-to-many mapping.
+ * Fields:
+ * 	- communities (Set<Community>): in the CommunityAdmin class represents a set of
+ * communities to which an admin is assigned.
+ * 	- adminId (String): in the CommunityAdmin class represents a unique identifier
+ * for an administrator of one or more communities.
+ */
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor

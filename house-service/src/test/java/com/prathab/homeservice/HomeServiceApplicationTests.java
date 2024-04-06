@@ -19,9 +19,16 @@ package com.prathab.homeservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * TODO
+ */
 @SpringBootTest
 class HomeServiceApplicationTests {
 
+  /**
+   * is designed to perform some actions after the Spring Boot application context is
+   * loaded.
+   */
   @Test
   void contextLoads() {
   }

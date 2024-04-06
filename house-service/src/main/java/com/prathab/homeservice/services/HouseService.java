@@ -20,6 +20,10 @@ import com.prathab.homeservice.controllers.dto.HouseDto;
 import com.prathab.homeservice.domain.House;
 import java.util.Set;
 
+/**
+ * provides two methods: `addHouse` and `findAllHouses`, for adding and retrieving
+ * houses respectively.
+ */
 public interface HouseService {
   House addHouse(HouseDto houseDto);
 

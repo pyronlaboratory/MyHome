@@ -20,6 +20,10 @@ import com.prathab.communityservice.domain.Community;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * extends Spring Data's CrudRepository and provides a method for finding a specific
+ * Community by communityId.
+ */
 @Repository
 public interface CommunityRepository extends CrudRepository<Community, Long> {
 

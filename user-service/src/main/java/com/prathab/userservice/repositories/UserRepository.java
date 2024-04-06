@@ -20,6 +20,9 @@ import com.prathab.userservice.domain.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * defines a Spring Data repository for managing Users with email-based filtering capabilities.
+ */
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
   User findByEmail(String email);

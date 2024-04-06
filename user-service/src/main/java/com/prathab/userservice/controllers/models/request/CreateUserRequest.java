@@ -27,6 +27,16 @@ import lombok.Setter;
 /**
  * Request model for Creating a new User.
  */
+/**
+ * is a model for creating a new user with name, email, and password fields.
+ * Fields:
+ * 	- name (String): in the `CreateUserRequest` model requires a non-empty string value.
+ * 	- email (String): in the `CreateUserRequest` model requires an email address to
+ * be specified.
+ * 	- password (String): in the CreateUserRequest model requires a non-empty string
+ * with a minimum length of 8 characters and a maximum length of 80 characters,
+ * excluding spaces.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

@@ -22,6 +22,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * represents a collection of HouseDetailResponses for listing all houses.
+ * Fields:
+ * 	- houseDetails (Set<HouseDetailResponse>): in the ListAllHouseResponse class
+ * stores a set of HouseDetailResponse objects.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

@@ -21,6 +21,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * represents a response from a controller method that contains information about a
+ * community, including its ID, name, and district.
+ * Fields:
+ * 	- communityId (String): represents an identifier for a specific community.
+ * 	- name (String): represents a string value that identifies the community's name.
+ * 	- district (String): in the GetCommunityDetailsResponse class represents a string
+ * value containing the name of the district where the community is located.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

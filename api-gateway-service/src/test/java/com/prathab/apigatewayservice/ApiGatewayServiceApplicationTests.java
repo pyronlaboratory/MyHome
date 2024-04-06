@@ -19,9 +19,16 @@ package com.prathab.apigatewayservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * TODO
+ */
 @SpringBootTest
 class ApiGatewayServiceApplicationTests {
 
+  /**
+   * is likely responsible for loading any necessary context, such as configuration or
+   * data, prior to executing the main logic of a program or application.
+   */
   @Test
   void contextLoads() {
   }

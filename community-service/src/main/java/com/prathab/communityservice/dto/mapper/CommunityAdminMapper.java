@@ -20,6 +20,10 @@ import com.prathab.communityservice.domain.CommunityAdmin;
 import com.prathab.communityservice.dto.CommunityAdminDto;
 import org.mapstruct.Mapper;
 
+/**
+ * defines a mapping between the CommunityAdminDto and CommunityAdmin entities through
+ * two methods: communityAdminDtoToCommunityAdmin and communityAdminToCommunityAdminDto.
+ */
 @Mapper
 public interface CommunityAdminMapper {
   CommunityAdmin communityAdminDtoToCommunityAdmin(CommunityAdminDto communityAdminDto);

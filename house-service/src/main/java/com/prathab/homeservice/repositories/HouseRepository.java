@@ -20,6 +20,10 @@ import com.prathab.homeservice.domain.House;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * defines a Spring Data CrudRepository for houses, providing CRUD operations on
+ * houses through the interface.
+ */
 @Repository
 public interface HouseRepository extends CrudRepository<House, Long> {
 }

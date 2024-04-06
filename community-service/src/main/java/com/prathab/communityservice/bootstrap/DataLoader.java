@@ -24,6 +24,9 @@ import java.util.UUID;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+/**
+ * TODO
+ */
 @Component
 public class DataLoader implements CommandLineRunner {
   private final CommunityRepository communityRepository;
@@ -36,10 +39,17 @@ public class DataLoader implements CommandLineRunner {
     this.communityAdminRepository = communityAdminRepository;
   }
 
+  /**
+   * loads data from an external source.
+   */
   @Override public void run(String... args) throws Exception {
     loadData();
   }
 
+  /**
+   * persists a community and an admin to the repository, updates the community with
+   * the saved admin, and saves both entities to the database.
+   */
   private void loadData() {
     // Persist community to repo
     var communityName = "MyHome default community";

@@ -19,9 +19,15 @@ package com.prathab.communityservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * TODO
+ */
 @SpringBootTest
 class CommunityServiceApplicationTests {
 
+  /**
+   * is designed to perform some initialization tasks during the application startup process.
+   */
   @Test
   void contextLoads() {
   }

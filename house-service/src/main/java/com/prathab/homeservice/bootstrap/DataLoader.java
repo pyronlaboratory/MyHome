@@ -21,6 +21,9 @@ import com.prathab.homeservice.repositories.HouseRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+/**
+ * TODO
+ */
 @Component
 public class DataLoader implements CommandLineRunner {
   private final HouseRepository houseRepository;
@@ -29,6 +32,10 @@ public class DataLoader implements CommandLineRunner {
     this.houseRepository = houseRepository;
   }
 
+  /**
+   * creates a new instance of `House`, sets its `houseId`, `communityId`, and `name`,
+   * and saves it to the repository using the `save()` method.
+   */
   @Override public void run(String... args) throws Exception {
     var houseName = "MyHome default house";
     var houseId = "default-house-id-for-testing";

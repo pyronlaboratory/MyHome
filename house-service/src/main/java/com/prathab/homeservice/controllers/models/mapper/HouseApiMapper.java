@@ -22,6 +22,9 @@ import com.prathab.homeservice.domain.House;
 import java.util.Set;
 import org.mapstruct.Mapper;
 
+/**
+ * defines a set of mappings between domain objects and DTOs for housing data.
+ */
 @Mapper
 public interface HouseApiMapper {
   HouseDto houseToHouseDto(House house);

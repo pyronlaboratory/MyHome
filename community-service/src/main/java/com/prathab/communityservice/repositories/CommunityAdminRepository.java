@@ -20,6 +20,10 @@ import com.prathab.communityservice.domain.CommunityAdmin;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * defines a Spring Data Repository for managing CommunityAdmin data, including finding
+ * a CommunityAdmin by its admin ID.
+ */
 @Repository
 public interface CommunityAdminRepository extends CrudRepository<CommunityAdmin, Long> {
   CommunityAdmin findByAdminId(String adminId);

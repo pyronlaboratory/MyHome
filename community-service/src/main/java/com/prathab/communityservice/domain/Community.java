@@ -30,6 +30,19 @@ import lombok.Setter;
 /**
  * Entity identifying a valid user in the service.
  */
+/**
+ * represents a valid user in the service, has many admins associated with it through
+ * a many-to-many relationship, and has a unique community ID.
+ * Fields:
+ * 	- admins (Set<CommunityAdmin>): in the Community class represents a set of users
+ * who have administrative privileges within the community.
+ * 	- name (String): in the Community entity represents a label or title for the
+ * community, which identifies it uniquely within the application's scope.
+ * 	- communityId (String): in the Community class represents a unique identifier for
+ * each community entity in the database.
+ * 	- district (String): represents a geographical area or location associated with
+ * the Community entity.
+ */
 @AllArgsConstructor
 @Getter
 @NoArgsConstructor
