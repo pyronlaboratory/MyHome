@@ -31,38 +31,29 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class UserServiceApplication {
 
   /**
-   * initiates the execution of the `UserServiceApplication`.
+   * runs a SpringApplication, which initiates the execution of the `UserServiceApplication`.
    * 
-   * @param args 0 or more command-line arguments passed to the `SpringApplication.run()`
-   * method when executing the application.
+   * @param args command-line arguments passed to the application
    * 
-   * The `String[]` argument array `args` is passed to the `SpringApplication.run()`
-   * method for launching the `UserServiceApplication`.
-   * The length of the `args` array is determined by the number of command-line arguments
-   * passed when invoking the program.
+   * 	- Length: The input `args` has a length of 1.
+   * 	- Types: The types of the elements in `args` are String.
+   * 	- Attributes: `args` does not have any attributes.
    */
   public static void main(String[] args) {
     SpringApplication.run(UserServiceApplication.class, args);
   }
 
   /**
-   * returns a `BCryptPasswordEncoder` object, which is used to encrypt passwords using
-   * the bcrypt algorithm.
+   * returns a `BCryptPasswordEncoder`, which is a secure password encryption algorithm
+   * used to protect sensitive data.
    * 
-   * @returns a `BCryptPasswordEncoder` instance, which is used to hash and compare
-   * passwords securely.
+   * @returns a `BCryptPasswordEncoder` instance, which can be used to encrypt passwords
+   * using the bcrypt hashing algorithm.
    * 
-   * 	- The function returns an instance of the `BCryptPasswordEncoder` class, which
-   * is a third-party library used for password hashing and verification.
-   * 	- The `BCryptPasswordEncoder` class provides a secure password hashing algorithm
-   * that is slow compared to other algorithms, but provides better security against
-   * brute-force attacks.
-   * 	- The encoder uses a salted hash, where a random salt value is generated for each
-   * password hash, making it more difficult for attackers to use precomputed tables
-   * of hashes (rainbow tables) to crack the passwords.
-   * 	- The `BCryptPasswordEncoder` class also provides methods for hashing and verifying
-   * passwords using the same algorithm, allowing for simple authentication checking
-   * without the need for multiple password hash functions.
+   * 	- `BCryptPasswordEncoder`: This is an implementation of a password encoder using
+   * the BCrypt algorithm.
+   * 	- `new`: The keyword used to create a new instance of the `BCryptPasswordEncoder`
+   * class.
    */
   @Bean
   public PasswordEncoder getPasswordEncoder() {
