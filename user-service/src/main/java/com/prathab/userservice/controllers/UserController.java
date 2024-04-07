@@ -35,7 +35,12 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller for facilitating user actions.
  */
 /**
- * TODO
+ * is a RESTful controller for managing user actions. It has several methods, including
+ * a get method for retrieving the current status of the server and a post method for
+ * creating new users. The post method accepts a request body in the form of a
+ * CreateUserRequest object and maps it to a UserDto object before passing it to the
+ * UserService for creation. The resulting CreateUserResponse is then returned to the
+ * client.
  */
 @RestController
 @Slf4j
@@ -52,16 +57,15 @@ public class UserController {
   }
 
   /**
-   * logs information to the log and returns a constant message "Working".
+   * logs information using log4j2, and returns a string indicating that it is working.
    * 
-   * @returns a brief message indicating that the function is working properly.
+   * @returns "Working".
    * 
-   * The output is a string value of "Working".
-   * The function uses two environment properties, `local.server.port` and `token.secret`,
-   * to generate the output.
-   * The log statement `trace("Running on port{} with jwt_secret{}",
-   * environment.getProperty("local.server.port"), environment.getProperty("token.secret"));`
-   * is used to provide additional information about the function's execution.
+   * 	- "Working": This is the value returned by the function, indicating that it is
+   * working properly.
+   * 	- `log.trace("Running on port{} with jwt_secret{}", environment.getProperty("local.server.port"),
+   * environment.getProperty("token.secret"))`: This line of code logs a message at the
+   * trace level, providing information about the server's port number and JWT secret.
    */
   @GetMapping("/users/status")
   public String status() {
@@ -72,34 +76,33 @@ public class UserController {
   }
 
   /**
-   * maps a `CreateUserRequest` to a `UserDto`, creates a new user in the system, and
-   * maps the created user back to a `CreateUserResponse`.
+   * receives a `CreateUserRequest` object from the client, creates a new user entity
+   * using the provided data, and returns a `CreateUserResponse` object representing
+   * the created user.
    * 
-   * @param request user creation request provided by the client, which is used to
-   * create a new user entity in the system.
+   * @param request CreateUserRequest object passed from the client-side code, containing
+   * the user data to be created.
    * 
-   * 	- `@Valid`: Indicates that the request body must be validated using Java Bean validation.
-   * 	- `@RequestBody`: Annotation indicating that the request body is serialized and
-   * sent as a JSON or XML payload in the HTTP request.
-   * 	- `CreateUserRequest`: The class that represents the request body, which contains
-   * fields for user details such as name, email, and password.
+   * The `@Valid` stereotype on the `CreateUserRequest` indicates that the class must
+   * be validated against a validation configuration, such as Java Bean validation.
    * 
-   * @returns a `ResponseEntity` with a status code of `HttpStatus.CREATED` and a body
+   * The `@RequestBody` annotation indicates that the `CreateUserRequest` object should
+   * be deserialized from the request body, rather than from a file or query parameter.
+   * 
+   * The `produces` and `consumes` annotations specify the media types that the function
+   * can produce or consume, respectively. In this case, the function produces JSON and
+   * XML, while it consumes only JSON and XML.
+   * 
+   * @returns a `ResponseEntity` with a status of `HttpStatus.CREATED` and a body
    * containing the created user response.
    * 
    * 	- `ResponseEntity`: This is an instance of the `ResponseEntity` class, which
-   * represents a response to a HTTP request. The `status` attribute specifies the HTTP
-   * status code of the response, and the `body` attribute contains the actual response
-   * data.
-   * 	- `HttpStatus`: This is an enumeration that represents the HTTP status code of
-   * the response. In this case, it is set to `CREATED`, which indicates that the request
-   * was successful and the requested resource was created.
-   * 	- `CreateUserResponse`: This is a class that represents the response to the sign-up
-   * request. It contains various attributes, including `id`, `username`, `password`,
-   * and `email`, which were provided in the `CreateUserRequest` object.
-   * 	- `userDto`: This is an instance of the `UserDto` class, which represents a user
-   * entity with its attributes. It was created by the `userService` using the
-   * `CreateUserRequest` object.
+   * represents a response object that contains both a status code and a body. In this
+   * case, the status code is set to `HttpStatus.CREATED`, indicating that the request
+   * was successful and the user account was created.
+   * 	- `body`: This property contains the actual response body, which in this case is
+   * an instance of the `CreateUserResponse` class. This class represents the response
+   * to the sign-up request, including the user ID, username, and other relevant information.
    */
   @PostMapping(
       path = "/users",
