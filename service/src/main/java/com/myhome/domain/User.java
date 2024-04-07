@@ -93,6 +93,22 @@ import java.util.Set;
  * 	- userTokens (Set<SecurityToken>): represents a set of SecurityToken objects
  * associated with each User entity in the system.
  */
+/**
+ * represents a valid user in a service with various relationships to other entities
+ * through many-to-many and one-to-many associations.
+ * Fields:
+ * 	- name (String): a personal name of a valid user in a service.
+ * 	- userId (String): a unique identifier for each user account in the system.
+ * 	- email (String): an email address associated with each user account in the system.
+ * 	- emailConfirmed (boolean): a boolean value indicating whether an email address
+ * associated with the User entity has been confirmed by the user.
+ * 	- encryptedPassword (String): an encrypted string value used for security purposes
+ * in the application.
+ * 	- communities (Set<Community>): a set of Community objects associated with each
+ * user account in the system.
+ * 	- userTokens (Set<SecurityToken>): a set of SecurityToken objects associated with
+ * each User entity in the system.
+ */
 @AllArgsConstructor
 @Getter
 @NoArgsConstructor
