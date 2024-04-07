@@ -53,6 +53,50 @@ import lombok.NoArgsConstructor;
  * 	- member (HouseMember): in the Payment class represents an association with a
  * HouseMember entity.
  */
+/**
+ * represents a payment made by a user to a HouseMember, with attributes for payment
+ * ID, charge amount, type, description, recurring status, and due date, along with
+ * relationships to an admin and member.
+ * Fields:
+ * 	- paymentId (String): in the Payment class represents a unique identifier for
+ * each payment made by a user.
+ * 	- charge (BigDecimal): represents a monetary value associated with a payment made
+ * by a user or member to a service provider.
+ * 	- type (String): in the Payment class represents the payment's type of payment.
+ * 	- description (String): in the Payment class represents a brief textual description
+ * of the payment.
+ * 	- recurring (boolean): in the Payment entity represents whether a payment is part
+ * of a recurring series.
+ * 	- dueDate (LocalDate): represents the date on which a payment is due, in the
+ * format of 'yyyy-MM-dd'.
+ * 	- admin (User): in the Payment class represents a user who made the payment.
+ * 	- member (HouseMember): in the Payment class represents an association with a
+ * HouseMember entity.
+ * 
+ * 
+ * 
+ * @see Payment#paymentId in the Payment class represents a unique identifier for
+ * each payment made by a user.
+ * 
+ * @see Payment#charge represents a monetary value associated with a payment made by
+ * a user or member to a service provider.
+ * 
+ * @see Payment#type in the Payment class represents the payment's type of payment.
+ * 
+ * @see Payment#description in the Payment class represents a brief textual description
+ * of the payment.
+ * 
+ * @see Payment#recurring in the Payment entity represents whether a payment is part
+ * of a recurring series.
+ * 
+ * @see Payment#dueDate represents the date on which a payment is due, in the format
+ * of 'yyyy-MM-dd'.
+ * 
+ * @see Payment#admin in the Payment class represents a user who made the payment.
+ * 
+ * @see Payment#member in the Payment class represents an association with a HouseMember
+ * entity.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
