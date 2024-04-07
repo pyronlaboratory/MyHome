@@ -24,36 +24,41 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * TODO
+ * is a Spring Boot application that provides a password encoder using BCrypt. The
+ * class also enables Eureka client functionality for service discovery and registration.
  */
 @SpringBootApplication
 @EnableEurekaClient
 public class UserServiceApplication {
 
   /**
-   * runs a SpringApplication, which initiates the execution of the `UserServiceApplication`.
+   * runs the `UserServiceApplication` by calling `SpringApplication.run`.
    * 
-   * @param args command-line arguments passed to the application
+   * @param args
    * 
-   * 	- Length: The input `args` has a length of 1.
-   * 	- Types: The types of the elements in `args` are String.
-   * 	- Attributes: `args` does not have any attributes.
+   * The `SpringApplication.run()` method takes two arguments: `UserServiceApplication.class`
+   * and `args`. The `args` argument is an array of strings representing command-line
+   * options passed to the application.
    */
   public static void main(String[] args) {
     SpringApplication.run(UserServiceApplication.class, args);
   }
 
   /**
-   * returns a `BCryptPasswordEncoder`, which is a secure password encryption algorithm
-   * used to protect sensitive data.
+   * returns a `BCryptPasswordEncoder`, which is a password encoder that uses the bcrypt
+   * hashing algorithm to securely store and validate passwords.
    * 
-   * @returns a `BCryptPasswordEncoder` instance, which can be used to encrypt passwords
-   * using the bcrypt hashing algorithm.
+   * @returns a `BCryptPasswordEncoder` instance, which is used to hash and compare
+   * passwords securely.
    * 
-   * 	- `BCryptPasswordEncoder`: This is an implementation of a password encoder using
-   * the BCrypt algorithm.
-   * 	- `new`: The keyword used to create a new instance of the `BCryptPasswordEncoder`
-   * class.
+   * 	- The function returns an instance of the `BCryptPasswordEncoder` class, which
+   * is a third-party library for password hashing and encryption.
+   * 	- The `BCryptPasswordEncoder` class provides a secure hash function that can be
+   * used to store passwords securely.
+   * 	- The encoder uses the bcrypt algorithm, which is a slow but secure hash function
+   * that is resistant to brute-force attacks.
+   * 	- The returned object has the attributes of the bcrypt password encryption
+   * algorithm, including the cost factor and the salt size.
    */
   @Bean
   public PasswordEncoder getPasswordEncoder() {
