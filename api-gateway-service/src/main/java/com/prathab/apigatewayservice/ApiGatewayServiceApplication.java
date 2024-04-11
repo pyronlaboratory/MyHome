@@ -21,15 +21,24 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
+/**
+ * is a Spring Boot application that enables Eureka client and Zuul proxy functionality
+ * for the application. It acts as a gateway for accessing various APIs and provides
+ * a centralized management platform for these services.
+ */
 @SpringBootApplication
 @EnableEurekaClient
 @EnableZuulProxy
 public class ApiGatewayServiceApplication {
 
   /**
-   * initializes and runs the `ApiGatewayServiceApplication`.
+   * runs the `ApiGatewayServiceApplication` by calling `SpringApplication.run()`.
    * 
-   * @param args
+   * @param args 0 or more command-line arguments passed to the `SpringApplication.run()`
+   * method when invoking the `ApiGatewayServiceApplication`.
+   * 
+   * 	- `SpringApplication.run()` takes in the `ApiGatewayServiceApplication` class and
+   * an array of strings as inputs.
    */
   public static void main(String[] args) {
     SpringApplication.run(ApiGatewayServiceApplication.class, args);
