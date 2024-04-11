@@ -21,7 +21,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * defines a Spring Data repository for managing Users with email-based filtering capabilities.
+ * defines a Spring Data Repository for managing users in a domain model, including
+ * finding a user by email.
  */
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {

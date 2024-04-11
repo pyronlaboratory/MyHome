@@ -20,13 +20,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * TODO
+ * is a Spring Boot test class for testing the Community Service application. It uses
+ * the @SpringBootTest annotation to indicate that it should be tested with Spring
+ * Boot. The single test method, contextLoads(), verifies that the application's
+ * context is loaded successfully.
  */
 @SpringBootTest
 class CommunityServiceApplicationTests {
 
   /**
-   * is designed to perform some initialization tasks during the application startup process.
+   * is called when the application context is initialized. It performs no operation
+   * and is typically used to load data or configure the application.
    */
   @Test
   void contextLoads() {

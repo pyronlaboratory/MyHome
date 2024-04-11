@@ -25,12 +25,12 @@ import lombok.Setter;
  * Request model for Logging in to service.
  */
 /**
- * in the provided Java file is a request model for logging into a service with email
- * and password fields for input.
+ * represents a request model for logging into a service, with fields for email and
+ * password.
  * Fields:
- * 	- email (String): in the LoginUserRequest class is for entering a user's email address.
- * 	- password (String): in the LoginUserRequest class is of type String, which
- * indicates it is a string value.
+ * 	- email (String): in the LoginUserRequest class is of type String and represents
+ * an email address used for logging into a service.
+ * 	- password (String): in the LoginUserRequest class is of type String.
  */
 @AllArgsConstructor
 @NoArgsConstructor

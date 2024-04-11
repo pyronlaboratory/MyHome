@@ -20,7 +20,8 @@ import com.prathab.communityservice.domain.Community;
 import com.prathab.communityservice.dto.CommunityAdminDto;
 
 /**
- * allows for the addition of community admins to a specific community.
+ * allows for the addition of community administrators to a community with a unique
+ * identifier and associated DTO.
  */
 public interface CommunityAdminService {
   Community addCommunityAdmin(String communityId, CommunityAdminDto communityAdminDto);

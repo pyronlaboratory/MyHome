@@ -20,14 +20,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * TODO
+ * is a Spring Boot test class for testing the Home Service Application. The class
+ * extends Spring Boot Test and includes a single test method, `contextLoads()`, which
+ * verifies that the application context is properly loaded.
  */
 @SpringBootTest
 class HomeServiceApplicationTests {
 
   /**
-   * is designed to perform some actions after the Spring Boot application context is
-   * loaded.
+   * is designed to perform some initial setup tasks after the application context has
+   * been loaded.
    */
   @Test
   void contextLoads() {

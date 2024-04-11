@@ -21,22 +21,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
- * TODO
+ * is a Spring Boot application that enables Eureka client functionality and starts
+ * the application using the `SpringApplication.run()` method.
  */
 @SpringBootApplication
 @EnableEurekaClient
 public class HomeServiceApplication {
 
   /**
-   * initiates the execution of the `HomeServiceApplication`, a Java application using
-   * the `SpringApplication` class.
+   * runs a Spring Application and starts the execution of the `HomeServiceApplication`.
    * 
-   * @param args command line arguments passed to the `SpringApplication.run()` method
-   * when it is invoked.
+   * @param args 1 or more command line arguments passed to the `SpringApplication.run()`
+   * method when executing the `main()` function.
    * 
-   * 	- `SpringApplication.run()` method calls the `HomeServiceApplication` class.
-   * 	- The `args` array is passed as an argument to this method.
-   * 	- `args` can be manipulated and modified within the `main` function.
+   * The `SpringApplication.run()` method takes two arguments: `HomeServiceApplication.class`,
+   * and `args`. The `args` variable is an array of strings that represents the
+   * command-line arguments passed to the application when it was launched.
    */
   public static void main(String[] args) {
     SpringApplication.run(HomeServiceApplication.class, args);

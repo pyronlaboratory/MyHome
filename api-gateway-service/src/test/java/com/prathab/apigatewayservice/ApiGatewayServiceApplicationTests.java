@@ -20,14 +20,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * TODO
+ * is a Spring Boot test class for testing the Apigateway Service application. It
+ * utilizes the @SpringBootTest annotation to indicate that it should be tested with
+ * Spring Boot. The single test method, contextLoads(), is used to verify that the
+ * application context is properly loaded.
  */
 @SpringBootTest
 class ApiGatewayServiceApplicationTests {
 
   /**
-   * is likely responsible for loading any necessary context, such as configuration or
-   * data, prior to executing the main logic of a program or application.
+   * is designed to perform initialization tasks when the Java application's context
+   * is initialized.
    */
   @Test
   void contextLoads() {

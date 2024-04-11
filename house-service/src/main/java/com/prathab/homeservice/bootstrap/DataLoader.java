@@ -22,7 +22,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * TODO
+ * is a Spring Boot component that implements CommandLineRunner, with a single method
+ * `run()` that takes no arguments. The method creates a new `House` object, sets its
+ * properties, and saves it to the `HouseRepository` using the `save()` method.
  */
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -33,8 +35,8 @@ public class DataLoader implements CommandLineRunner {
   }
 
   /**
-   * creates a new instance of `House`, sets its `houseId`, `communityId`, and `name`,
-   * and saves it to the repository using the `save()` method.
+   * creates a new `House` object and saves it to the repository with the default values
+   * for the house ID, community ID, and name.
    */
   @Override public void run(String... args) throws Exception {
     var houseName = "MyHome default house";

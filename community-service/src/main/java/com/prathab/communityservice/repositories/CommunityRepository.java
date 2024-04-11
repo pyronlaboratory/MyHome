@@ -21,8 +21,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * extends Spring Data's CrudRepository and provides a method for finding a specific
- * Community by communityId.
+ * defines a Spring Data Repository for managing Community objects, providing methods
+ * for retrieving and manipulating communities through a unified interface.
  */
 @Repository
 public interface CommunityRepository extends CrudRepository<Community, Long> {

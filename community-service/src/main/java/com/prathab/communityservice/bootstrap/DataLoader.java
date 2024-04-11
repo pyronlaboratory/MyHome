@@ -25,7 +25,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * TODO
+ * is a Spring Boot component that loads data into a Community and CommunityAdmin
+ * repository. It persists a community to the repository, creates a new admin, and
+ * associates the admin with the community through the repository. The class then
+ * updates the community with the saved admin.
  */
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -40,15 +43,15 @@ public class DataLoader implements CommandLineRunner {
   }
 
   /**
-   * loads data from an external source.
+   * loads data.
    */
   @Override public void run(String... args) throws Exception {
     loadData();
   }
 
   /**
-   * persists a community and an admin to the repository, updates the community with
-   * the saved admin, and saves both entities to the database.
+   * persists a community and an admin to a repository, updates the community with the
+   * saved admin, and saves the admin to the repository.
    */
   private void loadData() {
     // Persist community to repo

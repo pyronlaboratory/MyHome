@@ -23,7 +23,8 @@ import java.util.Set;
 import org.mapstruct.Mapper;
 
 /**
- * defines a set of mappings between domain objects and DTOs for housing data.
+ * defines a set of mappings between House and HouseDto objects, as well as between
+ * HouseDto and House objects.
  */
 @Mapper
 public interface HouseApiMapper {

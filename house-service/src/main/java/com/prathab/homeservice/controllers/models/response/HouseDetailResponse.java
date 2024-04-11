@@ -22,16 +22,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * is a Java class used to represent a house detail response with attributes for
- * community ID, house ID, and name.
+ * represents a response containing details of a house within a community, including
+ * the community ID and house ID, as well as the name of the house.
  * Fields:
- * 	- communityId (String): represents a unique identifier for a specific community
- * or neighborhood associated with the house identified by the houseId field.
- * 	- houseId (String): represents an identifier for a specific house within a
- * community, as indicated by the presence of both `communityId` and `houseId` fields
- * in the class definition.
- * 	- name (String): in the HouseDetailResponse class represents a string value
- * representing the name of a house.
+ * 	- communityId (String): represents an identifier for a specific community within
+ * which a house with the corresponding houseId is located.
+ * 	- houseId (String): represents a unique identifier for a specific house within a
+ * community, as defined in the `HouseDetailResponse` class.
+ * 	- name (String): in the HouseDetailResponse class represents a string value that
+ * contains the name of the house.
  */
 @NoArgsConstructor
 @AllArgsConstructor

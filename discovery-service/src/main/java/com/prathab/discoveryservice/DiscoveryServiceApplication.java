@@ -21,22 +21,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
- * TODO
+ * is a Spring Boot application that enables Eureka server functionality and provides
+ * the main entry point for the application.
  */
 @SpringBootApplication
 @EnableEurekaServer
 public class DiscoveryServiceApplication {
 
   /**
-   * runs a Spring application named `DiscoveryServiceApplication`, passing any arguments
-   * provided in the `args` array to the application.
+   * runs the `DiscoveryServiceApplication` by calling `SpringApplication.run`. This
+   * starts the application and makes its services available to clients.
    * 
    * @param args command-line arguments passed to the `SpringApplication.run()` method
-   * when the application is launched.
+   * when the application is launched directly from the command line.
    * 
-   * The `SpringApplication.run()` method takes two arguments: `DiscoveryServiceApplication.class`
-   * and `args`. The `args` argument is a string array containing the application's
-   * command-line arguments.
+   * 	- `args`: an array of strings representing command-line arguments passed to the
+   * application.
    */
   public static void main(String[] args) {
     SpringApplication.run(DiscoveryServiceApplication.class, args);

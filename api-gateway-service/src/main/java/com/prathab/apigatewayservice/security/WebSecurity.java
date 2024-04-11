@@ -25,7 +25,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 /**
- * TODO
+ * is configured to disable CSRF and frame options, authorize requests based on
+ * specific URL patterns, and use a session creation policy of STATELESS. Additionally,
+ * an authorization filter and a authentication manager are added to the configuration.
  */
 @EnableWebSecurity
 @Configuration
@@ -37,27 +39,37 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   }
 
   /**
-   * disables CSRF protection and frame options, and sets authorization rules for API
-   * endpoints. It also configures session management to use a stateless policy.
+   * disables CSRF and frame options, then authorizes requests to specific URLs based
+   * on the values of environment variables. It also sets session management policy to
+   * stateless.
    * 
-   * @param http HTTP security configuration object that can be customized to implement
-   * various security features, including disabling CSRF and frames options, authorizing
-   * requests based on AntMatchers, and setting session management policies.
+   * @param http HTTP security configuration for the application, and is used to configure
+   * various security features such as CSRF protection, frame options, and authentication
+   * policies.
    * 
-   * 	- `csrf()`. Disable CSRF protection for this security configuration.
-   * 	- `headers()`. Disable frame options protection for this security configuration.
-   * 	- `authorizeRequests()`. Specifies which HTTP methods and URL paths are authorized
-   * or unauthorized based on the configured permissions. The `antMatchers` method is
-   * used to match against specific URLs and HTTP methods, while the `permitAll()`
-   * method allows all requests without any restrictions.
-   * 	- `addFilter(new AuthorizationFilter(authenticationManager(), environment))`.
-   * Adds an authorization filter that checks if the user is authenticated before
-   * allowing access to the requested resource. The `authorizationManager` is used to
-   * retrieve the authentication manager, and the `environment` variable contains
-   * configuration properties related to security.
-   * 	- `sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)`.
-   * Configures the session creation policy for this security configuration. `STATELESS`
-   * means that sessions are not stored persistently across requests.
+   * 	- `csrf()` - disables CSRF protection
+   * 	- `headers()` - disables frame options
+   * 	- `authorizeRequests()` - specifies which URLs are accessible without authentication
+   * and adds an authenticated filter to handle remaining requests
+   * 	+ `.antMatchers(environment.getProperty("api.h2console.url.path"))` - allows all
+   * requests to the H2 console URL path
+   * 	+ `.permitAll()` - allows all other requests to be accessed without authentication
+   * 	+ `.antMatchers(HttpMethod.POST, environment.getProperty("api.registration.url.path"))`
+   * - allows registration requests to the specified URL path
+   * 	+ `.permitAll()` - allows all other registration requests to be accessed without
+   * authentication
+   * 	+ `.antMatchers(HttpMethod.POST, environment.getProperty("api.login.url.path"))`
+   * - allows login requests to the specified URL path
+   * 	+ `.permitAll()` - allows all other login requests to be accessed without authentication
+   * 	+ `.anyRequest()` - specifies that the authenticated filter should handle any
+   * remaining request
+   * 	+ `.authenticated()` - requires authentication for all requests
+   * 	- `sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)` -
+   * sets the session creation policy to stateless
+   * 
+   * In summary, this configuration disables CSRF protection and frame options, allows
+   * access to certain URLs without authentication, adds an authenticated filter to
+   * handle remaining requests, and sets the session creation policy to stateless.
    */
   @Override protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();

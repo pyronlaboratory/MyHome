@@ -29,7 +29,10 @@ import org.springframework.stereotype.Service;
  * Implements {@link UserService} and uses Spring Data JPA repository to does its work.
  */
 /**
- * TODO
+ * is an implementation of the UserService interface that utilizes Spring Data JPA
+ * repository to perform its operations. It takes in a UserDto object and creates a
+ * new user in the repository, encrypting the password and generating a unique user
+ * ID along the way.
  */
 @Service
 @Slf4j
@@ -49,24 +52,27 @@ public class UserSDJpaService implements UserService {
 
   /**
    * creates a new user by generating an unique ID, encrypting their password, and
-   * storing them in a repository.
+   * saving it to the repository.
    * 
-   * @param request UserDto object containing the details of the user to be created,
-   * and is used to generate a unique user ID, encrypt the password, and save the user
-   * in the repository.
+   * @param request UserDto object containing the user's information to be created,
+   * which is then processed through three methods: `generateUniqueUserId`,
+   * `encryptUserPassword`, and `createUserInRepository`.
    * 
    * 	- `generateUniqueUserId`: generates a unique user ID for the created user.
-   * 	- `encryptUserPassword`: encrypts the password of the created user using a specified
-   * encryption algorithm.
-   * 	- `createUserInRepository`: creates a new user object in a repository, where the
-   * object includes the generated unique user ID and encrypted password.
+   * 	- `encryptUserPassword`: encrypts the user password before storing it in the repository.
+   * 	- `createUserInRepository`: creates a new user object in the repository, leveraging
+   * the encrypted password.
    * 
-   * @returns a newly created user object containing the generated unique ID and encrypted
+   * @returns a new user entity created in the repository with a unique ID and encrypted
    * password.
    * 
-   * 	- The generated unique user ID is included in the output.
-   * 	- The password is encrypted before it is stored in the repository.
-   * 	- The user is created in the repository using the provided request data.
+   * 1/ `generateUniqueUserId(request)`: This method generates a unique user ID for the
+   * new user based on the provided request parameters.
+   * 2/ `encryptUserPassword(request)`: This method encrypts the user password using a
+   * secure encryption algorithm to protect the user's privacy and security.
+   * 3/ `createUserInRepository(request)`: This method creates a new user in the
+   * repository, which is likely an SQL database or another data storage system. The
+   * method takes the request parameters as input and inserts the user data into the repository.
    */
   @Override public UserDto createUser(UserDto request) {
     generateUniqueUserId(request);
@@ -75,37 +81,29 @@ public class UserSDJpaService implements UserService {
   }
 
   /**
-   * converts a `UserDto` object into a `User` entity, saves it to the repository, and
-   * then maps it back to a `UserDto` object for return.
+   * maps a `UserDto` object to a `User` object, saves it to a repository, and maps the
+   * saved `User` back to a `UserDto` object for return.
    * 
    * @param request UserDto object containing the details of the user to be saved in
    * the repository.
    * 
-   * 	- `userMapper`: This is an instance of `UserMapper`, which is responsible for
-   * mapping between a `UserDto` and a `User`.
-   * 	- `request`: A `UserDto` object containing information about the user to be created.
-   * 	- `save()`: This method saves the `User` object in the repository, while also
-   * logging a trace message with the id of the saved user.
-   * 	- `userRepository`: An instance of `UserRepository`, which is responsible for
-   * storing and retrieving users from the database.
+   * 	- `var user = userMapper.userDtoToUser(request)`: The `user` variable is assigned
+   * the result of mapping the `request` object to a `User` entity using the `userMapper`.
+   * 	- `var savedUser = userRepository.save(user)`: The `savedUser` variable is assigned
+   * the result of saving the `user` entity in the repository.
+   * 	- `log.trace("saved user with id[{}] to repository", savedUser.getId())`: A trace
+   * message is logged indicating that the `user` entity with its `id` property set to
+   * the value of `savedUser.getId()` was saved to the repository.
    * 
-   * @returns a UserDto object representing the saved user.
+   * @returns a transformed `UserDto` object representing the saved user in the repository.
    * 
-   * 	- `var user = userMapper.userDtoToUser(request)`: This line maps the `UserDto`
-   * object to a corresponding `User` object using the `userMapper`. The resulting
-   * `User` object contains the data from the `UserDto`, along with any additional data
-   * that was present in the `UserDto`.
-   * 	- `var savedUser = userRepository.save(user)`: This line saves the `User` object
-   * to the repository, persisting it to the underlying storage. The resulting `User`
-   * object is now stored in the repository, and can be retrieved later using the `UserRepository`.
-   * 	- `log.trace("saved user with id [{}] to repository", savedUser.getId())`: This
-   * line logs a message indicating that the `User` object was saved to the repository,
-   * along with its `id` attribute.
-   * 
-   * Overall, the `createUserInRepository` function takes a `UserDto` object as input
-   * and returns a corresponding `User` object that has been persisted to a repository.
-   * The returned `User` object contains the data from the `UserDto`, along with any
-   * additional data that was present in the original `UserDto`.
+   * 	- `var user = userMapper.userDtoToUser(request)`: This line converts the `UserDto`
+   * object into a `User` object using the `userMapper`.
+   * 	- `var savedUser = userRepository.save(user)`: This line saves the converted
+   * `User` object to the repository, creating a new entity in the database.
+   * 	- `log.trace("saved user with id[{}] to repository", savedUser.getId())`: This
+   * line logs an informational message indicating that the user has been saved to the
+   * repository with its ID.
    */
   private UserDto createUserInRepository(UserDto request) {
     var user = userMapper.userDtoToUser(request);
@@ -115,25 +113,27 @@ public class UserSDJpaService implements UserService {
   }
 
   /**
-   * encrypts a user's password by encoding it using a password encoder.
+   * encrypts a user's password by encoding it using a password encoder, replacing the
+   * original password with an encrypted version.
    * 
-   * @param request UserDto object containing the user's password that is to be encrypted.
+   * @param request UserDto object containing the user's password to be encrypted.
    * 
    * 	- `request.setEncryptedPassword(passwordEncoder.encode(request.getPassword()));`:
-   * This line encrypts the user password using a password encoder and assigns the
-   * encrypted value to the `encryptedPassword` property of the `request` object.
+   * The original password is encrypted using a password encoder.
    */
   private void encryptUserPassword(UserDto request) {
     request.setEncryptedPassword(passwordEncoder.encode(request.getPassword()));
   }
 
   /**
-   * generates a unique user ID for a `UserDto` object based on a UUID.
+   * generates a unique user ID for a given `UserDto` object using the `UUID.randomUUID()`
+   * method and assigns it to the `UserDto` object's `userId` field.
    * 
-   * @param request UserDto object that contains the user's information, and its
-   * `setUserId()` method sets a unique user ID for the user.
+   * @param request UserDto object that contains the user's details, and it is used to
+   * generate a unique user ID for the user.
    * 
-   * 	- `request`: A `UserDto` object representing user details.
+   * 	- `request`: A `UserDto` object containing attributes relevant to generating a
+   * unique user ID.
    */
   private void generateUniqueUserId(UserDto request) {
     request.setUserId(UUID.randomUUID().toString());

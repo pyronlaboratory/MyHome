@@ -23,7 +23,10 @@ import com.prathab.communityservice.repositories.CommunityAdminRepository;
 import com.prathab.communityservice.services.CommunityAdminService;
 
 /**
- * TODO
+ * is an implementation of the CommunityAdminService interface that provides methods
+ * for managing community admins using Spring Data JPA. It accepts community ID and
+ * CommunityAdminDto objects, converts them into a corresponding CommunityAdmin object,
+ * and saves it to the repository for further processing.
  */
 public class CommunityAdminSDJpaService implements CommunityAdminService {
   private final CommunityAdminRepository communityAdminRepository;
@@ -38,27 +41,27 @@ public class CommunityAdminSDJpaService implements CommunityAdminService {
 
   /**
    * adds a new CommunityAdmin to the database by mapping the provided CommunityAdminDto
-   * to a CommunityAdmin object, saving it to the repository, and returning the newly
-   * saved CommunityAdmin instance.
+   * to a CommunityAdmin object and saving it in the repository.
    * 
-   * @param communityId id of the Community to which the new admin belongs.
+   * @param communityId identifier of the community to which the new community admin
+   * will be added.
    * 
-   * 	- `communityId`: This is a String variable representing the unique identifier for
-   * a community.
+   * @param communityAdminDto CommunityAdmin object to be saved in the database, which
+   * contains the details of a community administrator.
    * 
-   * @param communityAdminDto CommunityAdmin entity to be saved, which contains the
-   * necessary data for saving the community administrator in the database.
+   * 	- `communityId`: The ID of the community to which the admin will be added.
+   * 	- `communityAdminDto`: A DTO object representing a community administrator,
+   * containing various attributes such as `username`, `email`, `firstName`, `lastName`,
+   * and `role`.
    * 
-   * 	- `communityId`: The ID of the community to which the admin belongs.
-   * 	- `communityAdminDto`: A data transfer object (DTO) containing information about
-   * the admin, including their name and email address.
+   * @returns a saved CommunityAdmin object.
    * 
-   * @returns a `null` value.
-   * 
-   * 	- `savedCommunityAdmin`: This is the saved CommunityAdmin object, which contains
-   * the persisted data of the CommunityAdmin entity.
-   * 	- `null`: The return type of the function is `null`, indicating that the function
-   * does not return any value after saving the CommunityAdmin object to the database.
+   * 	- `savedCommunityAdmin`: This is the saved CommunityAdmin instance in the database,
+   * which contains information about the community administrator, such as their name
+   * and email address.
+   * 	- `null`: The value of this variable is `null`, indicating that no further
+   * processing or action is required after saving the CommunityAdmin instance to the
+   * database.
    */
   @Override
   public Community addCommunityAdmin(String communityId, CommunityAdminDto communityAdminDto) {

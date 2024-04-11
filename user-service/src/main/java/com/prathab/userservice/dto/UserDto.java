@@ -22,19 +22,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * represents a data transfer object for storing user details, including ID, user ID,
- * name, email, password, and encrypted password.
+ * is a Java class that represents a user with an ID, user ID, name, email, password,
+ * and encrypted password.
  * Fields:
- * 	- id (Long): in the UserDto class represents a unique identifier for each user.
- * 	- userId (String): represents a unique identifier for a user in the system, as
- * defined by the @AllArgsConstructor, @Getter, @NoArgsConstructor, and @Setter
- * annotations in the class definition.
- * 	- name (String): in the UserDto class represents a user's name.
- * 	- email (String): in the UserDto class is intended to hold a string value
- * representing a user's email address.
- * 	- password (String): in the UserDto class stores plain text passwords.
- * 	- encryptedPassword (String): in the UserDto class stores a password that has
- * been encrypted for security purposes.
+ * 	- id (Long): represents a unique identifier for a user.
+ * 	- userId (String): represents a unique identifier for a user in the system, likely
+ * used for authentication and authorization purposes within the application.
+ * 	- name (String): in the UserDto class is of type String and represents the user's
+ * name.
+ * 	- email (String): in the `UserDto` class represents a string value containing an
+ * email address.
+ * 	- password (String): in the `UserDto` class stores a string value that has been
+ * encrypted for security purposes.
+ * 	- encryptedPassword (String): stores a password that has been encrypted by some
+ * means, likely for security purposes.
  */
 @AllArgsConstructor
 @Getter

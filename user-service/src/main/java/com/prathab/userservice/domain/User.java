@@ -27,15 +27,16 @@ import lombok.Setter;
  * Entity identifying a valid user in the service.
  */
 /**
- * represents a valid user in the service, containing a unique user ID, email address,
- * and encrypted password field.
+ * defines an entity representing a valid user in the service with unique user ID and
+ * email addresses, and encrypts the password for security purposes.
  * Fields:
- * 	- name (String): of the User entity represents a user's personal name.
- * 	- userId (String): represents a unique identifier for each valid user in the service.
- * 	- email (String): in the User class is a unique string value representing a valid
+ * 	- name (String): in the User entity represents the user's name.
+ * 	- userId (String): in the User entity represents a unique identifier for each
+ * valid user in the service.
+ * 	- email (String): in the User entity is used to store a unique identifier for a
  * user's email address.
- * 	- encryptedPassword (String): in the User entity holds an encrypted password for
- * the user's account.
+ * 	- encryptedPassword (String): in the User entity represents a password that has
+ * been hashed for security purposes.
  */
 @AllArgsConstructor
 @Getter

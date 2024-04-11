@@ -21,20 +21,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
- * TODO
+ * is a Spring Boot application that enables Eureka client functionality and provides
+ * the main entry point for the application.
  */
 @SpringBootApplication
 @EnableEurekaClient
 public class CommunityServiceApplication {
 
   /**
-   * runs the `CommunityServiceApplication` by using `SpringApplication.run`.
+   * runs the `CommunityServiceApplication` by using `SpringApplication.run()`.
    * 
    * @param args command-line arguments passed to the `SpringApplication.run()` method
-   * when executing the application.
+   * when the program is executed directly from the command line.
    * 
-   * 	- Length: 10 (indicating the number of elements in the array)
-   * 	- Elements: String values ("-D", "--spring.profiles.active", "-P", "--spring.config.location")
+   * 	- `String[] args`: A variable of type `String[]` representing an array of
+   * command-line arguments passed to the application.
    */
   public static void main(String[] args) {
     SpringApplication.run(CommunityServiceApplication.class, args);

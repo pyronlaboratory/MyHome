@@ -27,10 +27,11 @@ import lombok.Setter;
  * stay with me until I refactor this.
  */
 /**
- * has a String field for communityId which must not be blank.
+ * is a Java class with a single field representing a community ID, which must be
+ * provided in order for the class to be used.
  * Fields:
- * 	- communityId (String): in the ListAllHouseRequestBody class represents a non-empty
- * string value used to identify a specific community or neighborhood.
+ * 	- communityId (String): in the ListAllHouseRequestBody class is required to be a
+ * non-empty string value.
  */
 @NoArgsConstructor
 @AllArgsConstructor

@@ -22,7 +22,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * is a Lombok-generated class for storing and retrieving the ID of a created community.
+ * has a single field, "communityId", which represents the unique identifier for a
+ * created community.
  * Fields:
  * 	- communityId (String): in the CreateCommunityResponse class represents a unique
  * identifier for a community.

@@ -20,14 +20,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * TODO
+ * is a Spring Boot test class for testing the User Service Application. The class
+ * contains a single test method called contextLoads() which tests whether the
+ * application's context is loaded successfully.
  */
 @SpringBootTest
 class UserServiceApplicationTests {
 
   /**
-   * is designed to execute upon application startup, loading necessary components and
-   * settings into memory for smooth user experience.
+   * is triggered when a Spring ApplicationContext is initialized, and it performs
+   * initialization tasks such as setting up beans, loading configurations, and registering
+   * event listeners.
    */
   @Test
   void contextLoads() {

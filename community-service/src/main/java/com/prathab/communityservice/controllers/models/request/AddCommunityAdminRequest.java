@@ -25,11 +25,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * represents a model class for adding community administrators' information in a set
- * format.
+ * represents a request to add admins to a community with a set of admin usernames
+ * that are not empty.
  * Fields:
- * 	- admins (Set<String>): in the AddCommunityAdminRequest class represents a set
- * of strings containing community administrator usernames or IDs.
+ * 	- admins (Set<String>): in the AddCommunityAdminRequest class is a required set
+ * of strings containing the identities of community administrators.
  */
 @NoArgsConstructor
 @AllArgsConstructor

@@ -20,14 +20,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * TODO
+ * is a Spring Boot test class for testing the Discovery Service Application. The
+ * test class loads the application context and verifies that it loads successfully.
  */
 @SpringBootTest
 class DiscoveryServiceApplicationTests {
 
   /**
-   * is called when the application starts and sets up the necessary resources for the
-   * program to run.
+   * is intended to load context data when the application starts.
    */
   @Test
   void contextLoads() {

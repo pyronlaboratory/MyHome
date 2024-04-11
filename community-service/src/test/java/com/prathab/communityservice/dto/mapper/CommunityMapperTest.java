@@ -25,7 +25,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * TODO
+ * is a unit test class for the CommunityMapper class, which is responsible for mapping
+ * between the Community and CommunityDto objects. The test class includes two tests:
+ * communityToCommunityDto and communityDtoToCommunity. These tests verify that the
+ * mapper correctly maps between the two objects, including the id, name, district,
+ * and communityId fields.
  */
 @SpringBootTest
 class CommunityMapperTest {
@@ -39,8 +43,8 @@ class CommunityMapperTest {
   private CommunityMapper communityMapper;
 
   /**
-   * maps a `Community` object to a `CommunityDTO` object, preserving its essential
-   * properties and IDs.
+   * maps a `Community` object to a corresponding `CommunityDto` object, preserving its
+   * properties and providing additional ones for validation.
    */
   @Test
   void communityToCommunityDto() {
@@ -63,8 +67,10 @@ class CommunityMapperTest {
   }
 
   /**
-   * maps a `CommunityDto` object to a `Community` object, mapping its fields and values
-   * correctly.
+   * converts a `CommunityDto` object into a `Community` object, using the `communityMapper`.
+   * It sets the `id`, `name`, `district`, and `communityId` properties of the resulting
+   * `Community` object to match the corresponding properties of the input `CommunityDto`
+   * object.
    */
   @Test
   void communityDtoToCommunity() {

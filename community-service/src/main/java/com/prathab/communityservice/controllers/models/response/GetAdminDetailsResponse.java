@@ -22,10 +22,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * has a single field called adminId.
+ * is a Lombok-generated class for storing and retrieving admin details.
  * Fields:
  * 	- adminId (String): in the GetAdminDetailsResponse class represents a unique
- * identifier for an administrator within the specified context.
+ * identifier for an administrator.
  */
 @AllArgsConstructor
 @NoArgsConstructor

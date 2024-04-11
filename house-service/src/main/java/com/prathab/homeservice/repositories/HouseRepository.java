@@ -21,8 +21,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * defines a Spring Data CrudRepository for houses, providing CRUD operations on
- * houses through the interface.
+ * defines a Spring Data repository for managing House objects using the CrudRepository
+ * interface, providing basic CRUD functionality for House entities.
  */
 @Repository
 public interface HouseRepository extends CrudRepository<House, Long> {
