@@ -27,7 +27,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
- * Custom {@link UserDetailsService} catering to the need of service logic.
+ * is a custom implementation of Spring Security's `UserDetailsService` interface,
+ * providing user details loading and retrieval functionality. It takes in a username
+ * and returns a `UserDetails` object containing the user's email, encrypted password,
+ * and various other attributes. Additionally, it provides methods for retrieving a
+ * user's details from the repository and mapper using their email address as a reference.
  */
 @Service
 public class AppUserDetailsService implements UserDetailsService {
@@ -41,20 +45,22 @@ public class AppUserDetailsService implements UserDetailsService {
   }
 
   /**
-   * loads a user by their username and returns a `UserDetails` object containing the
-   * user's email, encrypted password, and various other attributes.
+   * retrieves a user from the repository based on their username and returns a
+   * `UserDetails` object with the user's email, encrypted password, and various flags
+   * indicating whether the user is active, locked out, or has a valid account.
    * 
-   * @param username username for which the user details are to be loaded.
+   * @param username username for which the UserDetails object is to be loaded.
    * 
-   * @returns a `User` object containing the user's email, encrypted password, and
-   * various boolean flags indicating their role and permissions.
+   * @returns a `UserDetails` object containing user information and authentication details.
    * 
-   * 	- `Email`: The email address of the user.
-   * 	- `EncryptedPassword`: The encrypted password for the user.
-   * 	- `AccountNonExpired`: Whether the user's account is non-expired.
-   * 	- `AccountNonLocked`: Whether the user's account is non-locked.
-   * 	- `CredentialsNonExpired`: Whether the user's credentials are non-expired.
-   * 	- `Role`: The role of the user (empty list means no role).
+   * 	- `user`: This is an instance of the `User` class, representing a user in the system.
+   * 	- `email`: The email address of the user.
+   * 	- `encryptedPassword`: The encrypted password for the user.
+   * 	- `isAdmin`: A boolean indicating whether the user is an administrator or not.
+   * 	- `isVerified`: A boolean indicating whether the user's account has been verified
+   * or not.
+   * 	- `isActive`: A boolean indicating whether the user's account is active or not.
+   * 	- `groups`: An empty list, as there are no groups associated with this user.
    */
   @Override public UserDetails loadUserByUsername(String username)
       throws UsernameNotFoundException {
@@ -74,17 +80,19 @@ public class AppUserDetailsService implements UserDetailsService {
   }
 
   /**
-   * retrieves a user's details from the repository and mapper, using their email address
-   * as a reference.
+   * retrieves a user's details by their username from a repository and maps them to a
+   * `UserDto` object using a mapper.
    * 
    * @param username username for which the user details are to be retrieved.
    * 
-   * @returns a `UserDto` object containing the details of the user with the provided
-   * username.
+   * @returns a `UserDto` object containing the details of the user found in the repository.
    * 
-   * 	- `user`: A `User` object representing the user details, retrieved from the
-   * database using the `findByEmail` method.
-   * 	- `username`: The username for which the user details were retrieved.
+   * 	- `user`: A `User` object obtained from the `userRepository`.
+   * 	- `userMapper`: A `UserMapper` object used to convert the `User` object into a
+   * `UserDto` object.
+   * 
+   * The `UserDto` object contains attributes related to the user, such as their email
+   * and name.
    */
   public UserDto getUserDetailsByUsername(String username) {
     var user = userRepository.findByEmail(username);
