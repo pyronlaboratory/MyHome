@@ -32,7 +32,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller for facilitating user actions.
+ * is a RESTful API controller that handles user-related operations, including creating
+ * new users and returning created user responses. The class uses the `UserService`
+ * and `UserApiMapper` to map requests to and from the user domain model, and the
+ * `Environment` to handle configuration properties.
  */
 @RestController
 @Slf4j
@@ -49,9 +52,15 @@ public class UserController {
   }
 
   /**
-   * logs a message to the trace log and returns the string "Working".
+   * logs information to the log and returns a string indicating that it is working.
    * 
-   * @returns "Working".
+   * @returns a brief message indicating that it is working properly, with the port
+   * number and JWT secret included for debugging purposes.
+   * 
+   * 	- "Working": This is the literal message returned by the function.
+   * 	- "local.server.port": This property is used to trace the current port on which
+   * the server is running.
+   * 	- "token.secret": This property is used to trace the value of the JWT secret.
    */
   @GetMapping("/users/status")
   public String status() {
@@ -62,40 +71,48 @@ public class UserController {
   }
 
   /**
-   * maps a `CreateUserRequest` to a `UserDto`, creates a new user using the `createUser`
-   * method, and returns the created user as a `CreateUserResponse`.
+   * receives a `CreateUserRequest` request body from the client, creates a new user
+   * entity using the provided data, and returns a `CreateUserResponse` object representing
+   * the created user resource.
    * 
-   * @param request CreateUserRequest object that contains the user's information to
-   * be created, which is then converted into a UserDTO by the userApiMapper and used
-   * to create a new user in the system.
+   * @param request CreateUserRequest object passed from the client to the server,
+   * containing the user details for creation.
    * 
-   * 	- `@Valid`: Indicates that the request body is annotated with `@Valid`, which
-   * means it has been validated by the `UserValidator` class.
-   * 	- `@RequestBody`: Marks the request body as an input to the function.
-   * 	- `CreateUserRequest`: Represents the request body, which contains the user details
-   * to be created.
+   * 	- `@Valid`: Indicates that the `CreateUserRequest` object should be validated
+   * against the schema defined in the Java class `CreateUserRequest`.
+   * 	- `@RequestBody`: Indicates that the `CreateUserRequest` object should be sent
+   * as the body of the HTTP request, rather than as a query parameter or form data.
+   * 	- `produces`: Defines the media types that the function can produce in its response.
+   * In this case, it produces both JSON and XML media types.
+   * 	- `consumes`: Defines the media types that the function consumes in its input.
+   * In this case, it consumes both JSON and XML media types.
    * 
-   * The function performs various operations on the `request` object, including:
+   * The `var requestUserDto = userApiMapper.createUserRequestToUserDto(request)` line
+   * of code deserializes the `CreateUserRequest` object into a `UserDTO` object using
+   * the `userApiMapper` class. This allows for the mapping of the request data to a
+   * format that can be used by the `userService` class to create a new user in the database.
    * 
-   * 	- Logging a trace message using the `log.trace()` method.
-   * 	- Converting the `request` object into a `UserDto` object using the
-   * `userApiMapper.createUserRequestToUserDto()` method.
-   * 	- Creating a new user using the `userService.createUser()` method, passing in the
-   * `UserDto` object as an argument.
-   * 	- Converting the newly created `UserDto` object into a `CreateUserResponse` object
-   * using the `userApiMapper.userDtoToCreateUserResponse()` method.
-   * 	- Returning a `ResponseEntity` object with a status code of `HttpStatus.CREATED`,
-   * along with the `CreateUserResponse` object as its body.
+   * The `var createdUserDto = userService.createUser(requestUserDto)` line of code
+   * creates a new user in the database using the `UserDTO` object as input.
+   * 
+   * Finally, the `var createdUserResponse = userApiMapper.userDtoToCreateUserResponse(createdUserDto)`
+   * line of code maps the newly created `UserDTO` object back to a `CreateUserResponse`
+   * object, which is then returned in the function's response.
    * 
    * @returns a `ResponseEntity` with a status code of `HttpStatus.CREATED` and a body
    * containing the created user response.
    * 
-   * 	- `ResponseEntity`: This is the generic type of the response entity, which indicates
-   * that it can be either in JSON or XML format.
-   * 	- `status`: This property represents the HTTP status code of the response, which
-   * is set to `HttpStatus.CREATED` in this case.
-   * 	- `body`: This property contains the actual response data, which is a
-   * `CreateUserResponse` object in this case.
+   * 	- `ResponseEntity`: This is a wrapper class that holds the status code and body
+   * of the response. In this case, the status code is `HttpStatus.CREATED`, indicating
+   * that the request was successful and the user account was created.
+   * 	- `body`: This property contains the actual response entity, which in this case
+   * is a `CreateUserResponse` object.
+   * 	- `CreateUserResponse`: This class represents the response to the sign-up request.
+   * It has several properties, including `id`, `username`, `email`, `password`, and
+   * `role`. The `id` property is a unique identifier for the user account, while the
+   * `username`, `email`, and `password` properties represent the user's login credentials.
+   * The `role` property indicates the user's role within the application (e.g., "user",
+   * "admin").
    */
   @PostMapping(
       path = "/users",

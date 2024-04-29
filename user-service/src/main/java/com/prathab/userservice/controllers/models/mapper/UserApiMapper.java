@@ -22,7 +22,9 @@ import com.prathab.userservice.dto.UserDto;
 import org.mapstruct.Mapper;
 
 /**
- * Interface to automatic conversion by Mapstruct
+ * provides a mapping between objects of the UserDto and CreateUserRequest types to
+ * corresponding objects in the CreateUserResponse type, using Mapstruct's automatic
+ * conversion capabilities.
  */
 @Mapper
 public interface UserApiMapper {
