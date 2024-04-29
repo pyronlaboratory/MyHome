@@ -24,6 +24,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
+/**
+ * is configured to disable CSRF and frame options, authorize requests based on
+ * specific URL patterns and HTTP methods, and authenticate all requests using the
+ * `authenticated()` mode. Additionally, an authorization filter is added to filter
+ * incoming requests and a session management policy is set to `STATELESS`.
+ */
 @EnableWebSecurity
 @Configuration
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -33,6 +39,31 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     this.environment = environment;
   }
 
+  /**
+   * sets up security features for an HTTP security chain, disabling CSRF and frame
+   * options, and authorizing requests to specific URL paths based on environment properties.
+   * 
+   * @param http HttpSecurity object that is being configured, allowing for the disablement
+   * of CSRF and frame options, as well as the authorization of requests based on ant
+   * matching patterns.
+   * 
+   * 	- `csrf()`: Disables Cross-Site Request Forgery (CSRF) protection.
+   * 	- `headers()`: Disables the frame options for this security layer.
+   * 	- `authorizeRequests()`: Specifies which HTTP methods and URLs are allowed or
+   * denied based on the current authenticated principal. It takes an array of AntMatchers
+   * as arguments, each matching a specific URL pattern or HTTP method. The first
+   * argument is the URL path pattern for the API registration endpoint, the second
+   * argument is the URL path pattern for the login endpoint, and the remaining arguments
+   * match various HTTP methods (GET, POST, PUT, DELETE) and URL paths for other
+   * endpoints. All allowances are set to permitAll(), which means that any request
+   * will be allowed if it matches one of the patterns.
+   * 	- `addFilter()`: Adds a new filter to the security chain. In this case, it adds
+   * an AuthorizationFilter instance that uses the provided authenticationManager and
+   * environment properties.
+   * 	- `sessionManagement()`: Configures session management for this security layer.
+   * It sets the session creation policy to STATELESS, which means that sessions will
+   * not be created by default.
+   */
   @Override protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();
     http.headers().frameOptions().disable();

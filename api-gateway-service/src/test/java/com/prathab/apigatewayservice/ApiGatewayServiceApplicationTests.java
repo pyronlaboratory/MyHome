@@ -19,9 +19,18 @@ package com.prathab.apigatewayservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * is a Spring Boot test class for testing the functionality of an API gateway service
+ * application. The test class loads the application context upon initialization and
+ * provides a single test method to verify the loading of the application context.
+ */
 @SpringBootTest
 class ApiGatewayServiceApplicationTests {
 
+  /**
+   * is designed to load the application context, preparing it for use by other components
+   * or methods within the program.
+   */
   @Test
   void contextLoads() {
   }
