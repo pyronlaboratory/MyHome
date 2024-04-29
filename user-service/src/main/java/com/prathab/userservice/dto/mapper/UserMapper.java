@@ -21,7 +21,7 @@ import com.prathab.userservice.dto.UserDto;
 import org.mapstruct.Mapper;
 
 /**
- * Provides conversion between DTO and entity object.
+ * provides conversion between DTO and entity objects for a user domain object.
  */
 @Mapper
 public interface UserMapper {

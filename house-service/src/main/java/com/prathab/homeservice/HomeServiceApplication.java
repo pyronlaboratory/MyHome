@@ -22,21 +22,21 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
  * is a Spring Boot application that enables Eureka client functionality and launches
- * the application using SpringApplication.main().
+ * the application using SpringApplication.main(). It does not contain any command-line
+ * arguments.
  */
 @SpringBootApplication
 @EnableEurekaClient
 public class HomeServiceApplication {
 
   /**
-   * runs a Spring Application, specifically the `HomeServiceApplication`, passing the
-   * command-line arguments `args`.
+   * runs a SpringApplication, which starts the HomeServiceApplication and its dependencies.
    * 
    * @param args command-line arguments passed to the `SpringApplication.run()` method
-   * when invoking the `HomeServiceApplication`.
+   * when executing the application.
    * 
-   * 	- Length: The length of the `args` array is 0, indicating that no command-line
-   * arguments were provided.
+   * 	- `args`: an array of strings representing command-line arguments passed to the
+   * application.
    */
   public static void main(String[] args) {
     SpringApplication.run(HomeServiceApplication.class, args);

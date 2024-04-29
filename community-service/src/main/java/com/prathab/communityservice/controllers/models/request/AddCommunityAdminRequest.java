@@ -25,9 +25,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * is a Java class used to hold admins for communities in a set.
+ * is used to hold a set of community administrators.
  * Fields:
- * 	- admins (Set<String>): is a set of strings representing the community administrators.
+ * 	- admins (Set<String>): in the AddCommunityAdminRequest class holds a set of
+ * strings representing community administrators.
  */
 @NoArgsConstructor
 @AllArgsConstructor

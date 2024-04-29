@@ -22,8 +22,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * has a single field called adminId which is used to store the identifier of an
- * administrator for a community.
+ * has a single field called adminId for storing a unique identifier of an administrator
+ * for a community.
  * Fields:
  * 	- adminId (String): in the CommunityAdminDto class represents a unique identifier
  * for a community administrator.

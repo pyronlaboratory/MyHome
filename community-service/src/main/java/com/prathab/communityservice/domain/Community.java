@@ -28,7 +28,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Entity identifying a valid user in the service.
+ * represents a valid user in the service and has a many-to-many relationship with CommunityAdmins.
+ * Fields:
+ * 	- admins (Set<CommunityAdmin>): in the Community entity represents a many-to-many
+ * relationship between Community objects and CommunityAdmin objects, where each
+ * Community object can have multiple administrators and each administrator can manage
+ * multiple Communities.
+ * 	- name (String): in the Community class represents a string value that identifies
+ * the community.
+ * 	- communityId (String): in the Community class represents a unique identifier for
+ * a specific community.
+ * 	- district (String): in the Community entity represents a string value that
+ * identifies the administrative division where the community is located.
  */
 @AllArgsConstructor
 @Getter

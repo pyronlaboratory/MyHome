@@ -20,16 +20,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * is a Spring Boot test class for testing the UserService Application. It uses the
- * @SpringBootTest annotation to indicate that it should be executed as a Spring Boot
- * test. The single test method, contextLoads(), is used to verify that the application's
- * context is properly loaded.
+ * is a Spring Boot test class for verifying the loading of the application context,
+ * enabling access to Java EE features and services.
  */
 @SpringBootTest
 class UserServiceApplicationTests {
 
   /**
-   * loads the application context, enabling access to Java EE features and services.
+   * is likely responsible for initializing or loading necessary components during
+   * application startup, ensuring a smooth user experience upon launch.
    */
   @Test
   void contextLoads() {

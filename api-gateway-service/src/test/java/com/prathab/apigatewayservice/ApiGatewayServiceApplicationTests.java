@@ -28,8 +28,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ApiGatewayServiceApplicationTests {
 
   /**
-   * is called when a Spring application context is loaded, and it performs some
-   * initialization tasks.
+   * likely loads application data, configurations, or other essential components needed
+   * for its proper operation.
    */
   @Test
   void contextLoads() {

@@ -22,22 +22,20 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
  * is a Spring Boot application that enables Eureka server functionality and provides
- * the main entry point for the application.
+ * the main entry point for the application. It launches a SpringApplication, which
+ * runs the DiscoveryServiceApplication, passing any command-line arguments as inputs
+ * to the `SpringApplication.run()` method.
  */
 @SpringBootApplication
 @EnableEurekaServer
 public class DiscoveryServiceApplication {
 
   /**
-   * launches a SpringApplication, which runs the `DiscoveryServiceApplication`.
+   * runs a Spring Application and starts the Discovery Service Application.
    * 
-   * @param args 0 or more command-line arguments passed to the `SpringApplication.run()`
-   * method when running the `DiscoveryServiceApplication`.
+   * @param args command-line arguments passed to the application when it is started.
    * 
-   * 	- The input argument array is passed as `String[] args`.
-   * 	- It has no explicit type declaration or initialization in the function signature.
-   * 	- `SpringApplication.run()` method is called with the `DiscoveryServiceApplication.class`
-   * as the first argument, and the `args` array as the second argument.
+   * 	- It is an array of strings representing command-line arguments passed to the application.
    */
   public static void main(String[] args) {
     SpringApplication.run(DiscoveryServiceApplication.class, args);

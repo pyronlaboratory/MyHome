@@ -39,26 +39,22 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   }
 
   /**
-   * disables CSRF and frame options, and authorizes requests to specific URLs based
-   * on the environment property values. It also sets session management policy to stateless.
+   * disables CSRF and frame options, and authorizes requests based on URL paths. It
+   * also sets session management policy to stateless.
    * 
-   * @param http HTTP security configuration for the application, which is being
-   * customized and modified within the function.
+   * @param http HTTP security context and provides methods for configuring various
+   * features, such as disabling CSRF and frame options, authorizing requests based on
+   * URL paths, and setting session management policies.
    * 
-   * 	- `csrf()` - Disables Cross-Site Request Forgery (CSRF) protection.
-   * 	- `headers()` - Disables Frame Options (FO) protection.
-   * 	- `authorizeRequests()` - Configures which requests are authorized based on the
-   * specified antMatchers.
-   * 	+ `.antMatchers(environment.getProperty("api.h2console.url.path"))` - Allows any
-   * request to the H2 console URL path.
-   * 	+ `.antMatchers(HttpMethod.POST, environment.getProperty("api.registration.url.path"))`
-   * - Allows any POST request to the registration URL path.
-   * 	+ `.antMatchers(HttpMethod.POST, environment.getProperty("api.login.url.path"))`
-   * - Allows any POST request to the login URL path.
-   * 	+ `.anyRequest()` - Allows any other request.
-   * 	+ `.authenticated()` - Requires authentication for all requests.
-   * 	- `addFilter(new AuthorizationFilter(authenticationManager(), environment))` -
-   * Adds an Authorization Filter that uses the provided Authentication Manager and Environment.
+   * 	- `csrf()`: Disables CSRF (Cross-Site Request Forgery) protection.
+   * 	- `headers()`: Disables Frame Options (FEO) protection.
+   * 	- `authorizeRequests()`: Configures the authorizer to permit all requests to the
+   * specified URLs. The URLs are defined by setting `antMatchers` to the desired paths,
+   * using the `permitAll()` method.
+   * 	- `AuthenticationManager`: This is an instance of the `AuthenticationManager`
+   * interface, which provides methods for authenticating users.
+   * 	- `SessionCreationPolicy`: Sets the session creation policy to `STATELESS`, which
+   * means that sessions will not be created.
    */
   @Override protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();

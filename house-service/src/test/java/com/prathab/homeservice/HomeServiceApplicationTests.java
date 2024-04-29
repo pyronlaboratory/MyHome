@@ -28,7 +28,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class HomeServiceApplicationTests {
 
   /**
-   * performs initialization tasks for the Java application.
+   * is designed to load the Spring Boot application's context, enabling it to access
+   * necessary resources and perform operations.
    */
   @Test
   void contextLoads() {

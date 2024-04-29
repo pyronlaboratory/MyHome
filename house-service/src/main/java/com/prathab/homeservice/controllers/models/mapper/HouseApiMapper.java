@@ -23,8 +23,8 @@ import java.util.Set;
 import org.mapstruct.Mapper;
 
 /**
- * provides a mapping between House entities and their corresponding DTOs, as well
- * as between HouseDto and House objects, for various methods such as houseToHouseDto,
+ * defines a set of mappings between House entities and their corresponding DTOs, as
+ * well as between HouseDto and House objects for various methods such as houseToHouseDto,
  * houseDtoToHouse, and houseToHouseDetailResponse.
  */
 @Mapper

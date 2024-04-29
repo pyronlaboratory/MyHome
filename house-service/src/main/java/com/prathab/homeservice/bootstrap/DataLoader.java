@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * is a Spring Boot component that implements the CommandLineRunner interface. It
- * takes a HouseRepository as a parameter in its constructor and uses it to save a
+ * accepts a HouseRepository as a parameter in its constructor and uses it to save a
  * new House object with default values for the house name, house ID, and community
  * ID.
  */
@@ -36,8 +36,7 @@ public class DataLoader implements CommandLineRunner {
   }
 
   /**
-   * saves a new `House` object to the repository with a default house name, id, and
-   * community id for testing purposes.
+   * saves a new `House` object with given name, ID and community ID to the repository.
    */
   @Override public void run(String... args) throws Exception {
     var houseName = "MyHome default house";

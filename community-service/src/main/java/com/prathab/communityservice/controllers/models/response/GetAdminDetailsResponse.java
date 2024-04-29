@@ -22,7 +22,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * is a Lombok class for representing a response with an admin ID.
+ * represents a response with an administrator's unique identifier within a system
+ * or organization.
  * Fields:
  * 	- adminId (String): in the GetAdminDetailsResponse class represents a unique
  * identifier for an administrator within a system or organization.

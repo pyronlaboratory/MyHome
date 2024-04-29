@@ -24,13 +24,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * is an entity class representing a house with unique house ID and community ID, and
- * name, following the Java Persistence API standards for entity classes.
+ * represents a unique house within a community with a distinct ID and name, following
+ * Java Persistence API standards for entity classes.
  * Fields:
- * 	- communityId (String): represents a unique identifier for a specific community
- * associated with a particular house.
- * 	- houseId (String): represents a unique identifier for each house in the domain
- * model defined by the `House` class.
+ * 	- communityId (String): in the House class represents a unique identifier for a
+ * specific community associated with a particular house.
+ * 	- houseId (String): in the House class represents a unique identifier for each
+ * house within a community, as defined by the class definition.
  * 	- name (String): in the House class represents a string value that uniquely
  * identifies a specific house within a community.
  */

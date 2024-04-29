@@ -23,9 +23,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Response model for create user request.
- *
- * @see CreateUserRequest
+ * from the file is a response model for create user request with String userId, name,
+ * and email fields.
+ * Fields:
+ * 	- userId (String): represents a unique identifier for a user in the system.
+ * 	- name (String): in the CreateUserResponse class represents a string value of a
+ * user's name.
+ * 	- email (String): in the CreateUserResponse class is of type String.
  */
 @AllArgsConstructor
 @NoArgsConstructor

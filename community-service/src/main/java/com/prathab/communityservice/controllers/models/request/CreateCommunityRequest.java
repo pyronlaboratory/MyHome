@@ -28,8 +28,8 @@ import lombok.Setter;
  * Fields:
  * 	- name (String): in the CreateCommunityRequest class represents a required string
  * value for identifying a community.
- * 	- district (String): in the CreateCommunityRequest class requires a non-empty
- * string value.
+ * 	- district (String): in the CreateCommunityRequest class is a non-empty string
+ * value that is mandated by Lombok's @NotBlank annotation.
  */
 @AllArgsConstructor
 @NoArgsConstructor

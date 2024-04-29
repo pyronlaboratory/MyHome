@@ -25,7 +25,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Request model for Creating a new User.
+ * defines a request model for creating a new user with required fields for name,
+ * email, and password.
+ * Fields:
+ * 	- name (String): in the CreateUserRequest model requires a non-empty string value.
+ * 	- email (String): in the CreateUserRequest model requires an email address to be
+ * provided.
+ * 	- password (String): requires a non-empty string between 8 and 80 characters in
+ * length.
  */
 @AllArgsConstructor
 @NoArgsConstructor
