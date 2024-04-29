@@ -48,6 +48,11 @@ public class UserController {
     this.environment = environment;
   }
 
+  /**
+   * logs a message to the trace log and returns the string "Working".
+   * 
+   * @returns "Working".
+   */
   @GetMapping("/users/status")
   public String status() {
     log.trace("Running on port{} with jwt_secret{}",
@@ -56,6 +61,42 @@ public class UserController {
     return "Working";
   }
 
+  /**
+   * maps a `CreateUserRequest` to a `UserDto`, creates a new user using the `createUser`
+   * method, and returns the created user as a `CreateUserResponse`.
+   * 
+   * @param request CreateUserRequest object that contains the user's information to
+   * be created, which is then converted into a UserDTO by the userApiMapper and used
+   * to create a new user in the system.
+   * 
+   * 	- `@Valid`: Indicates that the request body is annotated with `@Valid`, which
+   * means it has been validated by the `UserValidator` class.
+   * 	- `@RequestBody`: Marks the request body as an input to the function.
+   * 	- `CreateUserRequest`: Represents the request body, which contains the user details
+   * to be created.
+   * 
+   * The function performs various operations on the `request` object, including:
+   * 
+   * 	- Logging a trace message using the `log.trace()` method.
+   * 	- Converting the `request` object into a `UserDto` object using the
+   * `userApiMapper.createUserRequestToUserDto()` method.
+   * 	- Creating a new user using the `userService.createUser()` method, passing in the
+   * `UserDto` object as an argument.
+   * 	- Converting the newly created `UserDto` object into a `CreateUserResponse` object
+   * using the `userApiMapper.userDtoToCreateUserResponse()` method.
+   * 	- Returning a `ResponseEntity` object with a status code of `HttpStatus.CREATED`,
+   * along with the `CreateUserResponse` object as its body.
+   * 
+   * @returns a `ResponseEntity` with a status code of `HttpStatus.CREATED` and a body
+   * containing the created user response.
+   * 
+   * 	- `ResponseEntity`: This is the generic type of the response entity, which indicates
+   * that it can be either in JSON or XML format.
+   * 	- `status`: This property represents the HTTP status code of the response, which
+   * is set to `HttpStatus.CREATED` in this case.
+   * 	- `body`: This property contains the actual response data, which is a
+   * `CreateUserResponse` object in this case.
+   */
   @PostMapping(
       path = "/users",
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},

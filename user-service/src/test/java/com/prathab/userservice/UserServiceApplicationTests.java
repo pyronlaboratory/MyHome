@@ -19,9 +19,18 @@ package com.prathab.userservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * is a test class for the UserServiceApplication, which is a Spring Boot application.
+ * The class contains a single test method, `contextLoads()`, which tests that the
+ * application context is loaded successfully.
+ */
 @SpringBootTest
 class UserServiceApplicationTests {
 
+  /**
+   * likely initializes and sets up necessary components for the Java application,
+   * including loading any necessary configuration or data.
+   */
   @Test
   void contextLoads() {
   }

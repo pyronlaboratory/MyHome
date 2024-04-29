@@ -20,6 +20,11 @@ import com.prathab.userservice.domain.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * provides a way to interact with a database for storing and retrieving users'
+ * information through methods like findByEmail() for searching users based on their
+ * email address.
+ */
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
   User findByEmail(String email);

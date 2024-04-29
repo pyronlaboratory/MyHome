@@ -47,6 +47,22 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     this.passwordEncoder = passwordEncoder;
   }
 
+  /**
+   * disables CSRF protection and restricts API access to a specific IP address. It
+   * also adds an authentication filter and disables frame options for improved security.
+   * 
+   * @param http HTTP security context, and it is used to configure various settings
+   * related to CSRF protection, IP-based authorizations, and frame options.
+   * 
+   * 	- `csrf().disable()` disables CSRF protection for all requests.
+   * 	- `authorizeRequests().antMatchers("/**")` specifies that all requests to any
+   * endpoint in the application are authorized.
+   * 	- `hasIpAddress(environment.getProperty("gateway.ip"))` authorizes requests from
+   * a specific IP address (configured in the property `gateway.ip`).
+   * 	- `addFilter(getAuthenticationFilter());` adds an authentication filter to the
+   * chain for further authentication checks.
+   * 	- `headers().frameOptions().disable()` disables frame options for security reasons.
+   */
   @Override protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();
     http
@@ -58,6 +74,24 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     http.headers().frameOptions().disable();
   }
 
+  /**
+   * creates an instance of `AuthenticationFilter`, configures it with various service
+   * objects, and returns the filtered instance.
+   * 
+   * @returns an instance of `AuthenticationFilter` with customized configuration for
+   * login processing.
+   * 
+   * 	- `objectMapper`: A reference to an Object Mapper instance that is used for
+   * serializing and deserializing objects.
+   * 	- `appUserDetailsService`: A reference to an App User Details Service instance
+   * that provides user details information.
+   * 	- `environment`: A reference to an Environment instance that contains configuration
+   * properties and other environment-related information.
+   * 	- `authenticationManager`: A reference to an Authentication Manager instance that
+   * manages authentication-related operations.
+   * 	- `filterProcessesUrl`: The URL path of the login page, which is set using the
+   * `setFilterProcessesUrl` method.
+   */
   private AuthenticationFilter getAuthenticationFilter() throws Exception {
     var authFilter = new AuthenticationFilter(objectMapper, appUserDetailsService, environment,
         authenticationManager());
@@ -65,6 +99,18 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     return authFilter;
   }
 
+  /**
+   * specifies the user details service and password encoder used for authentication.
+   * 
+   * @param auth AuthenticationManagerBuilder object, which is being configured to use
+   * the `appUserDetailsService` for user details and the `passwordEncoder` for password
+   * encryption.
+   * 
+   * 	- `userDetailsService`: The `AuthenticationManagerBuilder` is provided with an
+   * instance of `UserDetailsService`. This service is responsible for handling user authentication.
+   * 	- `passwordEncoder`: The `AuthenticationManagerBuilder` is given an instance of
+   * `PasswordEncoder`. This encoder is used to encrypt passwords securely.
+   */
   @Override protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(appUserDetailsService).passwordEncoder(passwordEncoder);
   }

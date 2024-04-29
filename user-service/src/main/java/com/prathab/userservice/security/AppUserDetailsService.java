@@ -40,6 +40,22 @@ public class AppUserDetailsService implements UserDetailsService {
     this.userMapper = userMapper;
   }
 
+  /**
+   * loads a user by their username and returns a `UserDetails` object containing the
+   * user's email, encrypted password, and various other attributes.
+   * 
+   * @param username username for which the user details are to be loaded.
+   * 
+   * @returns a `User` object containing the user's email, encrypted password, and
+   * various boolean flags indicating their role and permissions.
+   * 
+   * 	- `Email`: The email address of the user.
+   * 	- `EncryptedPassword`: The encrypted password for the user.
+   * 	- `AccountNonExpired`: Whether the user's account is non-expired.
+   * 	- `AccountNonLocked`: Whether the user's account is non-locked.
+   * 	- `CredentialsNonExpired`: Whether the user's credentials are non-expired.
+   * 	- `Role`: The role of the user (empty list means no role).
+   */
   @Override public UserDetails loadUserByUsername(String username)
       throws UsernameNotFoundException {
 
@@ -57,6 +73,19 @@ public class AppUserDetailsService implements UserDetailsService {
         Collections.emptyList());
   }
 
+  /**
+   * retrieves a user's details from the repository and mapper, using their email address
+   * as a reference.
+   * 
+   * @param username username for which the user details are to be retrieved.
+   * 
+   * @returns a `UserDto` object containing the details of the user with the provided
+   * username.
+   * 
+   * 	- `user`: A `User` object representing the user details, retrieved from the
+   * database using the `findByEmail` method.
+   * 	- `username`: The username for which the user details were retrieved.
+   */
   public UserDto getUserDetailsByUsername(String username) {
     var user = userRepository.findByEmail(username);
     if (user == null) {
