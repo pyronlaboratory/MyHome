@@ -27,8 +27,8 @@ import java.util.Set;
 import org.mapstruct.Mapper;
 
 /**
- * defines a mapping between various request and response models for community-related
- * operations in a web application.
+ * defines a mapping between various models and DTOs related to communities in a web
+ * application.
  */
 @Mapper
 public interface CommunityApiMapper {

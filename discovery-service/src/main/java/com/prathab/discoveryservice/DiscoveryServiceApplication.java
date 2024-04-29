@@ -29,14 +29,15 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 public class DiscoveryServiceApplication {
 
   /**
-   * runs the `DiscoveryServiceApplication` by calling `SpringApplication.run`. This
-   * starts the application and makes its services available to clients.
+   * launches a SpringApplication, which runs the `DiscoveryServiceApplication`.
    * 
-   * @param args command-line arguments passed to the `SpringApplication.run()` method
-   * when the application is launched directly from the command line.
+   * @param args 0 or more command-line arguments passed to the `SpringApplication.run()`
+   * method when running the `DiscoveryServiceApplication`.
    * 
-   * 	- `args`: an array of strings representing command-line arguments passed to the
-   * application.
+   * 	- The input argument array is passed as `String[] args`.
+   * 	- It has no explicit type declaration or initialization in the function signature.
+   * 	- `SpringApplication.run()` method is called with the `DiscoveryServiceApplication.class`
+   * as the first argument, and the `args` array as the second argument.
    */
   public static void main(String[] args) {
     SpringApplication.run(DiscoveryServiceApplication.class, args);

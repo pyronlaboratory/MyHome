@@ -22,15 +22,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * represents a response containing details of a house within a community, including
- * the community ID and house ID, as well as the name of the house.
+ * represents a response for housing details with community Id, house Id, and name attributes.
  * Fields:
- * 	- communityId (String): represents an identifier for a specific community within
- * which a house with the corresponding houseId is located.
- * 	- houseId (String): represents a unique identifier for a specific house within a
- * community, as defined in the `HouseDetailResponse` class.
- * 	- name (String): in the HouseDetailResponse class represents a string value that
- * contains the name of the house.
+ * 	- communityId (String): represents a unique identifier for a specific community
+ * or neighborhood associated with the house.
+ * 	- houseId (String): in the HouseDetailResponse class represents an identifier for
+ * a specific house within a community.
+ * 	- name (String): of the `HouseDetailResponse` class represents the name of a house.
  */
 @NoArgsConstructor
 @AllArgsConstructor

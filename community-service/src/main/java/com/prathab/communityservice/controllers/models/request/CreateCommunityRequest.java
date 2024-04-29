@@ -23,13 +23,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * is a Java class for creating community requests with required name and district
- * fields, using Lombok annotations for constructor and getter/setter methods.
+ * has two mandatory fields: name and district, which are validated using Lombok's
+ * @NotBlank annotation.
  * Fields:
  * 	- name (String): in the CreateCommunityRequest class represents a required string
- * value for identifying the community being created.
- * 	- district (String): in the `CreateCommunityRequest` class represents a required
- * string value for identifying the community's location.
+ * value for identifying a community.
+ * 	- district (String): in the CreateCommunityRequest class requires a non-empty
+ * string value.
  */
 @AllArgsConstructor
 @NoArgsConstructor

@@ -22,10 +22,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * has a single field for storing a String representing a community ID.
+ * represents a data transfer object (DTO) for housing-related information, including
+ * a community ID field.
  * Fields:
  * 	- communityId (String): in the HouseDto class represents a unique identifier for
- * a specific community or neighborhood.
+ * a specific community or neighborhood associated with the house or property.
  */
 @AllArgsConstructor
 @NoArgsConstructor

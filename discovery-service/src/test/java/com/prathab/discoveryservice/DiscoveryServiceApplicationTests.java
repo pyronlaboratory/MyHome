@@ -20,14 +20,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * is a Spring Boot test class for testing the Discovery Service Application. The
- * test class loads the application context and verifies that it loads successfully.
+ * is a Spring Boot test class for testing the Discovery Service Application. It uses
+ * the @SpringBootTest annotation to indicate that it should be run using Spring
+ * Boot's testing framework. The single test method, contextLoads(), is used to verify
+ * that the application's context is properly loaded.
  */
 @SpringBootTest
 class DiscoveryServiceApplicationTests {
 
   /**
-   * is intended to load context data when the application starts.
+   * is designed to execute certain actions when the Java application's context is initialized.
    */
   @Test
   void contextLoads() {

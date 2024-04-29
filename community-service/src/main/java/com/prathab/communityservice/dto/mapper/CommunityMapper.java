@@ -22,8 +22,8 @@ import java.util.Set;
 import org.mapstruct.Mapper;
 
 /**
- * defines a set of mapping functions between domain objects and DTOs for handling
- * community data in Java.
+ * provides a mapping between Community and CommunityDto objects, as well as between
+ * sets of Communities and sets of CommunityDtos.
  */
 @Mapper
 public interface CommunityMapper {

@@ -24,9 +24,11 @@ import com.prathab.communityservice.services.CommunityAdminService;
 
 /**
  * is an implementation of the CommunityAdminService interface that provides methods
- * for managing community admins using Spring Data JPA. It accepts community ID and
- * CommunityAdminDto objects, converts them into a corresponding CommunityAdmin object,
- * and saves it to the repository for further processing.
+ * for managing community admins in a Spring Data JPA environment. The class contains
+ * two fields: `communityAdminRepository` and `communityAdminMapper`, which are used
+ * to interact with the database and map DTOs to entity objects, respectively. The
+ * `addCommunityAdmin()` method is implemented to add a new community admin to the
+ * database, but it is incomplete and requires further development to complete its functionality.
  */
 public class CommunityAdminSDJpaService implements CommunityAdminService {
   private final CommunityAdminRepository communityAdminRepository;
@@ -40,28 +42,24 @@ public class CommunityAdminSDJpaService implements CommunityAdminService {
   }
 
   /**
-   * adds a new CommunityAdmin to the database by mapping the provided CommunityAdminDto
-   * to a CommunityAdmin object and saving it in the repository.
+   * adds a new CommunityAdmin to the database by first mapping the provided Dto object
+   * to a CommunityAdmin object, then saving it to the repository.
    * 
-   * @param communityId identifier of the community to which the new community admin
-   * will be added.
+   * @param communityId identifying identifier for the community being added an administrator.
    * 
-   * @param communityAdminDto CommunityAdmin object to be saved in the database, which
-   * contains the details of a community administrator.
+   * @param communityAdminDto CommunityAdmin data that will be saved in the database.
    * 
-   * 	- `communityId`: The ID of the community to which the admin will be added.
-   * 	- `communityAdminDto`: A DTO object representing a community administrator,
-   * containing various attributes such as `username`, `email`, `firstName`, `lastName`,
-   * and `role`.
+   * 	- `communityId`: A string representing the ID of the community to which the admin
+   * is being added.
+   * 	- `communityAdminDto`: An object containing information about the community admin
+   * to be added, including their name and email address.
    * 
-   * @returns a saved CommunityAdmin object.
+   * @returns a saved CommunityAdmin instance.
    * 
-   * 	- `savedCommunityAdmin`: This is the saved CommunityAdmin instance in the database,
-   * which contains information about the community administrator, such as their name
-   * and email address.
-   * 	- `null`: The value of this variable is `null`, indicating that no further
-   * processing or action is required after saving the CommunityAdmin instance to the
-   * database.
+   * 	- `communityAdmin`: This is the newly created CommunityAdmin object, which has
+   * been saved to the database using the `save()` method.
+   * 	- `savedCommunityAdmin`: This is the ID of the newly created CommunityAdmin object
+   * in the database.
    */
   @Override
   public Community addCommunityAdmin(String communityId, CommunityAdminDto communityAdminDto) {

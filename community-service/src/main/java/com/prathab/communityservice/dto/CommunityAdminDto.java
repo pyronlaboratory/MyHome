@@ -22,10 +22,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * is a Java class for representing a community administrator with an admin ID.
+ * has a single field called adminId which is used to store the identifier of an
+ * administrator for a community.
  * Fields:
  * 	- adminId (String): in the CommunityAdminDto class represents a unique identifier
- * for an administrator within a community.
+ * for a community administrator.
  */
 @AllArgsConstructor
 @NoArgsConstructor

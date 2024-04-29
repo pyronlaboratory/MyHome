@@ -24,16 +24,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * represents a house in a community with a unique house ID and name, and has additional
- * fields for storing community ID and other information.
+ * is an entity class representing a house with unique house ID and community ID, and
+ * name, following the Java Persistence API standards for entity classes.
  * Fields:
- * 	- communityId (String): in the House class represents a unique identifier for a
- * particular community.
- * 	- houseId (String): in the House class represents a unique identifier for each
- * individual house within a community, as specified by the @Column annotation with
- * unique = true and nullable = false.
- * 	- name (String): in the House class represents a string value that identifies the
- * name of a house.
+ * 	- communityId (String): represents a unique identifier for a specific community
+ * associated with a particular house.
+ * 	- houseId (String): represents a unique identifier for each house in the domain
+ * model defined by the `House` class.
+ * 	- name (String): in the House class represents a string value that uniquely
+ * identifies a specific house within a community.
  */
 @Entity
 @NoArgsConstructor

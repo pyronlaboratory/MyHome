@@ -23,10 +23,6 @@ import org.mapstruct.Mapper;
 /**
  * Provides conversion between DTO and entity object.
  */
-/**
- * provides a conversion between DTO and entity objects for user data, allowing for
- * flexible and efficient data transfer and manipulation between these two forms.
- */
 @Mapper
 public interface UserMapper {
   User userDtoToUser(UserDto userDto);

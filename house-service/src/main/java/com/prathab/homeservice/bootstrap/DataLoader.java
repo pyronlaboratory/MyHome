@@ -22,9 +22,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * is a Spring Boot component that implements CommandLineRunner, with a single method
- * `run()` that takes no arguments. The method creates a new `House` object, sets its
- * properties, and saves it to the `HouseRepository` using the `save()` method.
+ * is a Spring Boot component that implements the CommandLineRunner interface. It
+ * takes a HouseRepository as a parameter in its constructor and uses it to save a
+ * new House object with default values for the house name, house ID, and community
+ * ID.
  */
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -35,8 +36,8 @@ public class DataLoader implements CommandLineRunner {
   }
 
   /**
-   * creates a new `House` object and saves it to the repository with the default values
-   * for the house ID, community ID, and name.
+   * saves a new `House` object to the repository with a default house name, id, and
+   * community id for testing purposes.
    */
   @Override public void run(String... args) throws Exception {
     var houseName = "MyHome default house";

@@ -24,10 +24,6 @@ import org.mapstruct.Mapper;
 /**
  * Interface to automatic conversion by Mapstruct
  */
-/**
- * provides automatic conversion between various models and requests related to users
- * in a software application.
- */
 @Mapper
 public interface UserApiMapper {
   CreateUserRequest userDtoToCreateUserRequest(UserDto userDto);

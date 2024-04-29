@@ -20,17 +20,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * is a Spring Boot test class for testing the Apigateway Service application. It
- * utilizes the @SpringBootTest annotation to indicate that it should be tested with
- * Spring Boot. The single test method, contextLoads(), is used to verify that the
- * application context is properly loaded.
+ * is a Spring Boot test class for testing the Apigateway Service application. The
+ * single test method "contextLoads" verifies that the application context is properly
+ * loaded.
  */
 @SpringBootTest
 class ApiGatewayServiceApplicationTests {
 
   /**
-   * is designed to perform initialization tasks when the Java application's context
-   * is initialized.
+   * is called when a Spring application context is loaded, and it performs some
+   * initialization tasks.
    */
   @Test
   void contextLoads() {

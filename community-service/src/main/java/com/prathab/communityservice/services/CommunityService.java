@@ -21,8 +21,8 @@ import com.prathab.communityservice.dto.CommunityDto;
 import java.util.Set;
 
 /**
- * provides methods to create and manage communities, including listing all communities,
- * retrieving details of a specific community, and adding admins to a community.
+ * provides methods for creating and listing communities, retrieving community details,
+ * and adding administrators to communities.
  */
 public interface CommunityService {
   Community createCommunity(CommunityDto communityDto);

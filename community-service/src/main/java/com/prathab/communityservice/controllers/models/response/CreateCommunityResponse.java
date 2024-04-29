@@ -22,8 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * has a single field, "communityId", which represents the unique identifier for a
- * created community.
+ * represents a response from creating a community with an assigned community ID.
  * Fields:
  * 	- communityId (String): in the CreateCommunityResponse class represents a unique
  * identifier for a community.

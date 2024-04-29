@@ -23,11 +23,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * is a Java class that represents a set of admins for a community and has no
- * constructors, getters, or setters.
+ * is a Lombok-annotated class for storing and retrieving a set of strings representing
+ * community administrators.
  * Fields:
- * 	- admins (Set<String>): in the AddCommunityAdminResponse class is a set of strings
- * representing the community administrators.
+ * 	- admins (Set<String>): in the AddCommunityAdminResponse class represents a set
+ * of strings that contain the usernames of community administrators.
  */
 @NoArgsConstructor
 @AllArgsConstructor

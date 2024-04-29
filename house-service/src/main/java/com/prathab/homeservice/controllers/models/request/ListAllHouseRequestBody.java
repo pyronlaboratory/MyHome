@@ -26,13 +26,6 @@ import lombok.Setter;
  * Do you think it is weird to get a request body as part of GET? Yeah, I too feel the same. But,
  * stay with me until I refactor this.
  */
-/**
- * is a Java class with a single field representing a community ID, which must be
- * provided in order for the class to be used.
- * Fields:
- * 	- communityId (String): in the ListAllHouseRequestBody class is required to be a
- * non-empty string value.
- */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

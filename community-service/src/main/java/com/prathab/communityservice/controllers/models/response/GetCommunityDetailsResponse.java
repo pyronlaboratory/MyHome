@@ -22,14 +22,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * is a data class representing community details with three fields: community ID,
- * name, and district.
+ * has four fields representing a community ID, name, district.
  * Fields:
- * 	- communityId (String): represents a unique identifier for a community.
- * 	- name (String): contains a string value representing the name of a community.
- * 	- district (String): of the GetCommunityDetailsResponse class represents a string
- * value indicating the name of a specific geographic area or district associated
- * with the community identified by the communityId field.
+ * 	- communityId (String): represents a unique identifier for a specific community.
+ * 	- name (String): in the GetCommunityDetailsResponse class represents a string
+ * value that contains the name of the community associated with the given community
+ * ID.
+ * 	- district (String): in the `GetCommunityDetailsResponse` class represents a
+ * string value that provides the name of the district where the community is located.
  */
 @AllArgsConstructor
 @NoArgsConstructor

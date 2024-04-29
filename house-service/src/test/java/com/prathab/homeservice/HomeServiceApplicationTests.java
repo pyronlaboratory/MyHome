@@ -21,15 +21,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * is a Spring Boot test class for testing the Home Service Application. The class
- * extends Spring Boot Test and includes a single test method, `contextLoads()`, which
- * verifies that the application context is properly loaded.
+ * contains a single test method, `contextLoads()`, which verifies that the application
+ * context is properly loaded when the class is run.
  */
 @SpringBootTest
 class HomeServiceApplicationTests {
 
   /**
-   * is designed to perform some initial setup tasks after the application context has
-   * been loaded.
+   * performs initialization tasks for the Java application.
    */
   @Test
   void contextLoads() {

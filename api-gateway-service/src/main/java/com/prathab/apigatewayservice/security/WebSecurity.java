@@ -26,8 +26,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 
 /**
  * is configured to disable CSRF and frame options, authorize requests based on
- * specific URL patterns, and use a session creation policy of STATELESS. Additionally,
- * an authorization filter and a authentication manager are added to the configuration.
+ * specific URLs and HTTP methods, and use a stateLESS session management policy.
+ * Additionally, an authorization filter is added to authenticate requests.
  */
 @EnableWebSecurity
 @Configuration
@@ -39,37 +39,26 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   }
 
   /**
-   * disables CSRF and frame options, then authorizes requests to specific URLs based
-   * on the values of environment variables. It also sets session management policy to
-   * stateless.
+   * disables CSRF and frame options, and authorizes requests to specific URLs based
+   * on the environment property values. It also sets session management policy to stateless.
    * 
-   * @param http HTTP security configuration for the application, and is used to configure
-   * various security features such as CSRF protection, frame options, and authentication
-   * policies.
+   * @param http HTTP security configuration for the application, which is being
+   * customized and modified within the function.
    * 
-   * 	- `csrf()` - disables CSRF protection
-   * 	- `headers()` - disables frame options
-   * 	- `authorizeRequests()` - specifies which URLs are accessible without authentication
-   * and adds an authenticated filter to handle remaining requests
-   * 	+ `.antMatchers(environment.getProperty("api.h2console.url.path"))` - allows all
-   * requests to the H2 console URL path
-   * 	+ `.permitAll()` - allows all other requests to be accessed without authentication
+   * 	- `csrf()` - Disables Cross-Site Request Forgery (CSRF) protection.
+   * 	- `headers()` - Disables Frame Options (FO) protection.
+   * 	- `authorizeRequests()` - Configures which requests are authorized based on the
+   * specified antMatchers.
+   * 	+ `.antMatchers(environment.getProperty("api.h2console.url.path"))` - Allows any
+   * request to the H2 console URL path.
    * 	+ `.antMatchers(HttpMethod.POST, environment.getProperty("api.registration.url.path"))`
-   * - allows registration requests to the specified URL path
-   * 	+ `.permitAll()` - allows all other registration requests to be accessed without
-   * authentication
+   * - Allows any POST request to the registration URL path.
    * 	+ `.antMatchers(HttpMethod.POST, environment.getProperty("api.login.url.path"))`
-   * - allows login requests to the specified URL path
-   * 	+ `.permitAll()` - allows all other login requests to be accessed without authentication
-   * 	+ `.anyRequest()` - specifies that the authenticated filter should handle any
-   * remaining request
-   * 	+ `.authenticated()` - requires authentication for all requests
-   * 	- `sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)` -
-   * sets the session creation policy to stateless
-   * 
-   * In summary, this configuration disables CSRF protection and frame options, allows
-   * access to certain URLs without authentication, adds an authenticated filter to
-   * handle remaining requests, and sets the session creation policy to stateless.
+   * - Allows any POST request to the login URL path.
+   * 	+ `.anyRequest()` - Allows any other request.
+   * 	+ `.authenticated()` - Requires authentication for all requests.
+   * 	- `addFilter(new AuthorizationFilter(authenticationManager(), environment))` -
+   * Adds an Authorization Filter that uses the provided Authentication Manager and Environment.
    */
   @Override protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();

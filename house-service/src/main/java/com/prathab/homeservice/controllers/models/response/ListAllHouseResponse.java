@@ -23,11 +23,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * contains a set of HouseDetailResponse objects representing all houses available
- * in the system.
+ * is a Java class that contains a set of HouseDetailResponses as its only field or
+ * member variable, following the AllArgsConstructor and NoArgsConstructor annotations.
  * Fields:
  * 	- houseDetails (Set<HouseDetailResponse>): in the ListAllHouseResponse class
- * contains a set of HouseDetailResponse objects.
+ * contains a set of HouseDetailResponse objects, which are likely to hold various
+ * details about houses.
  */
 @AllArgsConstructor
 @NoArgsConstructor
