@@ -21,6 +21,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * represents a response from creating a community with an assigned community ID.
+ * Fields:
+ * 	- communityId (String): in the CreateCommunityResponse class represents a unique
+ * identifier for a community.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

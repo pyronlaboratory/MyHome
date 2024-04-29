@@ -22,6 +22,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * is a Lombok-annotated class for storing and retrieving a set of strings representing
+ * community administrators.
+ * Fields:
+ * 	- admins (Set<String>): in the AddCommunityAdminResponse class represents a set
+ * of strings that contain the usernames of community administrators.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

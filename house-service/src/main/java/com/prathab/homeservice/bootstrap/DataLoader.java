@@ -21,6 +21,12 @@ import com.prathab.homeservice.repositories.HouseRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+/**
+ * is a Spring Boot component that implements the CommandLineRunner interface. It
+ * takes a HouseRepository as a parameter in its constructor and uses it to save a
+ * new House object with default values for the house name, house ID, and community
+ * ID.
+ */
 @Component
 public class DataLoader implements CommandLineRunner {
   private final HouseRepository houseRepository;
@@ -29,6 +35,10 @@ public class DataLoader implements CommandLineRunner {
     this.houseRepository = houseRepository;
   }
 
+  /**
+   * saves a new `House` object to the repository with a default house name, id, and
+   * community id for testing purposes.
+   */
   @Override public void run(String... args) throws Exception {
     var houseName = "MyHome default house";
     var houseId = "default-house-id-for-testing";

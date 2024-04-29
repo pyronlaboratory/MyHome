@@ -20,6 +20,10 @@ import com.prathab.homeservice.controllers.dto.HouseDto;
 import com.prathab.homeservice.domain.House;
 import java.util.Set;
 
+/**
+ * defines a set of methods for managing houses, including adding new houses and
+ * retrieving a list of all houses.
+ */
 public interface HouseService {
   House addHouse(HouseDto houseDto);
 

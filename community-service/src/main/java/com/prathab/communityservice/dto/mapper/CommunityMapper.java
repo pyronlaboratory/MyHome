@@ -21,6 +21,10 @@ import com.prathab.communityservice.dto.CommunityDto;
 import java.util.Set;
 import org.mapstruct.Mapper;
 
+/**
+ * provides a mapping between Community and CommunityDto objects, as well as between
+ * sets of Communities and sets of CommunityDtos.
+ */
 @Mapper
 public interface CommunityMapper {
   CommunityDto communityToCommunityDto(Community community);

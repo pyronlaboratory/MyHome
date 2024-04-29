@@ -19,9 +19,20 @@ package com.prathab.communityservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * is a Spring Boot test class for testing the Community Service application. It uses
+ * the `@SpringBootTest` annotation to indicate that it should be executed as part
+ * of the Spring Boot testing framework. The single test method, `@Test`, is marked
+ * with the `void contextLoads()` method signature, indicating that it tests the
+ * loading of the application context.
+ */
 @SpringBootTest
 class CommunityServiceApplicationTests {
 
+  /**
+   * is designed to perform some initialization tasks when the application context is
+   * initialized.
+   */
   @Test
   void contextLoads() {
   }

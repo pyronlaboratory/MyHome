@@ -22,6 +22,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * represents a community with an ID, community ID, name, district, and set of administrators.
+ * Fields:
+ * 	- id (Long): represents a unique identifier for each community in the system,
+ * which can be used to retrieve or manipulate related data within the CommunityDto
+ * class.
+ * 	- communityId (String): represents an identifier for a specific community.
+ * 	- name (String): in the CommunityDto class represents the name of a community.
+ * 	- district (String): represents a string value that identifies the administrative
+ * division where the community is located.
+ * 	- admins (Set<CommunityAdminDto>): in the CommunityDto class contains a set of
+ * CommunityAdminDto objects.
+ */
 @AllArgsConstructor
 @Getter
 @NoArgsConstructor

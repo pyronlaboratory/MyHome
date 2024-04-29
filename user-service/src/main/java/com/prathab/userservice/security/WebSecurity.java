@@ -47,6 +47,25 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     this.passwordEncoder = passwordEncoder;
   }
 
+  /**
+   * disables CSRF protection and authorizes requests based on the value of
+   * `environment.getProperty("gateway.ip")`. It also disables frame options.
+   * 
+   * @param http HttpSecurity instance that is being configured.
+   * 
+   * 1/ `csrf().disable()`: Disables Cross-Site Request Forgery (CSRF) protection for
+   * this configuration.
+   * 2/ `authorizeRequests().antMatchers("/**")`: Enumerates all requests to any path
+   * in the application, including subpaths, and authorizes them based on the value of
+   * the `environment.getProperty("gateway.ip")` property.
+   * 3/ `hasIpAddress(environment.getProperty("gateway.ip"))`: Filters incoming requests
+   * based on the IP address specified in the `environment.getProperty("gateway.ip")`
+   * property.
+   * 4/ `and()`: Used to chain multiple authorizations together.
+   * 5/ `addFilter(getAuthenticationFilter())`: Adds an authentication filter to the
+   * configuration. The filter can be accessed through the `getAuthenticationFilter()`
+   * method.
+   */
   @Override protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();
     http
@@ -58,6 +77,25 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     http.headers().frameOptions().disable();
   }
 
+  /**
+   * creates an instance of `AuthenticationFilter`, configures it with various parameters,
+   * and returns the filter object.
+   * 
+   * @returns an instance of `AuthenticationFilter`, which is a custom filter for
+   * authentication purposes.
+   * 
+   * 	- `var authFilter`: This is an instance of the `AuthenticationFilter` class.
+   * 	- `objectMapper`: A reference to an `ObjectMapper` object, which is used to convert
+   * Java objects into and out of JSON format.
+   * 	- `appUserDetailsService`: A reference to an `AppUserDetailsService` object, which
+   * provides user details for authentication purposes.
+   * 	- `environment`: A reference to an `Environment` object, which contains configuration
+   * properties for the application.
+   * 	- `authenticationManager(): A reference to an `AuthenticationManager` object,
+   * which manages the authentication process for the application.
+   * 	- `setFilterProcessesUrl(String url)`: This method sets the `url` property of the
+   * `filterProcesses` attribute of the `AuthenticationFilter` instance.
+   */
   private AuthenticationFilter getAuthenticationFilter() throws Exception {
     var authFilter = new AuthenticationFilter(objectMapper, appUserDetailsService, environment,
         authenticationManager());
@@ -65,6 +103,18 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     return authFilter;
   }
 
+  /**
+   * specifies the user details service and password encoder for an authentication
+   * manager builder, enabling customized authentication settings.
+   * 
+   * @param auth AuthenticationManagerBuilder instance, which is used to configure the
+   * builder with various authentication-related settings.
+   * 
+   * 	- `userDetailsService`: It represents a service that manages user details for
+   * authentication purposes.
+   * 	- `passwordEncoder`: It encodes passwords for secure storage and retrieval during
+   * authentication.
+   */
   @Override protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(appUserDetailsService).passwordEncoder(passwordEncoder);
   }

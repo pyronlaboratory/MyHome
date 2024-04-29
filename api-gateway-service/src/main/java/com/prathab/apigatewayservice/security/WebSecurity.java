@@ -24,6 +24,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
+/**
+ * is configured to disable CSRF and frame options, authorize requests based on
+ * specific URLs and HTTP methods, and use a stateLESS session management policy.
+ * Additionally, an authorization filter is added to authenticate requests.
+ */
 @EnableWebSecurity
 @Configuration
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -33,6 +38,28 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     this.environment = environment;
   }
 
+  /**
+   * disables CSRF and frame options, and authorizes requests to specific URLs based
+   * on the environment property values. It also sets session management policy to stateless.
+   * 
+   * @param http HTTP security configuration for the application, which is being
+   * customized and modified within the function.
+   * 
+   * 	- `csrf()` - Disables Cross-Site Request Forgery (CSRF) protection.
+   * 	- `headers()` - Disables Frame Options (FO) protection.
+   * 	- `authorizeRequests()` - Configures which requests are authorized based on the
+   * specified antMatchers.
+   * 	+ `.antMatchers(environment.getProperty("api.h2console.url.path"))` - Allows any
+   * request to the H2 console URL path.
+   * 	+ `.antMatchers(HttpMethod.POST, environment.getProperty("api.registration.url.path"))`
+   * - Allows any POST request to the registration URL path.
+   * 	+ `.antMatchers(HttpMethod.POST, environment.getProperty("api.login.url.path"))`
+   * - Allows any POST request to the login URL path.
+   * 	+ `.anyRequest()` - Allows any other request.
+   * 	+ `.authenticated()` - Requires authentication for all requests.
+   * 	- `addFilter(new AuthorizationFilter(authenticationManager(), environment))` -
+   * Adds an Authorization Filter that uses the provided Authentication Manager and Environment.
+   */
   @Override protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();
     http.headers().frameOptions().disable();

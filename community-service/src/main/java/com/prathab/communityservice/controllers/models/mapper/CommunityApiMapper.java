@@ -26,6 +26,10 @@ import com.prathab.communityservice.dto.CommunityDto;
 import java.util.Set;
 import org.mapstruct.Mapper;
 
+/**
+ * defines a mapping between various models and DTOs related to communities in a web
+ * application.
+ */
 @Mapper
 public interface CommunityApiMapper {
   CommunityDto createCommunityRequestToCommunityDto(CreateCommunityRequest request);

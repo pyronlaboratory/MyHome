@@ -19,9 +19,17 @@ package com.prathab.homeservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * is a Spring Boot test class for testing the Home Service Application. The class
+ * contains a single test method, `contextLoads()`, which verifies that the application
+ * context is properly loaded when the class is run.
+ */
 @SpringBootTest
 class HomeServiceApplicationTests {
 
+  /**
+   * performs initialization tasks for the Java application.
+   */
   @Test
   void contextLoads() {
   }

@@ -20,6 +20,10 @@ import com.prathab.userservice.domain.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * extends Spring Data's CrudRepository interface and provides a method to find a
+ * user by their email address.
+ */
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
   User findByEmail(String email);

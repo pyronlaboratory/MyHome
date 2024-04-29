@@ -19,6 +19,10 @@ package com.prathab.communityservice.services;
 import com.prathab.communityservice.domain.Community;
 import com.prathab.communityservice.dto.CommunityAdminDto;
 
+/**
+ * allows for adding community administrators to a community through the addCommunityAdmin
+ * method.
+ */
 public interface CommunityAdminService {
   Community addCommunityAdmin(String communityId, CommunityAdminDto communityAdminDto);
 }

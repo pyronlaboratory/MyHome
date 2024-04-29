@@ -24,6 +24,13 @@ import java.util.UUID;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+/**
+ * is a Spring Boot component that loads data into a Community and CommunityAdmin
+ * repository. The class has a constructor that takes in the CommunityRepository and
+ * CommunityAdminRepository objects, and it has a run method that persists a community
+ * to the repository and then persists an admin to the repository and links them to
+ * the community. Finally, the class updates the community with the saved admin.
+ */
 @Component
 public class DataLoader implements CommandLineRunner {
   private final CommunityRepository communityRepository;
@@ -36,10 +43,17 @@ public class DataLoader implements CommandLineRunner {
     this.communityAdminRepository = communityAdminRepository;
   }
 
+  /**
+   * loads data.
+   */
   @Override public void run(String... args) throws Exception {
     loadData();
   }
 
+  /**
+   * persists a community and an admin to the repository, updates the community with
+   * the saved admin, and saves the admin to the repository.
+   */
   private void loadData() {
     // Persist community to repo
     var communityName = "MyHome default community";
