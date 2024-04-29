@@ -22,7 +22,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Request model for Logging in to service.
+ * represents a request model for logging into a service with an email and password
+ * field.
+ * Fields:
+ * 	- email (String): in the LoginUserRequest class is of type String.
+ * 	- password (String): in the LoginUserRequest class requires a string value.
  */
 @AllArgsConstructor
 @NoArgsConstructor

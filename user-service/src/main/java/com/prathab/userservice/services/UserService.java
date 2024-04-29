@@ -19,7 +19,7 @@ package com.prathab.userservice.services;
 import com.prathab.userservice.dto.UserDto;
 
 /**
- * Interface for service layer.
+ * defines a method for creating a user represented as a UserDto object.
  */
 public interface UserService {
   UserDto createUser(UserDto request);

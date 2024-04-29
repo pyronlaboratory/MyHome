@@ -23,8 +23,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Do you think it is weird to get a request body as part of GET? Yeah, I too feel the same. But,
- * stay with me until I refactor this.
+ * is a Java class with a single field, communityId, which is annotated as non-blank
+ * and required in the constructor.
+ * Fields:
+ * 	- communityId (String): in the ListAllHouseRequestBody class is a non-empty string
+ * used to identify a specific community.
  */
 @NoArgsConstructor
 @AllArgsConstructor

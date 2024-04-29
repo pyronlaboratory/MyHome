@@ -26,9 +26,8 @@ import lombok.Setter;
  * Fields:
  * 	- communityId (String): represents a unique identifier for a specific community
  * or neighborhood associated with the house.
- * 	- houseId (String): in the HouseDetailResponse class represents an identifier for
- * a specific house within a community.
- * 	- name (String): of the `HouseDetailResponse` class represents the name of a house.
+ * 	- houseId (String): represents an identifier for a specific house within a community.
+ * 	- name (String): represents the name of a house.
  */
 @NoArgsConstructor
 @AllArgsConstructor

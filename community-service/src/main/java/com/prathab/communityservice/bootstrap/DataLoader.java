@@ -25,11 +25,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * is a Spring Boot component that loads data into a Community and CommunityAdmin
- * repository. The class has a constructor that takes in the CommunityRepository and
- * CommunityAdminRepository objects, and it has a run method that persists a community
- * to the repository and then persists an admin to the repository and links them to
- * the community. Finally, the class updates the community with the saved admin.
+ * loads data into a Community and CommunityAdmin repository by persistings a community
+ * and an admin to the repository, updating the community with the saved admin, and
+ * saving the admin to the repository.
  */
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -51,8 +49,8 @@ public class DataLoader implements CommandLineRunner {
   }
 
   /**
-   * persists a community and an admin to the repository, updates the community with
-   * the saved admin, and saves the admin to the repository.
+   * persistently creates and links a new community and its admin to the repository,
+   * updates the community with the saved admin, and saves both entities to the database.
    */
   private void loadData() {
     // Persist community to repo
