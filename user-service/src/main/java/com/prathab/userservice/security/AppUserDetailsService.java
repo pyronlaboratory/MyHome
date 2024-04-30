@@ -27,11 +27,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
- * is a custom implementation of Spring Security's `UserDetailsService` interface,
- * providing user details loading and retrieval functionality. It takes in a username
- * and returns a `UserDetails` object containing the user's email, encrypted password,
- * and various other attributes. Additionally, it provides methods for retrieving a
- * user's details from the repository and mapper using their email address as a reference.
+ * is an implementation of the `UserDetailsService` interface in Java. It provides
+ * methods for retrieving a user's details by their username from a repository and
+ * mapping them to a `UserDto` object using a mapper. The service also loads a user
+ * based on their username and returns a `UserDetails` object containing the user's
+ * email, encrypted password, and various flags indicating their account status.
  */
 @Service
 public class AppUserDetailsService implements UserDetailsService {
@@ -45,22 +45,23 @@ public class AppUserDetailsService implements UserDetailsService {
   }
 
   /**
-   * retrieves a user from the repository based on their username and returns a
-   * `UserDetails` object with the user's email, encrypted password, and various flags
-   * indicating whether the user is active, locked out, or has a valid account.
+   * loads a user by their username and returns a `UserDetails` object containing the
+   * user's email, encrypted password, and various flags indicating whether they are
+   * an administrator or not.
    * 
-   * @param username username for which the UserDetails object is to be loaded.
+   * @param username username for which the user details are to be loaded.
    * 
-   * @returns a `UserDetails` object containing user information and authentication details.
+   * @returns a `UserDetails` object containing the user's email address, encrypted
+   * password, and other properties.
    * 
-   * 	- `user`: This is an instance of the `User` class, representing a user in the system.
    * 	- `email`: The email address of the user.
    * 	- `encryptedPassword`: The encrypted password for the user.
+   * 	- `isEnabled`: A boolean indicating whether the user is enabled or not.
    * 	- `isAdmin`: A boolean indicating whether the user is an administrator or not.
-   * 	- `isVerified`: A boolean indicating whether the user's account has been verified
-   * or not.
-   * 	- `isActive`: A boolean indicating whether the user's account is active or not.
-   * 	- `groups`: An empty list, as there are no groups associated with this user.
+   * 	- `isAccountNonExpired`: A boolean indicating whether the user's account is non-expired.
+   * 	- `isAccountNonLocked`: A boolean indicating whether the user's account is non-locked.
+   * 	- `Collections.emptyList()`: An empty list of extra attributes associated with
+   * the user.
    */
   @Override public UserDetails loadUserByUsername(String username)
       throws UsernameNotFoundException {
@@ -80,19 +81,18 @@ public class AppUserDetailsService implements UserDetailsService {
   }
 
   /**
-   * retrieves a user's details by their username from a repository and maps them to a
-   * `UserDto` object using a mapper.
+   * retrieves a user's details from the repository and maps them to a `UserDto` object
+   * using a mapper.
    * 
    * @param username username for which the user details are to be retrieved.
    * 
-   * @returns a `UserDto` object containing the details of the user found in the repository.
+   * @returns a `UserDto` object containing the details of the user with the specified
+   * username.
    * 
-   * 	- `user`: A `User` object obtained from the `userRepository`.
-   * 	- `userMapper`: A `UserMapper` object used to convert the `User` object into a
-   * `UserDto` object.
-   * 
-   * The `UserDto` object contains attributes related to the user, such as their email
-   * and name.
+   * 	- The function returns a `UserDto` object representing the user details.
+   * 	- The `user` variable is retrieved from the `userRepository` using the `findByEmail`
+   * method. If the user is not found, a `UsernameNotFoundException` is thrown.
+   * 	- The `userMapper` is used to convert the `User` object to a `UserDto` object.
    */
   public UserDto getUserDetailsByUsername(String username) {
     var user = userRepository.findByEmail(username);

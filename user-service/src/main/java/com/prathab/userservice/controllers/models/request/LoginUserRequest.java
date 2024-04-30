@@ -27,7 +27,7 @@ import lombok.Setter;
  * 	- email (String): in the LoginUserRequest model represents an email address of a
  * user attempting to log in to the service.
  * 	- password (String): in the `LoginUserRequest` class stores a string value
- * representing the user's login credentials.
+ * representing a user's login credentials.
  */
 @AllArgsConstructor
 @NoArgsConstructor

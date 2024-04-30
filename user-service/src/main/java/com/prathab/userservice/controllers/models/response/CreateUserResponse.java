@@ -23,13 +23,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * represents a response model for creating a user request in Java.
+ * represents a response model for creating a user request in Java, containing unique
+ * identifier, name, and email details.
  * Fields:
- * 	- userId (String): represents a unique identifier for a user created through the
- * CreateUserRequest.
- * 	- name (String): in the CreateUserResponse model contains a string value representing
- * the user's name.
- * 	- email (String): in the `CreateUserResponse` class represents a string value
+ * 	- userId (String): in the CreateUserResponse model represents a unique identifier
+ * for a created user.
+ * 	- name (String): represents a string value containing the user's name.
+ * 	- email (String): in the CreateUserResponse model represents a string value
  * containing an email address.
  */
 @AllArgsConstructor

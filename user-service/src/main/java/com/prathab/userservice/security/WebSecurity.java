@@ -26,10 +26,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * is configured to disable CSRF protection and restrict API access to a specific IP
- * address, add an authentication filter and disable frame options for improved
- * security. The configuration also authorizes all requests and adds an authentication
- * filter with customized configuration for login processing.
+ * is configured to disable CSRF protection and authorize requests based on the IP
+ * address of the gateway server. It also disables frame options for security reasons.
+ * Additionally, an authentication filter is set up to filter incoming HTTP requests
+ * based on user authentication, using a user details service and password encoder.
  */
 @Configuration
 @EnableWebSecurity
@@ -51,22 +51,24 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
   /**
    * disables CSRF protection and authorizes requests based on the IP address of the
-   * gateway server. It also disables frame options for security reasons.
+   * gateway server. It also disables frame options for improved performance.
    * 
-   * @param http HTTP security configuration object that is being customized by the method.
+   * @param http HttpSecurity object, which is being configured to disable CSRF protection
+   * and authorize requests based on the IP address of the gateway server.
    * 
-   * 	- `csrf().disable()` disables CSRF protection for this security configuration.
-   * 	- `authorizeRequests().antMatchers("/**")` specifies that all requests to any
-   * endpoint in the application should be authorized.
-   * 	- `.hasIpAddress(environment.getProperty("gateway.ip"))` allows only requests
-   * from a specific IP address to be authorized. The specified property "gateway.ip"
-   * contains the allowed IP address.
-   * 	- `.and()` is a conjunction operator that combines multiple security rules in the
-   * same block.
-   * 	- `.addFilter(getAuthenticationFilter());` adds an authentication filter to the
-   * configuration, which will be executed before the application's endpoints are
-   * accessed. The `getAuthenticationFilter()` method returns a reference to the
-   * authentication filter implementation.
+   * 	- `csrf().disable()` disables CSRF protection for all routes.
+   * 	- `authorizeRequests()` specifies which requests are authorized to access the
+   * application. It takes an array of ant matchers as its argument, with each ant
+   * matcher specifying a pattern that matches a route. In this case, the entire root
+   * URL (`"/**"` ) is matched.
+   * 	- `hasIpAddress(environment.getProperty("gateway.ip"))` restricts access to the
+   * application based on the IP address of the request. The `environment.getProperty()`
+   * method retrieves a property from the application's environment. In this case, the
+   * property is named "gateway.ip".
+   * 	- `and()` is used to chain multiple authorization rules together.
+   * 	- `addFilter(getAuthenticationFilter())` adds an authentication filter to thechain
+   * of filters for the application. The `getAuthenticationFilter()` method returns a
+   * reference to an authentication filter that has been created separately.
    */
   @Override protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();
@@ -80,25 +82,28 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   }
 
   /**
-   * creates an instance of the `AuthenticationFilter` class, passing in various
-   * dependencies such as object mapper, user details service, and authentication
-   * manager. The function also sets a property for the filter's URL processing.
+   * creates an instance of `AuthenticationFilter`, setting various properties and
+   * methods, such as `setFilterProcessesUrl`, to enable authentication processing for
+   * the application.
    * 
-   * @returns an instance of `AuthenticationFilter` initialized with various components
-   * to handle authentication processes.
+   * @returns an instance of `AuthenticationFilter`, which is a custom filter for
+   * authenticating users.
    * 
-   * 	- `objectMapper`: An instance of the `ObjectMapper` class, which is used for
-   * mapping JSON data to and from objects.
-   * 	- `appUserDetailsService`: An instance of the `AppUserDetailsService` class, which
-   * provides user details for authentication.
-   * 	- `environment`: A variable containing the environment properties, including the
-   * `login.url.path` property, which sets the URL path for the login functionality.
-   * 	- `authenticationManager()`: An instance of the `AuthenticationManager` class,
-   * which manages the authentication process.
+   * 	- `var authFilter`: This is an instance of the `AuthenticationFilter` class, which
+   * is a custom filter used for authentication in Spring Security.
+   * 	- `objectMapper`: This is an instance of the `ObjectMapper` class, which is used
+   * to map Java objects to and from JSON format.
+   * 	- `appUserDetailsService`: This is an instance of the `AppUserDetailsService`
+   * interface, which provides user details for authentication purposes.
+   * 	- `environment`: This is an instance of the `Environment` class, which contains
+   * various properties and settings for the application.
+   * 	- `authenticationManager()`: This is a method that returns an instance of the
+   * `AuthenticationManager` interface, which manages authentication requests and responses.
+   * 	- `setFilterProcessesUrl(String url)`: This method sets the URL path for the
+   * filter processes.
    * 
-   * The function returns an instance of the `AuthenticationFilter` class, which is
-   * responsible for filtering incoming HTTP requests based on user authentication. The
-   * `setFilterProcessesUrl()` method sets the URL path for the login functionality.
+   * Overall, the `getAuthenticationFilter` function returns a custom filter that can
+   * be used to perform authentication tasks in Spring Security.
    */
   private AuthenticationFilter getAuthenticationFilter() throws Exception {
     var authFilter = new AuthenticationFilter(objectMapper, appUserDetailsService, environment,
@@ -108,16 +113,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   }
 
   /**
-   * sets up an Authentication Manager by specifying a user details service and password
-   * encoder.
+   * configures the AuthenticationManagerBuilder by setting the user details service
+   * and password encoder.
    * 
-   * @param auth AuthenticationManagerBuilder, which is being configured by setting the
-   * user details service and password encoder.
+   * @param auth AuthenticationManagerBuilder, which is used to configure various aspects
+   * of the authentication system, including the user details service and password encoder.
    * 
-   * 	- `userDetailsService`: This represents the user details service used by the
-   * authentication manager builder to configure user details-related functionality.
-   * 	- `passwordEncoder`: This property defines the password encoder used by the
-   * authentication manager builder for password encryption and decryption.
+   * 1/ `userDetailsService`: This attribute specifies the user details service used
+   * for authentication. It is assigned an instance of `appUserDetailsService`.
+   * 2/ `passwordEncoder`: This attribute specifies the password encoder used to encrypt
+   * passwords. It is assigned an instance of `passwordEncoder`.
    */
   @Override protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(appUserDetailsService).passwordEncoder(passwordEncoder);

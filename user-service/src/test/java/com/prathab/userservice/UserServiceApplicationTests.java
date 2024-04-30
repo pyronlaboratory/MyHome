@@ -28,9 +28,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UserServiceApplicationTests {
 
   /**
-   * is responsible for loading the application's context, which includes setting up
-   * the necessary infrastructure and preparing the environment for the program to run
-   * properly.
+   * is likely responsible for initializing and setting up the application's context,
+   * including loading any necessary data or resources.
    */
   @Test
   void contextLoads() {
