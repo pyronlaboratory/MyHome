@@ -28,8 +28,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UserServiceApplicationTests {
 
   /**
-   * is intended to load the application's context, which enables it to access essential
-   * resources and capabilities.
+   * is likely responsible for initializing and setting up the application's context,
+   * including loading any necessary data or resources.
    */
   @Test
   void contextLoads() {

@@ -34,32 +34,32 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class UserServiceApplication {
 
   /**
-   * runs a SpringApplication, which launches and manages the user service application.
+   * runs a Spring Application, specifically the `UserServiceApplication`, passing it
+   * the `args`.
    * 
    * @param args command-line arguments passed to the `SpringApplication.run()` method
    * when invoking the application.
    * 
-   * 	- `String[]`: Indicates that `args` is an array of strings.
-   * 	- `SpringApplication.run()`: The method call to start the Spring application.
-   * 	- `UserServiceApplication.class`: The fully qualified class name of the application
-   * being started.
+   * The `String[] args` represents an array of command-line arguments passed to the
+   * application when it is launched.
    */
   public static void main(String[] args) {
     SpringApplication.run(UserServiceApplication.class, args);
   }
 
   /**
-   * returns a `BCryptPasswordEncoder` instance, which is a widely used and secure
-   * password encryption algorithm.
+   * returns a `BCryptPasswordEncoder` object, which is used to encrypt passwords using
+   * the bcrypt algorithm.
    * 
-   * @returns a BCryptPasswordEncoder instance, which is used to encrypt passwords securely.
+   * @returns a `BCryptPasswordEncoder` instance, which is used to hash and compare
+   * passwords securely.
    * 
-   * 	- The function returns an instance of the `BCryptPasswordEncoder` class, which
-   * is a robust password encryption algorithm that provides both security and simplicity.
-   * 	- The `BCryptPasswordEncoder` class implements the `PasswordEncoder` interface,
-   * which defines the methods for encrypting and decrypting passwords.
-   * 	- The returned object has all the necessary attributes to perform password
-   * encryption and decryption, including the cost factor, salt size, and work factor.
+   * 	- The `BCryptPasswordEncoder` object is a class that implements the `PasswordEncoder`
+   * interface in Java.
+   * 	- The `BCryptPasswordEncoder` class uses the BCrypt password hashing algorithm
+   * to encrypt passwords securely.
+   * 	- The algorithm is designed to handle passwords of varying lengths and complexity,
+   * making it suitable for use in a wide range of applications.
    */
   @Bean
   public PasswordEncoder getPasswordEncoder() {

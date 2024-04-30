@@ -36,11 +36,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * in Spring Security is used to handle authentication requests and generate an access
- * token for successful authentications. The filter performs various actions such as
- * retrieving the username from the authentication result, calling the UserDetailsService
- * to retrieve user details, generating a JSON Web Token (JWT) using the Jwts class,
- * and adding the generated token and user ID to the HTTP response headers.
+ * is a Java filter that processes incoming HTTP requests and performs authentication
+ * tasks. It takes in a request object, response object, chain of filters, and an
+ * authentication result, and generates a token using the Jwts class based on the
+ * authenticated principal's username. The token and user ID are then added to the
+ * response headers.
  */
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
   private final ObjectMapper objectMapper;
@@ -57,37 +57,42 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
   }
 
   /**
-   * attempts authentication for a given request by reading the login user details from
-   * the request input stream, passing them to the authentication manager to verify,
-   * and returning the authenticated user token if successful.
+   * authenticates a user using an email and password, using the provided
+   * `getAuthenticationManager()` instance.
    * 
-   * @param request HTTP request made by the user to the authentication endpoint.
+   * @param request HTTP request received by the server and contains information about
+   * the user's login attempt, including the user's email and password.
    * 
-   * 	- `getInputStream()` returns the underlying stream of the request.
-   * 	- `getEmail()` returns the email address of the user in the login request.
-   * 	- `getPassword()` returns the password of the user in the login request.
-   * 	- `getAuthenticationManager()` returns the authentication manager instance.
+   * 	- `getInputStream()` - This method returns the input stream of the HTTP request.
+   * 	- `getEmail()` - This method retrieves the email address of the user from the
+   * login request.
+   * 	- `getPassword()` - This method retrieves the password of the user from the login
+   * request.
+   * 	- `getAuthenticationManager()` - This method provides an instance of the
+   * authentication manager, which is responsible for authenticating users.
    * 
-   * @param response response object that is being processed by the attemptAuthentication
-   * method.
+   * The function then attempts to authenticate the user using the `authenticate()`
+   * method of the authentication manager, passing in a `UsernamePasswordAuthenticationToken`
+   * object containing the email and password of the user.
    * 
-   * 	- `getInputStream()` returns an InputStream object that can be used to read data
-   * from the request body.
-   * 	- `HttpServletResponse response` is an instance of a class that provides information
-   * about the HTTP request and response, such as status code, headers, and other metadata.
+   * @param response response object, which is used to send the authentication result
+   * back to the client.
    * 
-   * @returns an `AuthenticationException` if there is an issue with the provided login
-   * details.
+   * 	- `getInputStream()`: Returns the input stream of the HTTP request.
+   * 	- `getAuthenticationManager()`: Returns an instance of the authentication manager
+   * class, which is responsible for authenticating the user.
+   * 	- `authenticate()`: Performs authentication using the provided username and password.
    * 
-   * 	- The `AuthenticationException` thrown if any errors occur during authentication.
-   * 	- The `IOException` caught and re-thrown if any issues arise while reading the
-   * input from the request's input stream.
-   * 	- The `UsernamePasswordAuthenticationToken` created by passing the login user's
-   * email and password to the `authenticate()` method of the `getAuthenticationManager()`
-   * instance. The token's `username` field holds the login user's email address, while
-   * its `password` field contains their password. The `Collections.emptyList()` argument
-   * passed to `authenticate()` represents an empty list of authorities for the
-   * authenticated user.
+   * @returns an AuthenticationManager that authenticates a user based on their email
+   * and password.
+   * 
+   * 	- `getEmail()` - Returns the email address of the user being authenticated.
+   * 	- `getPassword()` - Returns the password of the user being authenticated.
+   * 	- `getAuthenticationManager()` - The authentication manager used to perform the
+   * authentication.
+   * 	- `authenticate()` - The method called on the authentication manager to perform
+   * the authentication. It takes a `UsernamePasswordAuthenticationToken` object as its
+   * parameter, which contains the user's email and password.
    */
   @Override public Authentication attemptAuthentication(HttpServletRequest request,
       HttpServletResponse response) throws AuthenticationException {
@@ -104,75 +109,93 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
   }
 
   /**
-   * handles authentication requests by generating a token and adding it to the HTTP
-   * response headers, along with the user ID.
+   * authenticates a user and generates a JWT token with the user's ID and expiration
+   * time, which is then added to the HTTP response headers as a security measure.
    * 
-   * @param request HTTP request object containing authentication-related information,
-   * such as the username and password, that is being processed by the filter chain.
+   * @param request HTTP request that triggered the authentication process and contains
+   * information about the user's authentication attempt.
    * 
-   * 	- `HttpServletRequest request`: This object represents an HTTP request and contains
-   * information such as the method used to make the request (e.g., GET, POST, PUT),
-   * the URL of the request, any data sent with the request (e.g., form fields or files),
-   * and other headers and metadata.
-   * 	- `HttpServletResponse response`: This object represents an HTTP response and
-   * contains information such as the status code of the response (e.g., 200 OK), any
-   * data sent with the response (e.g., binary data or a textual representation of the
-   * response body), and other headers and metadata.
-   * 	- `FilterChain chain`: This object represents the chain of filters that have been
-   * applied to the request, in the order they were applied. Each filter in the chain
-   * can modify the request or response in some way before passing it on to the next filter.
+   * 	- `HttpServletRequest request`: This object represents an HTTP request, which
+   * contains information about the client's request, such as the URL, method, headers,
+   * and parameters.
+   * 	- `HttpServletResponse response`: This object represents the HTTP response, which
+   * is generated by the server in response to the client's request. It contains
+   * information about the status of the response, such as the status code, headers,
+   * and body.
+   * 	- `FilterChain chain`: This object represents a chain of filters that are applied
+   * to the incoming request before it reaches the authentication filter. Each filter
+   * in the chain can modify the request in some way, such as adding security headers
+   * or performing authentication checks.
    * 	- `Authentication authResult`: This object represents the result of the authentication
-   * process, containing information such as the authenticated user's principal (e.g.,
-   * a username or email address), any roles or permissions associated with the user,
-   * and other metadata related to the authentication process.
+   * process. It contains information about the user who was authenticated, such as
+   * their username and principal attributes.
    * 
-   * @param response HTTP response object, where the authentication information is added
-   * as headers.
+   * @param response response object, to which additional headers containing the
+   * authentication token and user ID are added.
    * 
-   * 	- `HttpServletRequest request`: The HTTP request made by the user to authenticate.
-   * 	- `HttpServletResponse response`: The HTTP response generated by the authentication
-   * process.
-   * 	- `FilterChain chain`: A filter chain containing multiple filters that can be
-   * executed in a specific order during the authentication process.
-   * 	- `Authentication authResult`: The result of the authentication process, which
-   * includes the principal (username) and details of the user.
+   * 	- `HttpServletRequest request`: Represents an HTTP request object containing
+   * information about the incoming request.
+   * 	- `HttpServletResponse response`: Represents an HTTP response object used to send
+   * a response back to the client.
+   * 	- `FilterChain chain`: Represents a filter chain, which is a set of filters that
+   * can be applied to a single request.
+   * 	- `Authentication authResult`: Represents an authentication result object containing
+   * information about the authentication process.
    * 
-   * The function then performs the following operations:
+   * The function then proceeds to extract information from the authentication result
+   * object and create a JWT token. The properties of the token are explained below:
    * 
-   * 1/ Retrieves the username of the authenticated user from the `authResult` object.
-   * 2/ Calls the `appUserDetailsService` to retrieve the details of the user with the
-   * matching username.
-   * 3/ Generates a JSON Web Token (JWT) using the `Jwts` class, passing in the user
-   * details and the expiration time.
-   * 4/ Adds the JWT token to the `response` object as a header.
-   * 5/ Adds the user ID of the authenticated user to the `response` object as another
-   * header.
+   * 	- `var username`: Represents the username of the authenticated user.
+   * 	- `var userDto`: Represents a user details object containing information about
+   * the user.
+   * 	- `var token`: Represents the generated JWT token.
+   * 	- `setSubject(userDto.getUserId())`: Sets the subject of the token to the user
+   * ID of the authenticated user.
+   * 	- `setExpiration(new Date(System.currentTimeMillis() +
+   * Long.parseLong(environment.getProperty("token.expiration_time"))))`: Sets the
+   * expiration time of the token based on the property `token.expiration_time`.
+   * 	- `signWith(SignatureAlgorithm.HS512, environment.getProperty("token.secret"))`:
+   * Signs the token using the HS512 signature algorithm and the secret provided by the
+   * `environment.getProperty()` method.
+   * 	- `compact()`: Compresses the token into a string.
+   * 	- `response.addHeader("token", token)`: Adds the generated token to the response
+   * headers.
+   * 	- `response.addHeader("userId", userDto.getUserId())`: Adds the user ID of the
+   * authenticated user to the response headers.
    * 
-   * @param chain chain of filters that should be executed after the successful
-   * authentication, and is used to pass the response object through those filters.
+   * @param chain chain of filters that the authentication request is passing through,
+   * and it allows the function to access and modify the filter chain as needed.
    * 
-   * 	- `chain`: This is an instance of the `FilterChain` class, which represents a
-   * chain of filters that can be applied to a HTTP request. It has various attributes
-   * such as `doFilter`, `doFilterEx`, `getNext`, and `setNext`.
+   * 	- `HttpServletRequest request`: The incoming HTTP request that triggered this
+   * filter chain execution.
+   * 	- `HttpServletResponse response`: The outgoing HTTP response generated by the
+   * filter chain execution.
+   * 	- `FilterChain chain`: The filter chain that was executed, which may include
+   * multiple filters in a pipeline.
+   * 	- `Authentication authResult`: The result of the authentication process, including
+   * the authenticated user and any additional information.
    * 
-   * @param authResult result of the authentication process, providing the authenticated
+   * @param authResult result of an authentication attempt, providing the authenticated
    * user's details as a principal object.
    * 
-   * 	- `HttpServletRequest request`: This is the HTTP request object that contains
-   * information about the user's authentication attempt.
-   * 	- `HttpServletResponse response`: This is the HTTP response object that will be
-   * used to send the authentication result back to the client.
-   * 	- `FilterChain chain`: This is a filter chain that contains multiple filters,
-   * which are executed in sequence during the authentication process.
-   * 	- `Authentication authResult`: This is the deserialized input parameter that
-   * represents the authentication result, containing information about whether the
-   * authentication was successful or not.
-   * 	- `User principal`: This is the user principal that was authenticated, which can
-   * be obtained from the `authResult` object.
-   * 	- `Long expirationTime`: This is the expiration time of the token in milliseconds,
-   * which can be obtained from the `environment` property.
-   * 	- `String secret`: This is the secret key used for signing the token, which can
-   * be obtained from the `environment` property.
+   * 	- `HttpServletRequest request`: The HTTP request that triggered the authentication
+   * filter.
+   * 	- `HttpServletResponse response`: The HTTP response to be generated by the filter.
+   * 	- `FilterChain chain`: The chain of filters that led to the authentication filter
+   * being called.
+   * 	- `Authentication authResult`: The result of the authentication process, containing
+   * the authenticated principal and other information.
+   * 
+   * The properties of `authResult` include:
+   * 
+   * 	- `getPrincipal()`: Returns the authenticated principal, which is typically an
+   * object representing the user who was authenticated.
+   * 	- `getUsername()`: Returns the username of the authenticated user.
+   * 	- `getUserId()`: Returns the ID of the authenticated user.
+   * 
+   * The function then creates a JWT token using the `Jwts` class, based on the
+   * authenticated principal and various configuration properties. The token is added
+   * to the HTTP response headers as a security token.
    */
   @Override
   protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,

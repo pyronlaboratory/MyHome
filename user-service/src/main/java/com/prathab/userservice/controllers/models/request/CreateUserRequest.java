@@ -25,14 +25,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * represents a model for creating a new user with required fields and validation
+ * is a model class for creating a new user with required fields and validation
  * constraints to ensure proper input.
  * Fields:
- * 	- name (String): in the `CreateUserRequest` model requires a non-empty string value.
- * 	- email (String): in the CreateUserRequest model requires an email address to be
- * provided.
- * 	- password (String): in the CreateUserRequest model requires a non-empty string
- * between 8 and 80 characters long.
+ * 	- name (String): in the CreateUserRequest model requires a non-empty string value.
+ * 	- email (String): in the `CreateUserRequest` model requires a valid email address.
+ * 	- password (String): in the `CreateUserRequest` model has a minimum length
+ * requirement of 8 characters and a maximum length requirement of 80 characters,
+ * with an error message provided if the input does not match these constraints.
  */
 @AllArgsConstructor
 @NoArgsConstructor
