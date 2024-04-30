@@ -27,8 +27,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * acts as a base class for all JPA Entities and provides an automatically generated
- * ID value using the Identity strategy.
+ * serves as a base class for all JPA Entities and provides an automatically generated
+ * unique identifier value using the Identity strategy through its 'id' field.
  * Fields:
  * 	- id (Long): in the BaseEntity class represents an automatically generated unique
  * identifier for each instance of the class.

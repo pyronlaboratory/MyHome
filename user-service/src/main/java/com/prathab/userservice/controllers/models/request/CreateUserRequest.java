@@ -25,11 +25,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * is a model class for creating a new user with required fields for name, email, and
- * password, along with validation constraints to ensure proper input.
+ * represents a model for creating a new user with required fields and validation
+ * constraints to ensure proper input.
  * Fields:
  * 	- name (String): in the `CreateUserRequest` model requires a non-empty string value.
- * 	- email (String): in the CreateUserRequest class requires an email address to be
+ * 	- email (String): in the CreateUserRequest model requires an email address to be
  * provided.
  * 	- password (String): in the CreateUserRequest model requires a non-empty string
  * between 8 and 80 characters long.

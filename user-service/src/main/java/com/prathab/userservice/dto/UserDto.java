@@ -26,14 +26,15 @@ import lombok.Setter;
  * password, along with two encrypted passwords.
  * Fields:
  * 	- id (Long): represents a unique identifier for each user in the system.
- * 	- userId (String): in the UserDto class represents a unique identifier for a user.
+ * 	- userId (String): in the UserDto class represents a unique identifier for each
+ * user in the system.
  * 	- name (String): stores a string value representing a user's name.
  * 	- email (String): in the UserDto class stores a string value representing an email
  * address of a user.
  * 	- password (String): in the UserDto class stores a string value representing a
  * user's password.
- * 	- encryptedPassword (String): stores an encrypted version of the password field
- * in the UserDto class.
+ * 	- encryptedPassword (String): in the UserDto class stores an encrypted version
+ * of the password field.
  */
 @AllArgsConstructor
 @Getter

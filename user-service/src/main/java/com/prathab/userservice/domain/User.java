@@ -24,17 +24,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * represents a valid user in the service and includes fields for name, user ID,
+ * in Java represents a valid user in the service with fields for name, user ID,
  * email, and encrypted password.
  * Fields:
  * 	- name (String): in the User class represents a string value that identifies a
  * user's personal name.
- * 	- userId (String): in the User entity represents a unique identifier for each
- * valid user in the service.
- * 	- email (String): in the User entity represents a unique and non-nullable string
+ * 	- userId (String): in the User class represents a unique identifier for each valid
+ * user in the service.
+ * 	- email (String): in the User class represents a unique and non-nullable string
  * value used to identify a user's email address within the service.
- * 	- encryptedPassword (String): in the User entity is a string representing a
- * password that has been encrypted for security purposes.
+ * 	- encryptedPassword (String): in the User class represents an encrypted string
+ * value used for security purposes within the service.
  */
 @AllArgsConstructor
 @Getter
