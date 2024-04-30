@@ -1,0 +1,1311 @@
+[
+  {
+    "name": "UserServiceApplication.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/UserServiceApplication.java",
+    "content": {
+      "structured": {
+        "description": "A Spring Boot application that enables Eureka client functionality and uses BCrypt PasswordEncoder for password encryption. The `main` method starts the execution of the application, and the `getPasswordEncoder()` method returns a BCryptPasswordEncoder instance.",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.UserServiceApplication\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n}\n",
+        "items": [
+          {
+            "id": "235e2f1d-5e8e-ffb8-5e47-2d9abe5d85c2",
+            "ancestors": [],
+            "type": "function",
+            "description": "is a Spring Boot application that enables Eureka client functionality and uses BCrypt PasswordEncoder for password encryption. The class provides a `getPasswordEncoder()` method that returns a BCryptPasswordEncoder instance, which is used to encrypt passwords using the bcrypt algorithm.",
+            "name": "UserServiceApplication",
+            "location": {
+              "start": 32,
+              "insert": 26,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 25,
+                "end": 31
+              }
+            },
+            "item_type": "class",
+            "length": 42,
+            "docLength": 6
+          },
+          {
+            "id": "4e44ce82-d61a-139d-5340-068ab565944b",
+            "ancestors": [
+              "235e2f1d-5e8e-ffb8-5e47-2d9abe5d85c2"
+            ],
+            "type": "function",
+            "description": "runs a Spring Application, specifically the `UserServiceApplication`, passing it the `args`.",
+            "params": [
+              {
+                "name": "args",
+                "type_name": "String[]",
+                "description": "command-line arguments passed to the `SpringApplication.run()` method when invoking the application.\n\nThe `String[] args` represents an array of command-line arguments passed to the application when it is launched.",
+                "complex_type": true
+              }
+            ],
+            "name": "main",
+            "location": {
+              "start": 49,
+              "insert": 36,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 35,
+                "end": 48
+              }
+            },
+            "item_type": "method",
+            "length": 3,
+            "docLength": 13
+          },
+          {
+            "id": "85143bdb-37e9-e0ae-ca46-7917e07d0b87",
+            "ancestors": [
+              "235e2f1d-5e8e-ffb8-5e47-2d9abe5d85c2"
+            ],
+            "type": "function",
+            "description": "returns a `BCryptPasswordEncoder` object, which is used to encrypt passwords using the bcrypt algorithm.",
+            "params": [],
+            "returns": {
+              "type_name": "instance",
+              "description": "a `BCryptPasswordEncoder` instance, which is used to hash and compare passwords securely.\n\n* The `BCryptPasswordEncoder` object is a class that implements the `PasswordEncoder` interface in Java.\n* The `BCryptPasswordEncoder` class uses the BCrypt password hashing algorithm to encrypt passwords securely.\n* The algorithm is designed to handle passwords of varying lengths and complexity, making it suitable for use in a wide range of applications.",
+              "complex_type": true
+            },
+            "usage": {
+              "language": "java",
+              "code": "public class UserServiceApplication {\n  @Autowired\n  private PasswordEncoder passwordEncoder;\n  \n  // Example usage of the BCryptPasswordEncoder\n  public void verifyUser(String email, String password) {\n    // Retrieve the user from the database using the email address provided\n    User user = retrieveUserByEmail(email);\n    \n    if (user == null) {\n      throw new UsernameNotFoundException(\"User not found\");\n    }\n    \n    if (!passwordEncoder.matches(password, user.getPassword())) {\n      throw new BadCredentialsException(\"Invalid password\");\n    }\n  }\n}\n",
+              "description": ""
+            },
+            "name": "getPasswordEncoder",
+            "location": {
+              "start": 69,
+              "insert": 53,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 52,
+                "end": 68
+              }
+            },
+            "item_type": "method",
+            "length": 4,
+            "docLength": 16
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "UserController.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/controllers/UserController.java",
+    "content": {
+      "structured": {
+        "description": "A `UserController` class that handles user-related operations, including creating new users and returning created user responses. The controller uses the `UserService` and `UserApiMapper` classes to map requests to and from the database, and the `HttpStatus` class to define the status code of the response. The `signUp()` method takes a `CreateUserRequest` object as input, validates it against its schema, maps it to a `UserDTO` object, creates a new user in the database using the `UserDTO` object as input, and maps the newly created user account back to a `CreateUserResponse` object, which is then returned in the function's response.",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.controllers.UserController\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"models\"\n        color=\"#33363A\"\n        subgraph cluster_1 {\n            label=\"response\"\n            color=\"#33363A\"\n            CreateUserResponse\n        }\n        subgraph cluster_2 {\n            label=\"request\"\n            color=\"#33363A\"\n            CreateUserRequest\n        }\n    }\n    subgraph cluster_main {\n        // style=filled;\n        color=\"#00000000\"; \n        UserController [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n        label = \"\"\n    }\n    UserController -> CreateUserResponse \n    CreateUserRequest -> UserController \n}\n",
+        "items": [
+          {
+            "id": "f5c47fae-8381-c3ae-f84f-73358e268681",
+            "ancestors": [],
+            "type": "function",
+            "description": "in Spring Boot handles sign-up requests from clients and creates new user accounts in the database. The function receives a `CreateUserRequest` request body from the client, creates a new user entity using the provided data, and returns a `CreateUserResponse` object representing the created user resource. The function uses the `@Valid` annotation to validate the `CreateUserRequest` object against its schema, and the `@RequestBody` annotation to send the request body as the function's input. Additionally, the function consumes both JSON and XML media types and produces a JSON and XML response.",
+            "name": "UserController",
+            "location": {
+              "start": 40,
+              "insert": 34,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 33,
+                "end": 39
+              }
+            },
+            "item_type": "class",
+            "length": 90,
+            "docLength": 6
+          },
+          {
+            "id": "63785e7c-8a4f-8595-0548-0551cef8e385",
+            "ancestors": [
+              "f5c47fae-8381-c3ae-f84f-73358e268681"
+            ],
+            "type": "function",
+            "description": "logs information to the log file and returns a string indicating that it is working.",
+            "params": [],
+            "returns": {
+              "type_name": "String",
+              "description": "\"Working\".",
+              "complex_type": false
+            },
+            "usage": {
+              "language": "java",
+              "code": "@Autowired\nprivate MockMvc mockMvc;\n\n@Test\npublic void testStatus() throws Exception {\n    mockMvc.perform(get(\"/users/status\"))\n        .andExpect(status().isOk());\n}\n",
+              "description": "\nIn this example, we're using a `MockMvc` object to perform a GET request on the `/users/status` endpoint. We then expect that the response should be an OK (200) status code. This test is successful because the server returns a 200 status code when hitting this endpoint.\n\nNote: In order for this test to work, we need to have the `MockMvc` object autowired in our test class. Additionally, make sure that you're using the same dependencies as the ones used in your production code."
+            },
+            "name": "status",
+            "location": {
+              "start": 65,
+              "insert": 54,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 53,
+                "end": 64
+              }
+            },
+            "item_type": "method",
+            "length": 7,
+            "docLength": 11
+          },
+          {
+            "id": "52672930-9edd-6fb8-c146-ea6f5599bdd2",
+            "ancestors": [
+              "f5c47fae-8381-c3ae-f84f-73358e268681"
+            ],
+            "type": "function",
+            "description": "maps a `CreateUserRequest` object to a `CreatedUserResponse` object, creates a new user using the `userService`, and returns the created user in the response body.",
+            "params": [
+              {
+                "name": "request",
+                "type_name": "CreateUserRequest",
+                "description": "CreateUserRequest object that contains the user's information to be created in the system.\n\n* `@Valid`: Indicates that the input `request` must be validated before processing.\n* `@RequestBody`: Marks the input as a JSON or XML body in the request.\n* `CreateUserRequest`: The type of the input object, which contains attributes for creating a new user.\n* `requestUserDto`: The converted version of the input `request` to a `UserDto` object, which can be used by the method's logic.",
+                "complex_type": true
+              }
+            ],
+            "returns": {
+              "type_name": "CreateUserResponse",
+              "description": "a `ResponseEntity` with a status code of `HttpStatus.CREATED` and a body containing the created user response.\n\n* `ResponseEntity`: This is an instance of the `ResponseEntity` class, which represents a response message with a status code and a body. The status code indicates the outcome of the operation, while the body contains the actual response data.\n* `status`: This is the status code of the response, which is set to `HttpStatus.CREATED` in this case. This indicates that the user was successfully created.\n* `body`: This is the actual response data, which is a `CreateUserResponse` object. This class contains the details of the newly created user, including their ID, email, and other relevant information.",
+              "complex_type": true
+            },
+            "usage": {
+              "language": "java",
+              "code": "@Test\nvoid sign_up() throws Exception {\n    // Arrange\n    final CreateUserRequest request = new CreateUserRequest(\"johndoe\", \"john.doe@example.com\", \"password123\");\n    \n    // Act\n    mockMvc.perform(post(\"/users\")\n            .contentType(MediaType.APPLICATION_JSON)\n            .content(objectMapper.writeValueAsString(request)))\n            .andExpect(status().isCreated());\n}\n",
+              "description": "\nNote that the `mockMvc` and `objectMapper` variables are already configured in the `@BeforeEach` method. The `post()` method is used to create a new user using the `/users` endpoint, with the correct media type (`MediaType.APPLICATION_JSON`) and request body (the `CreateUserRequest` object serialized as JSON).\n\nThe `.andExpect(status().isCreated())` line of code specifies that the status code returned by the server should be 201 Created, which is the expected outcome for a successful user creation."
+            },
+            "name": "signUp",
+            "location": {
+              "start": 117,
+              "insert": 73,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 72,
+                "end": 116
+              }
+            },
+            "item_type": "method",
+            "length": 12,
+            "docLength": 44
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "UserApiMapper.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/controllers/models/mapper/UserApiMapper.java",
+    "content": {
+      "structured": {
+        "description": "An interface called `UserApiMapper` that provides a mapping between objects of the `UserDto` and `CreateUserRequest` types to corresponding objects in the `CreateUserResponse` type using Mapstruct's automatic conversion capabilities. The interface includes four methods: `userDtoToCreateUserRequest`, `createUserRequestToUserDto`, `userDtoToCreateUserResponse`, and `createUserResponseToUserDto`. These methods map between the various types, allowing for seamless communication between different parts of the application.",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.controllers.models.mapper.UserApiMapper\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"controllers\"\n        color=\"#33363A\"\n        subgraph cluster_1 {\n            label=\"models\"\n            color=\"#33363A\"\n            subgraph cluster_2 {\n                label=\"response\"\n                color=\"#33363A\"\n                CreateUserResponse\n            }\n            subgraph cluster_3 {\n                label=\"request\"\n                color=\"#33363A\"\n                CreateUserRequest\n            }\n            subgraph cluster_4 {\n                label=\"mapper\"\n                color=\"#33363A\"\n                subgraph cluster_main {\n                    // style=filled;\n                    color=\"#00000000\"; \n                    UserApiMapper [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n                    label = \"\"\n                }\n            }\n        }\n    }\n    subgraph cluster_5 {\n        label=\"dto\"\n        color=\"#33363A\"\n        UserDto\n    }\n    UserApiMapper -> CreateUserRequest \n    UserApiMapper -> CreateUserResponse \n    UserDto -> UserApiMapper \n    CreateUserRequest -> UserApiMapper \n    CreateUserResponse -> UserApiMapper \n}\n",
+        "items": [
+          {
+            "id": "e791aef6-be59-e5ba-8c4c-2b4cce471145",
+            "ancestors": [],
+            "type": "function",
+            "description": "provides a mapping between objects of the UserDto and CreateUserRequest types to corresponding objects in the CreateUserResponse type using Mapstruct's automatic conversion capabilities.",
+            "name": "UserApiMapper",
+            "location": {
+              "start": 29,
+              "insert": 24,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 23,
+                "end": 28
+              }
+            },
+            "item_type": "interface",
+            "length": 10,
+            "docLength": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "CreateUserRequest.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/controllers/models/request/CreateUserRequest.java",
+    "content": {
+      "structured": {
+        "description": "A class called `CreateUserRequest` that serves as a model for creating a new user. The class has three fields: `name`, `email`, and `password`. The fields are validated using Java validation constraints, such as `@NotBlank`, `@Email`, and `@Size`, to ensure proper input. Additionally, the class uses Lombok's `@AllArgsConstructor` and `@NoArgsConstructor` annotations to automatically generate constructors and getters/setters for the class.",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.controllers.models.request.CreateUserRequest\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"dto\"\n        color=\"#33363A\"\n        UserDto\n    }\n    subgraph cluster_1 {\n        label=\"controllers\"\n        color=\"#33363A\"\n        UserController\n        subgraph cluster_2 {\n            label=\"models\"\n            color=\"#33363A\"\n            subgraph cluster_3 {\n                label=\"request\"\n                color=\"#33363A\"\n                subgraph cluster_main {\n                    // style=filled;\n                    color=\"#00000000\"; \n                    CreateUserRequest [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n                    label = \"\"\n                }\n            }\n            subgraph cluster_4 {\n                label=\"mapper\"\n                color=\"#33363A\"\n                UserApiMapper\n            }\n            subgraph cluster_5 {\n                label=\"response\"\n                color=\"#33363A\"\n                CreateUserResponse\n            }\n        }\n    }\n    CreateUserRequest -> CreateUserResponse [style=\"dashed\"]\n    CreateUserRequest -> UserController \n    UserApiMapper -> CreateUserRequest \n    UserDto -> CreateUserRequest [style=\"dashed\"]\n    CreateUserRequest -> UserApiMapper \n    CreateUserRequest -> UserDto [style=\"dashed\"]\n}\n",
+        "items": [
+          {
+            "id": "91bb6033-3f26-4db0-7547-8d8f9f50bd37",
+            "ancestors": [],
+            "type": "function",
+            "description": "is a model class for creating a new user with required fields and validation constraints to ensure proper input.\nFields:\n\t- name (String): in the CreateUserRequest model requires a non-empty string value.\n\t- email (String): in the `CreateUserRequest` model requires a valid email address.\n\t- password (String): in the `CreateUserRequest` model has a minimum length requirement of 8 characters and a maximum length requirement of 80 characters, with an error message provided if the input does not match these constraints.\n\n",
+            "fields": [
+              {
+                "name": "name",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "CreateUserRequest",
+                "description": "in the CreateUserRequest model requires a non-empty string value."
+              },
+              {
+                "name": "email",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "CreateUserRequest",
+                "description": "in the `CreateUserRequest` model requires a valid email address."
+              },
+              {
+                "name": "password",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "CreateUserRequest",
+                "description": "in the `CreateUserRequest` model has a minimum length requirement of 8 characters and a maximum length requirement of 80 characters, with an error message provided if the input does not match these constraints."
+              }
+            ],
+            "name": "CreateUserRequest",
+            "location": {
+              "start": 37,
+              "insert": 27,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 26,
+                "end": 36
+              }
+            },
+            "item_type": "class",
+            "length": 13,
+            "docLength": 10
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "LoginUserRequest.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/controllers/models/request/LoginUserRequest.java",
+    "content": {
+      "structured": {
+        "description": "A `LoginUserRequest` model class for representing login credentials of a user attempting to log in to a service. The class has two fields: `email` and `password`, which store the email address and password respectively. The `AllArgsConstructor`, `NoArgsConstructor`, `@Getter`, and `@Setter` annotations indicate that the class should be constructed with all required arguments, without any default values, and should provide getters and setters for its fields.",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.controllers.models.request.LoginUserRequest\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n}\n",
+        "items": [
+          {
+            "id": "14c0a548-2814-1aba-924b-e55f07a52ab6",
+            "ancestors": [],
+            "type": "function",
+            "description": "is a request model for logging into a service with email and password parameters.\nFields:\n\t- email (String): in the LoginUserRequest model represents an email address of a user attempting to log in to the service.\n\t- password (String): in the `LoginUserRequest` class stores a string value representing a user's login credentials.\n\n",
+            "fields": [
+              {
+                "name": "email",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "LoginUserRequest",
+                "description": "in the LoginUserRequest model represents an email address of a user attempting to log in to the service."
+              },
+              {
+                "name": "password",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "LoginUserRequest",
+                "description": "in the `LoginUserRequest` class stores a string value representing a user's login credentials."
+              }
+            ],
+            "name": "LoginUserRequest",
+            "location": {
+              "start": 32,
+              "insert": 24,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 23,
+                "end": 31
+              }
+            },
+            "item_type": "class",
+            "length": 8,
+            "docLength": 8
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "CreateUserResponse.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/controllers/models/response/CreateUserResponse.java",
+    "content": {
+      "structured": {
+        "description": "A `CreateUserResponse` model class that represents a response to a user creation request. The class has three fields: `userId`, `name`, and `email`. These fields are automatically generated using the `@AllArgsConstructor` and `@NoArgsConstructor` annotations from Lombok, which simplify the construction of objects. The `Getter` and `Setter` annotations indicate that these fields can be accessed and modified through getters and setters methods, respectively.",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.controllers.models.response.CreateUserResponse\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"controllers\"\n        color=\"#33363A\"\n        UserController\n        subgraph cluster_1 {\n            label=\"models\"\n            color=\"#33363A\"\n            subgraph cluster_2 {\n                label=\"response\"\n                color=\"#33363A\"\n                subgraph cluster_main {\n                    // style=filled;\n                    color=\"#00000000\"; \n                    CreateUserResponse [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n                    label = \"\"\n                }\n            }\n            subgraph cluster_3 {\n                label=\"mapper\"\n                color=\"#33363A\"\n                UserApiMapper\n            }\n            subgraph cluster_4 {\n                label=\"request\"\n                color=\"#33363A\"\n                CreateUserRequest\n            }\n        }\n    }\n    subgraph cluster_5 {\n        label=\"dto\"\n        color=\"#33363A\"\n        UserDto\n    }\n    CreateUserRequest -> CreateUserResponse [style=\"dashed\"]\n    UserDto -> CreateUserResponse [style=\"dashed\"]\n    UserApiMapper -> CreateUserResponse \n    CreateUserResponse -> UserApiMapper \n    UserController -> CreateUserResponse \n    CreateUserResponse -> UserDto [style=\"dashed\"]\n}\n",
+        "items": [
+          {
+            "id": "906889e8-2887-8a95-dd47-fa3ffc4643c0",
+            "ancestors": [],
+            "type": "function",
+            "description": "represents a response model for creating a user request in Java, containing unique identifier, name, and email details.\nFields:\n\t- userId (String): in the CreateUserResponse model represents a unique identifier for a created user.\n\t- name (String): represents a string value containing the user's name.\n\t- email (String): in the CreateUserResponse model represents a string value containing an email address.\n\n",
+            "fields": [
+              {
+                "name": "userId",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "CreateUserResponse",
+                "description": "in the CreateUserResponse model represents a unique identifier for a created user."
+              },
+              {
+                "name": "name",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "CreateUserResponse",
+                "description": "represents a string value containing the user's name."
+              },
+              {
+                "name": "email",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "CreateUserResponse",
+                "description": "in the CreateUserResponse model represents a string value containing an email address."
+              }
+            ],
+            "name": "CreateUserResponse",
+            "location": {
+              "start": 35,
+              "insert": 25,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 24,
+                "end": 34
+              }
+            },
+            "item_type": "class",
+            "length": 9,
+            "docLength": 10
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "BaseEntity.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/domain/BaseEntity.java",
+    "content": {
+      "structured": {
+        "description": "A base class called `BaseEntity` that provides an automatically generated unique identifier for each instance through its `@Id` field annotated with `@GeneratedValue(strategy = GenerationType.IDENTITY)`. The class also implements `Serializable` and uses Lombok annotations for constructor injection.",
+        "image": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<!-- Generated by graphviz version 2.43.0 (0)\n -->\n<!-- Title: com.prathab.userservice.domain.BaseEntity Pages: 1 -->\n<svg width=\"211pt\" height=\"148pt\"\n viewBox=\"0.00 0.00 211.00 148.00\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n<g id=\"graph0\" class=\"graph\" transform=\"scale(1 1) rotate(0) translate(4 144)\">\n<title>com.prathab.userservice.domain.BaseEntity</title>\n<!-- Node1 -->\n<g id=\"Node000001\" class=\"node\">\n<title>Node1</title>\n<g id=\"a_Node000001\"><a xlink:title=\" \">\n<polygon fill=\"#999999\" stroke=\"#666666\" points=\"191.5,-85 11.5,-85 11.5,-55 191.5,-55 191.5,-85\"/>\n<text text-anchor=\"start\" x=\"19.5\" y=\"-73\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">com.prathab.userservice.domain.</text>\n<text text-anchor=\"middle\" x=\"101.5\" y=\"-62\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">BaseEntity</text>\n</a>\n</g>\n</g>\n<!-- Node3 -->\n<g id=\"Node000003\" class=\"node\">\n<title>Node3</title>\n<g id=\"a_Node000003\"><a xlink:href=\"classcom_1_1prathab_1_1userservice_1_1domain_1_1User.html\" target=\"_top\" xlink:title=\" \">\n<polygon fill=\"white\" stroke=\"#666666\" points=\"203,-19 0,-19 0,0 203,0 203,-19\"/>\n<text text-anchor=\"middle\" x=\"101.5\" y=\"-7\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">com.prathab.userservice.domain.User</text>\n</a>\n</g>\n</g>\n<!-- Node1&#45;&gt;Node3 -->\n<g id=\"edge2_Node000001_Node000003\" class=\"edge\">\n<title>Node1&#45;&gt;Node3</title>\n<g id=\"a_edge2_Node000001_Node000003\"><a xlink:title=\" \">\n<path fill=\"none\" stroke=\"#63b8ff\" d=\"M101.5,-44.75C101.5,-35.72 101.5,-26.03 101.5,-19.27\"/>\n<polygon fill=\"#63b8ff\" stroke=\"#63b8ff\" points=\"98,-44.84 101.5,-54.84 105,-44.84 98,-44.84\"/>\n</a>\n</g>\n</g>\n<!-- Node2 -->\n<g id=\"Node000002\" class=\"node\">\n<title>Node2</title>\n<g id=\"a_Node000002\"><a xlink:title=\" \">\n<polygon fill=\"white\" stroke=\"#666666\" points=\"138.5,-140 64.5,-140 64.5,-121 138.5,-121 138.5,-140\"/>\n<text text-anchor=\"middle\" x=\"101.5\" y=\"-128\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">Serializable</text>\n</a>\n</g>\n</g>\n<!-- Node2&#45;&gt;Node1 -->\n<g id=\"edge1_Node000001_Node000002\" class=\"edge\">\n<title>Node2&#45;&gt;Node1</title>\n<g id=\"a_edge1_Node000001_Node000002\"><a xlink:title=\" \">\n<path fill=\"none\" stroke=\"#63b8ff\" d=\"M101.5,-110.65C101.5,-102.36 101.5,-92.78 101.5,-85.11\"/>\n<polygon fill=\"#63b8ff\" stroke=\"#63b8ff\" points=\"98,-110.87 101.5,-120.87 105,-110.87 98,-110.87\"/>\n</a>\n</g>\n</g>\n</g>\n</svg>\n",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.domain.BaseEntity\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n}\n",
+        "items": [
+          {
+            "id": "61d286e1-b69e-c083-7f40-32b158787fcc",
+            "ancestors": [],
+            "type": "function",
+            "description": "acts as a base class for all JPA Entities and provides an automatically generated unique identifier using the Identity strategy.\nFields:\n\t- id (Long): in the BaseEntity class represents an automatically generated unique identifier for each instance of the class.\n\n",
+            "fields": [
+              {
+                "name": "id",
+                "type_name": "Long",
+                "value": null,
+                "constant": false,
+                "class_name": "BaseEntity",
+                "description": "in the BaseEntity class represents an automatically generated unique identifier for each instance of the class."
+              }
+            ],
+            "name": "BaseEntity",
+            "location": {
+              "start": 36,
+              "insert": 29,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 28,
+                "end": 35
+              }
+            },
+            "item_type": "class",
+            "length": 10,
+            "docLength": 7
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "User.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/domain/User.java",
+    "content": {
+      "structured": {
+        "description": "A `User` entity class that represents a valid user in a service. It includes fields for name, user ID, email, and encrypted password. The `User` class extends the `BaseEntity` class, which provides additional functionality through the use of lombok annotations. The code also uses the `@Entity` annotation to indicate that the `User` class is a valid entity in the service.",
+        "image": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<!-- Generated by graphviz version 2.43.0 (0)\n -->\n<!-- Title: com.prathab.userservice.domain.BaseEntity Pages: 1 -->\n<svg width=\"211pt\" height=\"148pt\"\n viewBox=\"0.00 0.00 211.00 148.00\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n<g id=\"graph0\" class=\"graph\" transform=\"scale(1 1) rotate(0) translate(4 144)\">\n<title>com.prathab.userservice.domain.BaseEntity</title>\n<!-- Node1 -->\n<g id=\"Node000001\" class=\"node\">\n<title>Node1</title>\n<g id=\"a_Node000001\"><a xlink:title=\" \">\n<polygon fill=\"#999999\" stroke=\"#666666\" points=\"191.5,-85 11.5,-85 11.5,-55 191.5,-55 191.5,-85\"/>\n<text text-anchor=\"start\" x=\"19.5\" y=\"-73\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">com.prathab.userservice.domain.</text>\n<text text-anchor=\"middle\" x=\"101.5\" y=\"-62\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">BaseEntity</text>\n</a>\n</g>\n</g>\n<!-- Node3 -->\n<g id=\"Node000003\" class=\"node\">\n<title>Node3</title>\n<g id=\"a_Node000003\"><a xlink:href=\"classcom_1_1prathab_1_1userservice_1_1domain_1_1User.html\" target=\"_top\" xlink:title=\" \">\n<polygon fill=\"white\" stroke=\"#666666\" points=\"203,-19 0,-19 0,0 203,0 203,-19\"/>\n<text text-anchor=\"middle\" x=\"101.5\" y=\"-7\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">com.prathab.userservice.domain.User</text>\n</a>\n</g>\n</g>\n<!-- Node1&#45;&gt;Node3 -->\n<g id=\"edge2_Node000001_Node000003\" class=\"edge\">\n<title>Node1&#45;&gt;Node3</title>\n<g id=\"a_edge2_Node000001_Node000003\"><a xlink:title=\" \">\n<path fill=\"none\" stroke=\"#63b8ff\" d=\"M101.5,-44.75C101.5,-35.72 101.5,-26.03 101.5,-19.27\"/>\n<polygon fill=\"#63b8ff\" stroke=\"#63b8ff\" points=\"98,-44.84 101.5,-54.84 105,-44.84 98,-44.84\"/>\n</a>\n</g>\n</g>\n<!-- Node2 -->\n<g id=\"Node000002\" class=\"node\">\n<title>Node2</title>\n<g id=\"a_Node000002\"><a xlink:title=\" \">\n<polygon fill=\"white\" stroke=\"#666666\" points=\"138.5,-140 64.5,-140 64.5,-121 138.5,-121 138.5,-140\"/>\n<text text-anchor=\"middle\" x=\"101.5\" y=\"-128\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">Serializable</text>\n</a>\n</g>\n</g>\n<!-- Node2&#45;&gt;Node1 -->\n<g id=\"edge1_Node000001_Node000002\" class=\"edge\">\n<title>Node2&#45;&gt;Node1</title>\n<g id=\"a_edge1_Node000001_Node000002\"><a xlink:title=\" \">\n<path fill=\"none\" stroke=\"#63b8ff\" d=\"M101.5,-110.65C101.5,-102.36 101.5,-92.78 101.5,-85.11\"/>\n<polygon fill=\"#63b8ff\" stroke=\"#63b8ff\" points=\"98,-110.87 101.5,-120.87 105,-110.87 98,-110.87\"/>\n</a>\n</g>\n</g>\n</g>\n</svg>\n",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.domain.User\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"dto\"\n        color=\"#33363A\"\n        UserDto\n        subgraph cluster_1 {\n            label=\"mapper\"\n            color=\"#33363A\"\n            UserMapper\n        }\n    }\n    subgraph cluster_2 {\n        label=\"domain\"\n        color=\"#33363A\"\n        subgraph cluster_main {\n            // style=filled;\n            color=\"#00000000\"; \n            User [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n            label = \"\"\n        }\n    }\n    subgraph cluster_3 {\n        label=\"repositories\"\n        color=\"#33363A\"\n        UserRepository\n    }\n    User -> UserDto [style=\"dashed\"]\n    User -> UserMapper \n    UserDto -> User [style=\"dashed\"]\n    UserMapper -> User \n    UserRepository -> User \n}\n",
+        "items": [
+          {
+            "id": "4f0a3ee2-713e-0f87-9b49-e3f08ef1fdbb",
+            "ancestors": [],
+            "type": "function",
+            "description": "represents a valid user in the service with fields for name, user ID, email, and encrypted password.\nFields:\n\t- name (String): represents a user's personal name.\n\t- userId (String): represents a unique identifier for each valid user in the service.\n\t- email (String): in the User class represents a unique and non-nullable string value used to identify a user's email address within the service.\n\t- encryptedPassword (String): represents an encrypted password for security purposes.\n\n",
+            "fields": [
+              {
+                "name": "name",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "User",
+                "description": "represents a user's personal name."
+              },
+              {
+                "name": "userId",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "User",
+                "description": "represents a unique identifier for each valid user in the service."
+              },
+              {
+                "name": "email",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "User",
+                "description": "in the User class represents a unique and non-nullable string value used to identify a user's email address within the service."
+              },
+              {
+                "name": "encryptedPassword",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "User",
+                "description": "represents an encrypted password for security purposes."
+              }
+            ],
+            "name": "User",
+            "location": {
+              "start": 39,
+              "insert": 26,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 25,
+                "end": 38
+              }
+            },
+            "item_type": "class",
+            "length": 14,
+            "docLength": 13
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "UserDto.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/dto/UserDto.java",
+    "content": {
+      "structured": {
+        "description": "A data transfer object (DTO) named UserDto, which has fields for user ID, name, email, password, and an encrypted version of the password. The fields are annotated with Lombok annotations @AllArgsConstructor, @Getter, @NoArgsConstructor, and @Setter, indicating that they should be automatically generated by Lombok based on the corresponding getters and setters.",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.dto.UserDto\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"controllers\"\n        color=\"#33363A\"\n        subgraph cluster_1 {\n            label=\"models\"\n            color=\"#33363A\"\n            subgraph cluster_2 {\n                label=\"mapper\"\n                color=\"#33363A\"\n                UserApiMapper\n            }\n            subgraph cluster_3 {\n                label=\"response\"\n                color=\"#33363A\"\n                CreateUserResponse\n            }\n            subgraph cluster_4 {\n                label=\"request\"\n                color=\"#33363A\"\n                CreateUserRequest\n            }\n        }\n    }\n    subgraph cluster_5 {\n        label=\"services\"\n        color=\"#33363A\"\n        UserService\n        subgraph cluster_6 {\n            label=\"springdatajpa\"\n            color=\"#33363A\"\n            UserSDJpaService\n        }\n    }\n    subgraph cluster_7 {\n        label=\"dto\"\n        color=\"#33363A\"\n        subgraph cluster_main {\n            // style=filled;\n            color=\"#00000000\"; \n            UserDto [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n            label = \"\"\n        }\n        subgraph cluster_8 {\n            label=\"mapper\"\n            color=\"#33363A\"\n            UserMapper\n        }\n    }\n    subgraph cluster_9 {\n        label=\"domain\"\n        color=\"#33363A\"\n        User\n    }\n    subgraph cluster_10 {\n        label=\"security\"\n        color=\"#33363A\"\n        AppUserDetailsService\n    }\n    UserDto -> UserSDJpaService \n    UserService -> UserDto \n    CreateUserRequest -> UserDto [style=\"dashed\"]\n    UserSDJpaService -> UserDto \n    UserDto -> UserService \n    CreateUserResponse -> UserDto [style=\"dashed\"]\n    AppUserDetailsService -> UserDto \n    UserDto -> UserMapper \n    UserDto -> UserApiMapper \n    User -> UserDto [style=\"dashed\"]\n    UserDto -> CreateUserRequest [style=\"dashed\"]\n    UserDto -> UserDto [style=\"dashed\"]\n    UserDto -> CreateUserResponse [style=\"dashed\"]\n    UserDto -> User [style=\"dashed\"]\n}\n",
+        "items": [
+          {
+            "id": "42ed7cbd-753a-ea83-8d4c-b777d79924e9",
+            "ancestors": [],
+            "type": "function",
+            "description": "has a simple data structure with five attributes: id, userId, name, email, and password, along with two encrypted passwords.\nFields:\n\t- id (Long): represents a unique identifier for each user in the system.\n\t- userId (String): represents a unique identifier for a user in the system.\n\t- name (String): in the UserDto class represents a string value for a user's name.\n\t- email (String): in the UserDto class stores a string value representing an email address of a user.\n\t- password (String): in the UserDto class stores a string value representing a user's password.\n\t- encryptedPassword (String): stores an encrypted version of the password field in the UserDto class.\n\n",
+            "fields": [
+              {
+                "name": "id",
+                "type_name": "Long",
+                "value": null,
+                "constant": false,
+                "class_name": "UserDto",
+                "description": "represents a unique identifier for each user in the system."
+              },
+              {
+                "name": "userId",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "UserDto",
+                "description": "represents a unique identifier for a user in the system."
+              },
+              {
+                "name": "name",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "UserDto",
+                "description": "in the UserDto class represents a string value for a user's name."
+              },
+              {
+                "name": "email",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "UserDto",
+                "description": "in the UserDto class stores a string value representing an email address of a user."
+              },
+              {
+                "name": "password",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "UserDto",
+                "description": "in the UserDto class stores a string value representing a user's password."
+              },
+              {
+                "name": "encryptedPassword",
+                "type_name": "String",
+                "value": null,
+                "constant": false,
+                "class_name": "UserDto",
+                "description": "stores an encrypted version of the password field in the UserDto class."
+              }
+            ],
+            "name": "UserDto",
+            "location": {
+              "start": 38,
+              "insert": 24,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 23,
+                "end": 37
+              }
+            },
+            "item_type": "class",
+            "length": 12,
+            "docLength": 14
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "UserMapper.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/dto/mapper/UserMapper.java",
+    "content": {
+      "structured": {
+        "description": "An interface called `UserMapper` that provides conversion between `Domain Entity` and `DTO` objects using the `MapStruct` package. The interface contains two methods: `userDtoToUser()` converts a `UserDto` object to a `User` object, while `userToUserDto()` converts a `User` object to a `UserDto` object.",
+        "image": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<!-- Generated by graphviz version 2.43.0 (0)\n -->\n<!-- Title: com.prathab.userservice.domain.User Pages: 1 -->\n<svg width=\"211pt\" height=\"148pt\"\n viewBox=\"0.00 0.00 211.00 148.00\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n<g id=\"graph0\" class=\"graph\" transform=\"scale(1 1) rotate(0) translate(4 144)\">\n<title>com.prathab.userservice.domain.User</title>\n<!-- Node1 -->\n<g id=\"Node000001\" class=\"node\">\n<title>Node1</title>\n<g id=\"a_Node000001\"><a xlink:title=\" \">\n<polygon fill=\"#999999\" stroke=\"#666666\" points=\"203,-19 0,-19 0,0 203,0 203,-19\"/>\n<text text-anchor=\"middle\" x=\"101.5\" y=\"-7\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">com.prathab.userservice.domain.User</text>\n</a>\n</g>\n</g>\n<!-- Node2 -->\n<g id=\"Node000002\" class=\"node\">\n<title>Node2</title>\n<g id=\"a_Node000002\"><a xlink:href=\"classcom_1_1prathab_1_1userservice_1_1domain_1_1BaseEntity.html\" target=\"_top\" xlink:title=\" \">\n<polygon fill=\"white\" stroke=\"#666666\" points=\"191.5,-85 11.5,-85 11.5,-55 191.5,-55 191.5,-85\"/>\n<text text-anchor=\"start\" x=\"19.5\" y=\"-73\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">com.prathab.userservice.domain.</text>\n<text text-anchor=\"middle\" x=\"101.5\" y=\"-62\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">BaseEntity</text>\n</a>\n</g>\n</g>\n<!-- Node2&#45;&gt;Node1 -->\n<g id=\"edge1_Node000001_Node000002\" class=\"edge\">\n<title>Node2&#45;&gt;Node1</title>\n<g id=\"a_edge1_Node000001_Node000002\"><a xlink:title=\" \">\n<path fill=\"none\" stroke=\"#63b8ff\" d=\"M101.5,-44.75C101.5,-35.72 101.5,-26.03 101.5,-19.27\"/>\n<polygon fill=\"#63b8ff\" stroke=\"#63b8ff\" points=\"98,-44.84 101.5,-54.84 105,-44.84 98,-44.84\"/>\n</a>\n</g>\n</g>\n<!-- Node3 -->\n<g id=\"Node000003\" class=\"node\">\n<title>Node3</title>\n<g id=\"a_Node000003\"><a xlink:title=\" \">\n<polygon fill=\"white\" stroke=\"#666666\" points=\"138.5,-140 64.5,-140 64.5,-121 138.5,-121 138.5,-140\"/>\n<text text-anchor=\"middle\" x=\"101.5\" y=\"-128\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">Serializable</text>\n</a>\n</g>\n</g>\n<!-- Node3&#45;&gt;Node2 -->\n<g id=\"edge2_Node000002_Node000003\" class=\"edge\">\n<title>Node3&#45;&gt;Node2</title>\n<g id=\"a_edge2_Node000002_Node000003\"><a xlink:title=\" \">\n<path fill=\"none\" stroke=\"#63b8ff\" d=\"M101.5,-110.65C101.5,-102.36 101.5,-92.78 101.5,-85.11\"/>\n<polygon fill=\"#63b8ff\" stroke=\"#63b8ff\" points=\"98,-110.87 101.5,-120.87 105,-110.87 98,-110.87\"/>\n</a>\n</g>\n</g>\n</g>\n</svg>\n",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.dto.mapper.UserMapper\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"domain\"\n        color=\"#33363A\"\n        User\n    }\n    subgraph cluster_1 {\n        label=\"dto\"\n        color=\"#33363A\"\n        UserDto\n        subgraph cluster_2 {\n            label=\"mapper\"\n            color=\"#33363A\"\n            subgraph cluster_main {\n                // style=filled;\n                color=\"#00000000\"; \n                UserMapper [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n                label = \"\"\n            }\n        }\n    }\n    User -> UserMapper \n    UserMapper -> User \n    UserDto -> UserMapper \n}\n",
+        "items": [
+          {
+            "id": "13829d65-527d-9fb8-6a43-859a5450d5b5",
+            "ancestors": [],
+            "type": "function",
+            "description": "provides conversion between Domain Entity and DTO objects, mapping from UserDto to User and vice versa through two methods.",
+            "name": "UserMapper",
+            "location": {
+              "start": 26,
+              "insert": 23,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 22,
+                "end": 25
+              }
+            },
+            "item_type": "interface",
+            "length": 6,
+            "docLength": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "UserRepository.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/repositories/UserRepository.java",
+    "content": {
+      "structured": {
+        "description": "An interface `UserRepository` that extends `CrudRepository`, providing a way to interact with a database for storing and retrieving users' information through various methods such as `findByEmail()` for searching users based on their email address.",
+        "image": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<!-- Generated by graphviz version 2.43.0 (0)\n -->\n<!-- Title: com.prathab.userservice.domain.User Pages: 1 -->\n<svg width=\"211pt\" height=\"148pt\"\n viewBox=\"0.00 0.00 211.00 148.00\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n<g id=\"graph0\" class=\"graph\" transform=\"scale(1 1) rotate(0) translate(4 144)\">\n<title>com.prathab.userservice.domain.User</title>\n<!-- Node1 -->\n<g id=\"Node000001\" class=\"node\">\n<title>Node1</title>\n<g id=\"a_Node000001\"><a xlink:title=\" \">\n<polygon fill=\"#999999\" stroke=\"#666666\" points=\"203,-19 0,-19 0,0 203,0 203,-19\"/>\n<text text-anchor=\"middle\" x=\"101.5\" y=\"-7\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">com.prathab.userservice.domain.User</text>\n</a>\n</g>\n</g>\n<!-- Node2 -->\n<g id=\"Node000002\" class=\"node\">\n<title>Node2</title>\n<g id=\"a_Node000002\"><a xlink:href=\"classcom_1_1prathab_1_1userservice_1_1domain_1_1BaseEntity.html\" target=\"_top\" xlink:title=\" \">\n<polygon fill=\"white\" stroke=\"#666666\" points=\"191.5,-85 11.5,-85 11.5,-55 191.5,-55 191.5,-85\"/>\n<text text-anchor=\"start\" x=\"19.5\" y=\"-73\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">com.prathab.userservice.domain.</text>\n<text text-anchor=\"middle\" x=\"101.5\" y=\"-62\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">BaseEntity</text>\n</a>\n</g>\n</g>\n<!-- Node2&#45;&gt;Node1 -->\n<g id=\"edge1_Node000001_Node000002\" class=\"edge\">\n<title>Node2&#45;&gt;Node1</title>\n<g id=\"a_edge1_Node000001_Node000002\"><a xlink:title=\" \">\n<path fill=\"none\" stroke=\"#63b8ff\" d=\"M101.5,-44.75C101.5,-35.72 101.5,-26.03 101.5,-19.27\"/>\n<polygon fill=\"#63b8ff\" stroke=\"#63b8ff\" points=\"98,-44.84 101.5,-54.84 105,-44.84 98,-44.84\"/>\n</a>\n</g>\n</g>\n<!-- Node3 -->\n<g id=\"Node000003\" class=\"node\">\n<title>Node3</title>\n<g id=\"a_Node000003\"><a xlink:title=\" \">\n<polygon fill=\"white\" stroke=\"#666666\" points=\"138.5,-140 64.5,-140 64.5,-121 138.5,-121 138.5,-140\"/>\n<text text-anchor=\"middle\" x=\"101.5\" y=\"-128\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">Serializable</text>\n</a>\n</g>\n</g>\n<!-- Node3&#45;&gt;Node2 -->\n<g id=\"edge2_Node000002_Node000003\" class=\"edge\">\n<title>Node3&#45;&gt;Node2</title>\n<g id=\"a_edge2_Node000002_Node000003\"><a xlink:title=\" \">\n<path fill=\"none\" stroke=\"#63b8ff\" d=\"M101.5,-110.65C101.5,-102.36 101.5,-92.78 101.5,-85.11\"/>\n<polygon fill=\"#63b8ff\" stroke=\"#63b8ff\" points=\"98,-110.87 101.5,-120.87 105,-110.87 98,-110.87\"/>\n</a>\n</g>\n</g>\n</g>\n</svg>\n",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.repositories.UserRepository\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"repositories\"\n        color=\"#33363A\"\n        subgraph cluster_main {\n            // style=filled;\n            color=\"#00000000\"; \n            UserRepository [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n            label = \"\"\n        }\n    }\n    subgraph cluster_1 {\n        label=\"domain\"\n        color=\"#33363A\"\n        User\n    }\n    UserRepository -> User \n}\n",
+        "items": [
+          {
+            "id": "2114d269-ca9e-eaa3-c948-8cdd4374db3d",
+            "ancestors": [],
+            "type": "function",
+            "description": "provides a way to interact with a database for storing and retrieving users' information through methods like findByEmail() for searching users based on their email address.",
+            "name": "UserRepository",
+            "location": {
+              "start": 28,
+              "insert": 23,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 22,
+                "end": 27
+              }
+            },
+            "item_type": "interface",
+            "length": 4,
+            "docLength": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "AppUserDetailsService.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/security/AppUserDetailsService.java",
+    "content": {
+      "structured": {
+        "description": "An implementation of Spring Security's `UserDetailsService` interface, providing user details loading and retrieval functionality through a repository and mapper. The `AppUserDetailsService` class loads a user from the repository based on their username and returns a `UserDetails` object containing their email, encrypted password, and various flags. It also provides methods for retrieving a user's details from the repository and mapper using their email address as a reference.",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.security.AppUserDetailsService\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"dto\"\n        color=\"#33363A\"\n        UserDto\n    }\n    subgraph cluster_1 {\n        label=\"security\"\n        color=\"#33363A\"\n        subgraph cluster_main {\n            // style=filled;\n            color=\"#00000000\"; \n            AppUserDetailsService [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n            label = \"\"\n        }\n    }\n    AppUserDetailsService -> UserDto \n}\n",
+        "items": [
+          {
+            "id": "2657bca6-85d4-72be-ac42-3ead3ef6b070",
+            "ancestors": [],
+            "type": "function",
+            "description": "is an implementation of the `UserDetailsService` interface in Java. It provides methods for retrieving a user's details by their username from a repository and mapping them to a `UserDto` object using a mapper. The service also loads a user based on their username and returns a `UserDetails` object containing the user's email, encrypted password, and various flags indicating their account status.",
+            "name": "AppUserDetailsService",
+            "location": {
+              "start": 36,
+              "insert": 29,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 28,
+                "end": 35
+              }
+            },
+            "item_type": "class",
+            "length": 69,
+            "docLength": 7
+          },
+          {
+            "id": "805a97cf-a9e8-2983-844d-3c8baba5994d",
+            "ancestors": [
+              "2657bca6-85d4-72be-ac42-3ead3ef6b070"
+            ],
+            "type": "function",
+            "description": "loads a user by their username and returns a `UserDetails` object containing the user's email, encrypted password, and various flags indicating whether they are an administrator or not.",
+            "params": [
+              {
+                "name": "username",
+                "type_name": "String",
+                "description": "username for which the user details are to be loaded.",
+                "complex_type": false
+              }
+            ],
+            "returns": {
+              "type_name": "User",
+              "description": "a `UserDetails` object containing the user's email address, encrypted password, and other properties.\n\n* `email`: The email address of the user.\n* `encryptedPassword`: The encrypted password for the user.\n* `isEnabled`: A boolean indicating whether the user is enabled or not.\n* `isAdmin`: A boolean indicating whether the user is an administrator or not.\n* `isAccountNonExpired`: A boolean indicating whether the user's account is non-expired.\n* `isAccountNonLocked`: A boolean indicating whether the user's account is non-locked.\n* `Collections.emptyList()`: An empty list of extra attributes associated with the user.",
+              "complex_type": true
+            },
+            "usage": {
+              "language": "java",
+              "code": "@Override public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {\n  return appUserDetailsService.loadUserByUsername(username);\n}\n",
+              "description": "\nIn this example, the userRepository is called to find a user by their email address (as given by the String argument 'username') and then the returned value from that is used as an argument in the loadUserByUsername method."
+            },
+            "name": "loadUserByUsername",
+            "location": {
+              "start": 65,
+              "insert": 47,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 46,
+                "end": 64
+              }
+            },
+            "item_type": "method",
+            "length": 16,
+            "docLength": 18
+          },
+          {
+            "id": "51d4ef14-ad0c-faaa-8144-2e9afb55c6e9",
+            "ancestors": [
+              "2657bca6-85d4-72be-ac42-3ead3ef6b070"
+            ],
+            "type": "function",
+            "description": "retrieves a user's details from the repository and maps them to a `UserDto` object using a mapper.",
+            "params": [
+              {
+                "name": "username",
+                "type_name": "String",
+                "description": "username for which the user details are to be retrieved.",
+                "complex_type": false
+              }
+            ],
+            "returns": {
+              "type_name": "UserDto",
+              "description": "a `UserDto` object containing the details of the user with the specified username.\n\n* The function returns a `UserDto` object representing the user details.\n* The `user` variable is retrieved from the `userRepository` using the `findByEmail` method. If the user is not found, a `UsernameNotFoundException` is thrown.\n* The `userMapper` is used to convert the `User` object to a `UserDto` object.",
+              "complex_type": true
+            },
+            "usage": {
+              "language": "java",
+              "code": "public class AppUserDetailsService {\n  private final UserRepository userRepository;\n  private final UserMapper userMapper;\n\n  public AppUserDetailsService(UserRepository userRepository, UserMapper userMapper) {\n    this.userRepository = userRepository;\n    this.userMapper = userMapper;\n  }\n\n  public UserDto getUserDetailsByUsername(String username) {\n    var user = userRepository.findByEmail(username);\n    if (user == null) {\n      throw new UsernameNotFoundException(username);\n    }\n    return userMapper.userToUserDto(user);\n  }\n}\n",
+              "description": ""
+            },
+            "name": "getUserDetailsByUsername",
+            "location": {
+              "start": 97,
+              "insert": 82,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 81,
+                "end": 96
+              }
+            },
+            "item_type": "method",
+            "length": 7,
+            "docLength": 15
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "AuthenticationFilter.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/security/AuthenticationFilter.java",
+    "content": {
+      "structured": {
+        "description": "A filter in the spring framework for authenticating users. It uses the Spring Security module to handle authentication and generates a JSON Web Token (JWT) upon successful authentication. The token includes the user ID and expiration time set by an environment variable. The filter chain is processed, and the generated token is added to the HTTP response headers as well as the user ID.",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.security.AuthenticationFilter\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    WebSecurity\n    subgraph cluster_main {\n        // style=filled;\n        color=\"#00000000\"; \n        AuthenticationFilter [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n        label = \"\"\n    }\n    WebSecurity -> AuthenticationFilter \n}\n",
+        "items": [
+          {
+            "id": "67cda459-fa87-ebb9-bf41-b76f58a3d9f4",
+            "ancestors": [],
+            "type": "function",
+            "description": "is a Java filter that processes incoming HTTP requests and performs authentication tasks. It takes in a request object, response object, chain of filters, and an authentication result, and generates a token using the Jwts class based on the authenticated principal's username. The token and user ID are then added to the response headers.",
+            "name": "AuthenticationFilter",
+            "location": {
+              "start": 47,
+              "insert": 38,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 37,
+                "end": 46
+              }
+            },
+            "item_type": "class",
+            "length": 164,
+            "docLength": 9
+          },
+          {
+            "id": "2bab40a7-7fc6-3793-4d41-4e775e8e940f",
+            "ancestors": [
+              "67cda459-fa87-ebb9-bf41-b76f58a3d9f4"
+            ],
+            "type": "function",
+            "description": "authenticates a user using an email and password, using the provided `getAuthenticationManager()` instance.",
+            "params": [
+              {
+                "name": "request",
+                "type_name": "HttpServletRequest",
+                "description": "HTTP request received by the server and contains information about the user's login attempt, including the user's email and password.\n\n* `getInputStream()` - This method returns the input stream of the HTTP request.\n* `getEmail()` - This method retrieves the email address of the user from the login request.\n* `getPassword()` - This method retrieves the password of the user from the login request.\n* `getAuthenticationManager()` - This method provides an instance of the authentication manager, which is responsible for authenticating users.\n\nThe function then attempts to authenticate the user using the `authenticate()` method of the authentication manager, passing in a `UsernamePasswordAuthenticationToken` object containing the email and password of the user.",
+                "complex_type": true
+              },
+              {
+                "name": "response",
+                "type_name": "HttpServletResponse",
+                "description": "response object, which is used to send the authentication result back to the client.\n\n* `getInputStream()`: Returns the input stream of the HTTP request.\n* `getAuthenticationManager()`: Returns an instance of the authentication manager class, which is responsible for authenticating the user.\n* `authenticate()`: Performs authentication using the provided username and password.",
+                "complex_type": true
+              }
+            ],
+            "returns": {
+              "type_name": "AuthenticationException",
+              "description": "an AuthenticationManager that authenticates a user based on their email and password.\n\n* `getEmail()` - Returns the email address of the user being authenticated.\n* `getPassword()` - Returns the password of the user being authenticated.\n* `getAuthenticationManager()` - The authentication manager used to perform the authentication.\n* `authenticate()` - The method called on the authentication manager to perform the authentication. It takes a `UsernamePasswordAuthenticationToken` object as its parameter, which contains the user's email and password.",
+              "complex_type": true
+            },
+            "usage": {
+              "language": "java",
+              "code": "@Override\npublic Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {\n    try {\n        var loginUserRequest = objectMapper.readValue(request.getInputStream(), LoginUserRequest.class);\n        return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(loginUserRequest.getEmail(), loginUserRequest.getPassword(), Collections.emptyList()));\n    } catch (IOException e) {\n        throw new RuntimeException(e);\n    }\n}\n",
+              "description": "\nIn this example, the attemptAuthentication method is overridden to read the user's email and password from an input stream of the HttpServletRequest object. The UsernamePasswordAuthenticationToken class is used to create a token using the user's credentials. The getAuthenticationManager() method is then called to authenticate the token, which checks if the user's credentials are valid or not. If the authentication is successful, it returns an instance of Authentication containing the user's principal and other details.\n\nThis method is used by Spring Security to verify a user's credentials when they submit them to the application during the login process. It ensures that the user's input is properly sanitized and validated before the authentication attempt is made, which helps prevent unauthorized access to the application."
+            },
+            "name": "attemptAuthentication",
+            "location": {
+              "start": 97,
+              "insert": 61,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 60,
+                "end": 96
+              }
+            },
+            "item_type": "method",
+            "length": 13,
+            "docLength": 36
+          },
+          {
+            "id": "bcac554c-b706-e5a6-e449-267f3f8ed210",
+            "ancestors": [
+              "67cda459-fa87-ebb9-bf41-b76f58a3d9f4"
+            ],
+            "type": "function",
+            "description": "authenticates a user and generates a JWT token with the user's ID and expiration time, which is then added to the HTTP response headers as a security measure.",
+            "params": [
+              {
+                "name": "request",
+                "type_name": "HttpServletRequest",
+                "description": "HTTP request that triggered the authentication process and contains information about the user's authentication attempt.\n\n* `HttpServletRequest request`: This object represents an HTTP request, which contains information about the client's request, such as the URL, method, headers, and parameters.\n* `HttpServletResponse response`: This object represents the HTTP response, which is generated by the server in response to the client's request. It contains information about the status of the response, such as the status code, headers, and body.\n* `FilterChain chain`: This object represents a chain of filters that are applied to the incoming request before it reaches the authentication filter. Each filter in the chain can modify the request in some way, such as adding security headers or performing authentication checks.\n* `Authentication authResult`: This object represents the result of the authentication process. It contains information about the user who was authenticated, such as their username and principal attributes.",
+                "complex_type": true
+              },
+              {
+                "name": "response",
+                "type_name": "HttpServletResponse",
+                "description": "response object, to which additional headers containing the authentication token and user ID are added.\n\n* `HttpServletRequest request`: Represents an HTTP request object containing information about the incoming request.\n* `HttpServletResponse response`: Represents an HTTP response object used to send a response back to the client.\n* `FilterChain chain`: Represents a filter chain, which is a set of filters that can be applied to a single request.\n* `Authentication authResult`: Represents an authentication result object containing information about the authentication process.\n\nThe function then proceeds to extract information from the authentication result object and create a JWT token. The properties of the token are explained below:\n\n* `var username`: Represents the username of the authenticated user.\n* `var userDto`: Represents a user details object containing information about the user.\n* `var token`: Represents the generated JWT token.\n* `setSubject(userDto.getUserId())`: Sets the subject of the token to the user ID of the authenticated user.\n* `setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(environment.getProperty(\"token.expiration_time\"))))`: Sets the expiration time of the token based on the property `token.expiration_time`.\n* `signWith(SignatureAlgorithm.HS512, environment.getProperty(\"token.secret\"))`: Signs the token using the HS512 signature algorithm and the secret provided by the `environment.getProperty()` method.\n* `compact()`: Compresses the token into a string.\n* `response.addHeader(\"token\", token)`: Adds the generated token to the response headers.\n* `response.addHeader(\"userId\", userDto.getUserId())`: Adds the user ID of the authenticated user to the response headers.",
+                "complex_type": true
+              },
+              {
+                "name": "chain",
+                "type_name": "FilterChain",
+                "description": "chain of filters that the authentication request is passing through, and it allows the function to access and modify the filter chain as needed.\n\n* `HttpServletRequest request`: The incoming HTTP request that triggered this filter chain execution.\n* `HttpServletResponse response`: The outgoing HTTP response generated by the filter chain execution.\n* `FilterChain chain`: The filter chain that was executed, which may include multiple filters in a pipeline.\n* `Authentication authResult`: The result of the authentication process, including the authenticated user and any additional information.",
+                "complex_type": true
+              },
+              {
+                "name": "authResult",
+                "type_name": "Authentication",
+                "description": "result of an authentication attempt, providing the authenticated user's details as a principal object.\n\n* `HttpServletRequest request`: The HTTP request that triggered the authentication filter.\n* `HttpServletResponse response`: The HTTP response to be generated by the filter.\n* `FilterChain chain`: The chain of filters that led to the authentication filter being called.\n* `Authentication authResult`: The result of the authentication process, containing the authenticated principal and other information.\n\nThe properties of `authResult` include:\n\n* `getPrincipal()`: Returns the authenticated principal, which is typically an object representing the user who was authenticated.\n* `getUsername()`: Returns the username of the authenticated user.\n* `getUserId()`: Returns the ID of the authenticated user.\n\nThe function then creates a JWT token using the `Jwts` class, based on the authenticated principal and various configuration properties. The token is added to the HTTP response headers as a security token.",
+                "complex_type": true
+              }
+            ],
+            "usage": {
+              "language": "java",
+              "code": "@Override\n  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,\n      FilterChain chain, Authentication authResult) throws IOException, ServletException {\n    String username = ((User) authResult.getPrincipal()).getUsername();\n    UserDto userDto = appUserDetailsService.getUserDetailsByUsername(username);\n\n    String token = Jwts.builder()\n        .setSubject(userDto.getUserId())\n        .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(\n            environment.getProperty(\"token.expiration_time\"))))\n        .signWith(SignatureAlgorithm.HS512, environment.getProperty(\"token.secret\"))\n        .compact();\n\n    response.addHeader(\"token\", token);\n    response.addHeader(\"userId\", userDto.getUserId());\n  }\n",
+              "description": "\nThis method is called whenever an authentication request has been processed successfully by the filter chain, and it takes four arguments:\n\n* `request` - The incoming HTTP request that triggered the filter chain execution.\n* `response` - The outgoing HTTP response generated by the filter chain execution.\n* `chain` - The next filter in the chain to be executed, which is passed as an argument to this function.\n* `authResult` - The deserialized authentication result object, containing the authenticated principal and other attributes.\n\nIn this method, we first extract the username from the authentication result using `((User) authResult.getPrincipal()).getUsername()`. We then call `appUserDetailsService.getUserDetailsByUsername(username)` to retrieve user details for the retrieved username.\n\nNext, we generate a JSON Web Token (JWT) using the `Jwts` class, which includes the user ID, expiration time, and secret key. We set the subject of the token with the retrieved user ID, set its expiration time with the current time plus the configured expiration time, sign it with the secret key, and compact it into a single string.\n\nFinally, we add the generated token as an HTTP header in the response object using `response.addHeader(\"token\", token)`. We also add the user ID as another HTTP header in the response object using `response.addHeader(\"userId\", userDto.getUserId())`."
+            },
+            "name": "successfulAuthentication",
+            "location": {
+              "start": 193,
+              "insert": 111,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 110,
+                "end": 192
+              }
+            },
+            "item_type": "method",
+            "length": 17,
+            "docLength": 82
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "WebSecurity.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/security/WebSecurity.java",
+    "content": {
+      "structured": {
+        "description": "Security configurations for an web application using Spring Security. It disables CSRF protection, restricts API access to a specific IP address, and adds an authentication filter with customized configuration for login processing. The code also sets up an Authentication Manager by specifying a user details service and password encoder.",
+        "image": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<!-- Generated by graphviz version 2.43.0 (0)\n -->\n<!-- Title: com.prathab.userservice.security.AppUserDetailsService Pages: 1 -->\n<svg width=\"189pt\" height=\"93pt\"\n viewBox=\"0.00 0.00 189.00 93.00\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n<g id=\"graph0\" class=\"graph\" transform=\"scale(1 1) rotate(0) translate(4 89)\">\n<title>com.prathab.userservice.security.AppUserDetailsService</title>\n<!-- Node1 -->\n<g id=\"Node000001\" class=\"node\">\n<title>Node1</title>\n<g id=\"a_Node000001\"><a xlink:title=\" \">\n<polygon fill=\"#999999\" stroke=\"#666666\" points=\"181,-30 0,-30 0,0 181,0 181,-30\"/>\n<text text-anchor=\"start\" x=\"8\" y=\"-18\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">com.prathab.userservice.security.</text>\n<text text-anchor=\"middle\" x=\"90.5\" y=\"-7\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">AppUserDetailsService</text>\n</a>\n</g>\n</g>\n<!-- Node2 -->\n<g id=\"Node000002\" class=\"node\">\n<title>Node2</title>\n<g id=\"a_Node000002\"><a xlink:title=\" \">\n<polygon fill=\"white\" stroke=\"#666666\" points=\"145.5,-85 35.5,-85 35.5,-66 145.5,-66 145.5,-85\"/>\n<text text-anchor=\"middle\" x=\"90.5\" y=\"-73\" font-family=\"Helvetica,sans-Serif\" font-size=\"10.00\">UserDetailsService</text>\n</a>\n</g>\n</g>\n<!-- Node2&#45;&gt;Node1 -->\n<g id=\"edge1_Node000001_Node000002\" class=\"edge\">\n<title>Node2&#45;&gt;Node1</title>\n<g id=\"a_edge1_Node000001_Node000002\"><a xlink:title=\" \">\n<path fill=\"none\" stroke=\"#63b8ff\" d=\"M90.5,-55.65C90.5,-47.36 90.5,-37.78 90.5,-30.11\"/>\n<polygon fill=\"#63b8ff\" stroke=\"#63b8ff\" points=\"87,-55.87 90.5,-65.87 94,-55.87 87,-55.87\"/>\n</a>\n</g>\n</g>\n</g>\n</svg>\n",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.security.WebSecurity\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    AuthenticationFilter\n    subgraph cluster_main {\n        // style=filled;\n        color=\"#00000000\"; \n        WebSecurity [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n        label = \"\"\n    }\n    WebSecurity -> AuthenticationFilter \n}\n",
+        "items": [
+          {
+            "id": "deb6e04b-298d-d798-6141-73f001c4f556",
+            "ancestors": [],
+            "type": "function",
+            "description": "is configured to disable CSRF protection and authorize requests based on the IP address of the gateway server. It also disables frame options for security reasons. Additionally, an authentication filter is set up to filter incoming HTTP requests based on user authentication, using a user details service and password encoder.",
+            "name": "WebSecurity",
+            "location": {
+              "start": 34,
+              "insert": 28,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 27,
+                "end": 33
+              }
+            },
+            "item_type": "class",
+            "length": 92,
+            "docLength": 6
+          },
+          {
+            "id": "ca4c359a-f4ce-d5a2-3747-9e358b031736",
+            "ancestors": [
+              "deb6e04b-298d-d798-6141-73f001c4f556"
+            ],
+            "type": "function",
+            "description": "disables CSRF protection and authorizes requests based on the IP address of the gateway server. It also disables frame options for improved performance.",
+            "params": [
+              {
+                "name": "http",
+                "type_name": "HttpSecurity",
+                "description": "HttpSecurity object, which is being configured to disable CSRF protection and authorize requests based on the IP address of the gateway server.\n\n* `csrf().disable()` disables CSRF protection for all routes.\n* `authorizeRequests()` specifies which requests are authorized to access the application. It takes an array of ant matchers as its argument, with each ant matcher specifying a pattern that matches a route. In this case, the entire root URL (`\"/**\"` ) is matched.\n* `hasIpAddress(environment.getProperty(\"gateway.ip\"))` restricts access to the application based on the IP address of the request. The `environment.getProperty()` method retrieves a property from the application's environment. In this case, the property is named \"gateway.ip\".\n* `and()` is used to chain multiple authorization rules together.\n* `addFilter(getAuthenticationFilter())` adds an authentication filter to thechain of filters for the application. The `getAuthenticationFilter()` method returns a reference to an authentication filter that has been created separately.",
+                "complex_type": true
+              }
+            ],
+            "usage": {
+              "language": "java",
+              "code": "@Override protected void configure(HttpSecurity http) throws Exception {\n    http.csrf().disable();\n    http\n        .authorizeRequests()\n        .antMatchers(\"/**\")\n        .hasIpAddress(environment.getProperty(\"gateway.ip\"))\n        .and()\n        .addFilter(getAuthenticationFilter());\n    http.headers().frameOptions().disable();\n}\n",
+              "description": ""
+            },
+            "name": "configure",
+            "location": {
+              "start": 71,
+              "insert": 52,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 51,
+                "end": 70
+              }
+            },
+            "item_type": "method",
+            "length": 10,
+            "docLength": 19
+          },
+          {
+            "id": "f8e8068b-249d-52b9-0c4c-dd249e9ea7cd",
+            "ancestors": [
+              "deb6e04b-298d-d798-6141-73f001c4f556"
+            ],
+            "type": "function",
+            "description": "creates an instance of `AuthenticationFilter`, setting various properties and methods, such as `setFilterProcessesUrl`, to enable authentication processing for the application.",
+            "params": [],
+            "returns": {
+              "type_name": "AuthenticationFilter",
+              "description": "an instance of `AuthenticationFilter`, which is a custom filter for authenticating users.\n\n* `var authFilter`: This is an instance of the `AuthenticationFilter` class, which is a custom filter used for authentication in Spring Security.\n* `objectMapper`: This is an instance of the `ObjectMapper` class, which is used to map Java objects to and from JSON format.\n* `appUserDetailsService`: This is an instance of the `AppUserDetailsService` interface, which provides user details for authentication purposes.\n* `environment`: This is an instance of the `Environment` class, which contains various properties and settings for the application.\n* `authenticationManager()`: This is a method that returns an instance of the `AuthenticationManager` interface, which manages authentication requests and responses.\n* `setFilterProcessesUrl(String url)`: This method sets the URL path for the filter processes.\n\nOverall, the `getAuthenticationFilter` function returns a custom filter that can be used to perform authentication tasks in Spring Security.",
+              "complex_type": true
+            },
+            "usage": {
+              "language": "java",
+              "code": "// Get the AuthenticationFilter instance from the method\nprivate AuthenticationFilter getAuthenticationFilter() throws Exception {\n    var authFilter = new AuthenticationFilter(objectMapper, appUserDetailsService, environment,\n        authenticationManager());\n    // Set the URL path for login functionality\n    authFilter.setFilterProcessesUrl(environment.getProperty(\"login.url.path\"));\n    return authFilter;\n  }\n// Use the returned instance to filter incoming HTTP requests based on user authentication.\n",
+              "description": ""
+            },
+            "name": "getAuthenticationFilter",
+            "location": {
+              "start": 103,
+              "insert": 82,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 81,
+                "end": 102
+              }
+            },
+            "item_type": "method",
+            "length": 6,
+            "docLength": 21
+          },
+          {
+            "id": "16fd694a-8000-d6a3-9c49-f54f266fe1b6",
+            "ancestors": [
+              "deb6e04b-298d-d798-6141-73f001c4f556"
+            ],
+            "type": "function",
+            "description": "configures the AuthenticationManagerBuilder by setting the user details service and password encoder.",
+            "params": [
+              {
+                "name": "auth",
+                "type_name": "AuthenticationManagerBuilder",
+                "description": "AuthenticationManagerBuilder, which is used to configure various aspects of the authentication system, including the user details service and password encoder.\n\n1. `userDetailsService`: This attribute specifies the user details service used for authentication. It is assigned an instance of `appUserDetailsService`.\n2. `passwordEncoder`: This attribute specifies the password encoder used to encrypt passwords. It is assigned an instance of `passwordEncoder`.",
+                "complex_type": true
+              }
+            ],
+            "usage": {
+              "language": "java",
+              "code": "@Override protected void configure(AuthenticationManagerBuilder auth) throws Exception {\n    auth.userDetailsService(appUserDetailsService).passwordEncoder(passwordEncoder);\n  }\n}\n",
+              "description": "\nThis is how to use the configure method in this example. The method is taking an AuthenticationManagerBuilder as its parameter and it is being used for user details services and password encoders."
+            },
+            "name": "configure",
+            "location": {
+              "start": 122,
+              "insert": 110,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 109,
+                "end": 121
+              }
+            },
+            "item_type": "method",
+            "length": 3,
+            "docLength": 12
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "UserService.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/services/UserService.java",
+    "content": {
+      "structured": {
+        "description": "An interface `UserService` that provides a way to create a user through a `UserDto` request. The interface includes one method, `createUser`, which takes a `UserDto` object as a parameter and returns a `UserDto` object.",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.services.UserService\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"dto\"\n        color=\"#33363A\"\n        UserDto\n    }\n    subgraph cluster_1 {\n        label=\"services\"\n        color=\"#33363A\"\n        subgraph cluster_main {\n            // style=filled;\n            color=\"#00000000\"; \n            UserService [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n            label = \"\"\n        }\n    }\n    UserService -> UserDto \n    UserDto -> UserService \n}\n",
+        "items": [
+          {
+            "id": "867baed7-a044-288b-da4d-bdededd28179",
+            "ancestors": [],
+            "type": "function",
+            "description": "provides an interface for creating a user through the UserDto request.",
+            "name": "UserService",
+            "location": {
+              "start": 24,
+              "insert": 21,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 20,
+                "end": 23
+              }
+            },
+            "item_type": "interface",
+            "length": 3,
+            "docLength": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "UserSDJpaService.java",
+    "path": "user-service/src/main/java/com/prathab/userservice/services/springdatajpa/UserSDJpaService.java",
+    "content": {
+      "structured": {
+        "description": "A `UserSDJpaService` class that provides user management functionality using Spring Data JPA. The class has several methods for creating, mapping, saving, and logging user data. It also provides encryption of user passwords using a password encoder. The service takes in a `UserDto` object as input and performs various operations on it, including generating a unique user ID, encrypting the password, and saving the user to a repository.",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.services.springdatajpa.UserSDJpaService\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"dto\"\n        color=\"#33363A\"\n        UserDto\n    }\n    subgraph cluster_1 {\n        label=\"services\"\n        color=\"#33363A\"\n        subgraph cluster_2 {\n            label=\"springdatajpa\"\n            color=\"#33363A\"\n            subgraph cluster_main {\n                // style=filled;\n                color=\"#00000000\"; \n                UserSDJpaService [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n                label = \"\"\n            }\n        }\n    }\n    UserSDJpaService -> UserDto \n    UserDto -> UserSDJpaService \n}\n",
+        "items": [
+          {
+            "id": "c979cc13-58ce-c3a9-7e48-fa2088677cd7",
+            "ancestors": [],
+            "type": "function",
+            "description": "is a Java class that provides methods for creating, updating, and retrieving users in a repository using JPA. The class has several methods:\n\n* `createUser(UserDto request)`: creates a new user entry in the repository by generating a unique user ID, encrypting the password, and saving the user to the repository.\n* `createUserInRepository(UserDto request)`: inserts the user into the repository using the encrypted password.\n* `encryptUserPassword(UserDto request)`: encrypts the user's password using a password encoder.\n* `generateUniqueUserId(UserDto request)`: generates a unique identifier for the user.\n\nThese methods work together to provide a full-stack solution for managing users in a JPA-based repository.",
+            "name": "UserSDJpaService",
+            "location": {
+              "start": 34,
+              "insert": 28,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 27,
+                "end": 33
+              }
+            },
+            "item_type": "class",
+            "length": 95,
+            "docLength": 6
+          },
+          {
+            "id": "78993796-7b38-42b0-084b-ae00bd305f6f",
+            "ancestors": [
+              "c979cc13-58ce-c3a9-7e48-fa2088677cd7"
+            ],
+            "type": "function",
+            "description": "performs three actions: generates a unique user ID, encrypts the user password, and creates the user in a repository.",
+            "params": [
+              {
+                "name": "request",
+                "type_name": "UserDto",
+                "description": "UserDto object that contains the data for the user to be created, which is then used to generate a unique user ID, encrypt the password, and save the user in the repository.\n\n* `generateUniqueUserId`: generates an unique user ID for the created user.\n* `encryptUserPassword`: encrypts the password of the created user.\n* `createUserInRepository`: creates a new user in the repository.",
+                "complex_type": true
+              }
+            ],
+            "returns": {
+              "type_name": "UserDto",
+              "description": "a newly created user entity with a unique ID and encrypted password, saved in the repository.\n\n* `generateUniqueUserId`: A unique user ID is generated for the user.\n* `encryptUserPassword`: The user's password is encrypted using a secure algorithm.\n* `createUserInRepository`: The user is created in the repository, which may include additional actions such as storing the user in a database or setting permissions.",
+              "complex_type": true
+            },
+            "usage": {
+              "language": "java",
+              "code": "public static void main(String[] args) {\n  UserDto request = new UserDto();\n  request.setFirstName(\"Jane\");\n  request.setLastName(\"Doe\");\n  request.setEmail(\"jane.doe@example.com\");\n  request.setPassword(\"password123\");\n  \n  // create a user service bean using Spring Dependency Injection (DI)\n  UserService userService = new UserSDJpaService(new UserRepository(), new UserMapper(), new PasswordEncoder());\n  \n  // call the createUser method to create a new user in the repository\n  UserDto createdUser = userService.createUser(request);\n}\n",
+              "description": ""
+            },
+            "name": "createUser",
+            "location": {
+              "start": 68,
+              "insert": 50,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 49,
+                "end": 67
+              }
+            },
+            "item_type": "method",
+            "length": 5,
+            "docLength": 18
+          },
+          {
+            "id": "8aa24a59-9278-9094-2043-6228392406bb",
+            "ancestors": [
+              "c979cc13-58ce-c3a9-7e48-fa2088677cd7"
+            ],
+            "type": "function",
+            "description": "converts a `UserDto` object into a `User` entity, saves it to the repository, and maps it back to a `UserDto` object for return.",
+            "params": [
+              {
+                "name": "request",
+                "type_name": "UserDto",
+                "description": "UserDto object containing the details of a user to be created in the repository.\n\n* `userMapper`: an instance of a class that maps a `UserDto` to a `User` object or vice versa.\n* `request`: a `UserDto` object containing user data.\n* `userRepository`: an interface or class providing methods for persisting and retrieving users from a database or other storage mechanism.\n* `savedUser`: the persistently stored user, which is the result of calling the `save()` method on the `userRepository`.",
+                "complex_type": true
+              }
+            ],
+            "returns": {
+              "type_name": "UserDto",
+              "description": "a `UserDto` object representing the saved user in the repository.\n\n* `var user = userMapper.userDtoToUser(request)`: This line creates a new `User` object from the `UserDto` request object using the `userMapper` service. The resulting `User` object contains the data from the `UserDto`, including its ID, name, email, and other attributes.\n* `var savedUser = userRepository.save(user)`: This line saves the newly created `User` object to the repository. The `userRepository` is responsible for persisting the object to a database or file system. The `savedUser` variable contains the ID of the saved `User` object.\n* `log.trace(\"saved user with id[{}] to repository\", savedUser.getId())`: This line logs a trace message indicating that the `User` object with the specified ID has been saved to the repository. The `log` object is typically used for debugging and logging purposes in the application.",
+              "complex_type": true
+            },
+            "usage": {
+              "language": "java",
+              "code": "import com.prathab.userservice.dto.UserDto;\nimport com.prathab.userservice.services.springdatajpa.UserSDJpaService;\n\npublic class Main {\n    public static void main(String[] args) {\n        UserSDJpaService userService = new UserSDJpaService();\n        UserDto request = new UserDto();\n        // Fill in the required fields for the request object.\n        request.setEmail(\"example@email.com\");\n        request.setPassword(\"password\");\n        request.setUsername(\"username\");\n\n        userService.createUser(request);\n    }\n}\n",
+              "description": ""
+            },
+            "name": "createUserInRepository",
+            "location": {
+              "start": 94,
+              "insert": 74,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 73,
+                "end": 93
+              }
+            },
+            "item_type": "method",
+            "length": 6,
+            "docLength": 20
+          },
+          {
+            "id": "38e8cc30-6f2e-1d8d-5c48-ff719462d0d3",
+            "ancestors": [
+              "c979cc13-58ce-c3a9-7e48-fa2088677cd7"
+            ],
+            "type": "function",
+            "description": "encodes a user's password using a password encoder and stores the encoded password in the request object.",
+            "params": [
+              {
+                "name": "request",
+                "type_name": "UserDto",
+                "description": "UserDto object containing the user's password to be encrypted.\n\n* `request.setEncryptedPassword(passwordEncoder.encode(request.getPassword()));`: This line encrypts the user password by using the `passwordEncoder` to encode it before storing it in the `encryptedPassword` field of the `request` object.",
+                "complex_type": true
+              }
+            ],
+            "usage": {
+              "language": "java",
+              "code": "public class Main {\n    public static void main(String[] args) {\n        UserDto request = new UserDto();\n        request.setPassword(\"password\");\n        encryptUserPassword(request);\n        System.out.println(request.getEncryptedPassword());\n    }\n}\n",
+              "description": "\nThis code will output the encrypted password that has been set in the UserDto object by the method encryptUserPassword."
+            },
+            "name": "encryptUserPassword",
+            "location": {
+              "start": 111,
+              "insert": 101,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 100,
+                "end": 110
+              }
+            },
+            "item_type": "method",
+            "length": 3,
+            "docLength": 10
+          },
+          {
+            "id": "3b972018-06f6-69bc-c149-d09f72761d3e",
+            "ancestors": [
+              "c979cc13-58ce-c3a9-7e48-fa2088677cd7"
+            ],
+            "type": "function",
+            "description": "generates a unique user ID for a given user using UUID.",
+            "params": [
+              {
+                "name": "request",
+                "type_name": "UserDto",
+                "description": "`UserDto` object containing information about the user for whom a unique ID is being generated.\n\nRequest contains fields such as `setUserId()` which is a method that generates an unique user ID using the `UUID.randomUUID().toString()` and assigns it to the User ID field of the object.",
+                "complex_type": true
+              }
+            ],
+            "usage": {
+              "language": "java",
+              "code": "public static void main(String[] args) {\n  UserDto request = new UserDto();\n  generateUniqueUserId(request);\n  System.out.println(\"user id is \" + request.getUserId());\n}\n",
+              "description": ""
+            },
+            "name": "generateUniqueUserId",
+            "location": {
+              "start": 125,
+              "insert": 115,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 114,
+                "end": 124
+              }
+            },
+            "item_type": "method",
+            "length": 3,
+            "docLength": 10
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "UserServiceApplicationTests.java",
+    "path": "user-service/src/test/java/com/prathab/userservice/UserServiceApplicationTests.java",
+    "content": {
+      "structured": {
+        "description": "A test class named UserServiceApplicationTests for a Spring Boot application called UserServiceApplication. The test class includes a single method named contextLoads() that verifies the successful loading of the application's context. Specifically, the code sets up necessary infrastructure and prepares the environment for the program to run properly.",
+        "diagram": "digraph G {\n    label=\"com.prathab.userservice.UserServiceApplicationTests\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n}\n",
+        "items": [
+          {
+            "id": "a6c17b59-5717-3eae-2045-882e70fa1f93",
+            "ancestors": [],
+            "type": "function",
+            "description": "is a test class for a Spring Boot application, specifically the UserServiceApplication. The class contains a single test method, `contextLoads()`, which verifies that the application context is loaded successfully.",
+            "name": "UserServiceApplicationTests",
+            "location": {
+              "start": 27,
+              "insert": 22,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 21,
+                "end": 26
+              }
+            },
+            "item_type": "class",
+            "length": 12,
+            "docLength": 5
+          },
+          {
+            "id": "2ba599b6-29f4-1ebc-9b42-89a8f8aa562b",
+            "ancestors": [
+              "a6c17b59-5717-3eae-2045-882e70fa1f93"
+            ],
+            "type": "function",
+            "description": "is likely responsible for initializing and setting up the application's context, including loading any necessary data or resources.",
+            "params": [],
+            "usage": {
+              "language": "java",
+              "code": "@SpringBootTest\nclass UserServiceApplicationTests {\n\n  @Test\n  void contextLoads() {\n    Assert.assertTrue(true); // This test passes because the application context loads successfully\n  }\n}\n",
+              "description": ""
+            },
+            "name": "contextLoads",
+            "location": {
+              "start": 35,
+              "insert": 30,
+              "offset": " ",
+              "indent": 2,
+              "comment": {
+                "start": 29,
+                "end": 34
+              }
+            },
+            "item_type": "method",
+            "length": 3,
+            "docLength": 5
+          }
+        ]
+      }
+    }
+  }
+]
