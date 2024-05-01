@@ -22,7 +22,7 @@ import com.prathab.userservice.dto.UserDto;
 import org.mapstruct.Mapper;
 
 /**
- * provides a mapping between objects of the UserDto and CreateUserRequest types to
+ * defines a mapping between objects of the UserDto and CreateUserRequest types to
  * corresponding objects in the CreateUserResponse type using Mapstruct's automatic
  * conversion capabilities.
  */
