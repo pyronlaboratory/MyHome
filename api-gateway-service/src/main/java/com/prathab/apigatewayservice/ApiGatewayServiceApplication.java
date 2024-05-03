@@ -32,16 +32,16 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 public class ApiGatewayServiceApplication {
 
   /**
-   * runs a SpringApplication instance of the `ApiGatewayServiceApplication` class,
-   * using the specified `args`.
+   * starts the API Gateway service application by calling `SpringApplication.run()`.
    * 
-   * @param args command-line arguments passed to the `SpringApplication.run()` method
-   * when invoking the `ApiGatewayServiceApplication`.
+   * @param args 1 or more command-line arguments passed to the `SpringApplication.run()`
+   * method when running the application.
    * 
-   * 	- `SpringApplication.run()` is called to launch the application with the specified
-   * `class`.
-   * 	- The `args` parameter is an array of strings passed to the application by the
-   * operating system.
+   * 	- `String[] args`: This is an array of strings that represents the command-line
+   * arguments passed to the application.
+   * 	- `SpringApplication.run()`: This method is part of Spring's Application Framework
+   * and is used to run a Spring Boot application. It takes in the class of the application
+   * to be executed, as well as any command-line arguments passed in an array.
    */
   public static void main(String[] args) {
     SpringApplication.run(ApiGatewayServiceApplication.class, args);

@@ -24,48 +24,42 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * is a Spring Boot application that provides a password encoder using BCrypt. The
- * main method launches the application upon execution, and the `getPasswordEncoder`
- * method returns an instance of `BCryptPasswordEncoder` to encode passwords securely
- * using the bcrypt algorithm.
+ * is a Spring Boot application that provides password encryption using BCrypt. The
+ * main method launches the application and the `getPasswordEncoder()` method returns
+ * an instance of `BCryptPasswordEncoder` to securely encode passwords.
  */
 @SpringBootApplication
 @EnableEurekaClient
 public class UserServiceApplication {
 
   /**
-   * runs a SpringApplication, which launches the `UserServiceApplication`.
+   * runs a Spring Application using the `SpringApplication.run()` method, passing the
+   * `UserServiceApplication` class as an argument.
    * 
-   * @param args 1 or more command-line arguments passed to the `SpringApplication.run()`
-   * method when the application is launched.
+   * @param args command-line arguments passed to the application when it is launched,
+   * which are then passed to the `SpringApplication.run()` method for configuration
+   * and startup.
    * 
-   * 	- `args`: An array of strings representing the command-line arguments passed to
-   * the application.
-   * 	- Length: The number of elements in the `args` array, which is equal to the number
-   * of command-line arguments passed to the application.
+   * 	- `SpringApplication.run()` method is called with the `UserServiceApplication.class`
+   * class as its argument and an array of strings `args` as its parameter.
+   * 	- The `args` array contains multiple string values as its elements, which can be
+   * accessed using their index numbers (0-based) within the function.
    */
   public static void main(String[] args) {
     SpringApplication.run(UserServiceApplication.class, args);
   }
 
   /**
-   * returns a `BCryptPasswordEncoder`, which is a widely-used and secure password
-   * hashing algorithm.
+   * retrieves a `BCryptPasswordEncoder` instance to encrypt passwords securely using
+   * the bcrypt algorithm.
    * 
-   * @returns a BCryptPasswordEncoder instance, which is used to encrypt passwords securely.
+   * @returns a BCryptPasswordEncoder instance, which is a secure password hashing algorithm.
    * 
-   * The `BCryptPasswordEncoder` object returned by the function is an implementation
-   * of the `PasswordEncoder` interface in Java, which provides encryption for passwords
-   * using the bcrypt hashing algorithm.
-   * 
-   * The `BCryptPasswordEncoder` class implements the `PasswordEncoder` interface and
-   * provides a secure hash function that is more resistant to brute-force attacks than
-   * other hashing algorithms like MD5 or SHA-1.
-   * 
-   * The encryption process performed by this encoder uses the bcrypt algorithm, which
-   * includes several features such as salt generation, iterated hashing, and length
-   * extension to make it computationally expensive and resistant to various types of
-   * attacks.
+   * 	- The `BCryptPasswordEncoder` object returned is an instance of the `BCryptPasswordEncoder`
+   * class from the Java cryptography API.
+   * 	- This encoder uses the BCrypt hashing algorithm to securely store and compare passwords.
+   * 	- The `BCryptPasswordEncoder` class provides a flexible and secure way to handle
+   * password storage and comparison in applications.
    */
   @Bean
   public PasswordEncoder getPasswordEncoder() {

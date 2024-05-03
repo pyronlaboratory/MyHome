@@ -20,16 +20,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * is designed to test the context load of the Discovery Service Application using
- * Spring Boot's testing framework. The single test method, contextLoads(), verifies
- * that the application's context is properly loaded.
+ * is likely responsible for testing the context load of a Spring Boot application,
+ * specifically the Discovery Service Application. The test method, contextLoads(),
+ * verifies that the application's context is properly loaded.
  */
 @SpringBootTest
 class DiscoveryServiceApplicationTests {
 
   /**
-   * is likely responsible for initializing and setting up various components and
-   * services required by the application to run smoothly.
+   * is triggered when a Spring Boot application context is initialized, and it performs
+   * some initialization tasks.
    */
   @Test
   void contextLoads() {

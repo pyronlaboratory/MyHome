@@ -22,7 +22,7 @@ import org.mapstruct.Mapper;
 
 /**
  * defines a mapping between CommunityAdminDto and CommunityAdmin objects through two
- * methods: communityAdminDtoToCommunityAdmin and communityAdminToCommunityAdminDto.
+ * methods for converting between the two representations.
  */
 @Mapper
 public interface CommunityAdminMapper {

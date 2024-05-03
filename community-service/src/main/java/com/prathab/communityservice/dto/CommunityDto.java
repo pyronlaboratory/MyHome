@@ -25,15 +25,15 @@ import lombok.Setter;
 /**
  * represents a community with an ID, community ID, name, district, and set of administrators.
  * Fields:
- * 	- id (Long): represents a unique identifier for each community in the system.
- * 	- communityId (String): represents an identifier for a specific community within
- * the system.
+ * 	- id (Long): in the CommunityDto class represents a unique identifier for each
+ * community in the system.
+ * 	- communityId (String): in the CommunityDto class represents an identifier for a
+ * specific community within the system.
  * 	- name (String): in the CommunityDto class represents the name of a community.
  * 	- district (String): represents a string value identifying the administrative
  * division where the community is located.
  * 	- admins (Set<CommunityAdminDto>): in the CommunityDto class represents a set of
- * CommunityAdminDto objects, which contain information about the administrators of
- * a community.
+ * CommunityAdminDto objects containing information about the administrators of a community.
  */
 @AllArgsConstructor
 @Getter

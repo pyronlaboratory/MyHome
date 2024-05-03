@@ -25,7 +25,7 @@ import lombok.Setter;
 /**
  * represents a set of strings containing usernames of community administrators.
  * Fields:
- * 	- admins (Set<String>): in the AddCommunityAdminResponse class represents a set
+ * 	- admins (Set<String>): of the AddCommunityAdminResponse class represents a set
  * of strings containing usernames of community administrators.
  */
 @NoArgsConstructor

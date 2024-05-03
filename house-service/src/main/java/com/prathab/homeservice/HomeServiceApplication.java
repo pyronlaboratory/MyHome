@@ -30,13 +30,12 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 public class HomeServiceApplication {
 
   /**
-   * runs a SpringApplication, which starts the HomeServiceApplication and its dependencies.
+   * initializes and runs a Spring application instance of `HomeServiceApplication`.
    * 
    * @param args command-line arguments passed to the `SpringApplication.run()` method
-   * when executing the application.
+   * when invoking the `HomeServiceApplication`.
    * 
-   * 	- `args`: an array of strings representing command-line arguments passed to the
-   * application.
+   * `args`: an array of strings representing command-line arguments passed to the application.
    */
   public static void main(String[] args) {
     SpringApplication.run(HomeServiceApplication.class, args);

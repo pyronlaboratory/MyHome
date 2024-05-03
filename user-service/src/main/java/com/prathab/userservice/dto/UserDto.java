@@ -25,15 +25,14 @@ import lombok.Setter;
  * represents a data transfer object containing essential information for a user
  * account, including their ID, user ID, name, email, password, and encrypted password.
  * Fields:
- * 	- id (Long): in the UserDto class represents an integer identifier for each user
- * record.
- * 	- userId (String): represents a unique identifier for a user in the application.
- * 	- name (String): in the UserDto class holds a string value representing a user's
- * name.
- * 	- email (String): in the UserDto class represents a string value containing an
+ * 	- id (Long): represents an integer identifier for each user record.
+ * 	- userId (String): represents a unique identifier for a user within an application.
+ * 	- name (String): in the `UserDto` class represents a string value representing a
+ * user's name.
+ * 	- email (String): in the `UserDto` class holds a string value representing an
  * email address.
- * 	- password (String): in the UserDto class stores an unencrypted string of text
- * representing a user's password.
+ * 	- password (String): stores an unencrypted string of text representing a user's
+ * password.
  * 	- encryptedPassword (String): in the UserDto class stores an encrypted version
  * of the password field for security purposes.
  */

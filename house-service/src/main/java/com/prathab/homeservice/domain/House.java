@@ -27,12 +27,12 @@ import lombok.Setter;
  * represents a unique house within a community with a distinct ID and name, following
  * Java Persistence API standards for entity classes.
  * Fields:
- * 	- communityId (String): in the House class represents a unique identifier for a
- * specific community associated with a particular house.
+ * 	- communityId (String): represents a unique identifier for a specific community
+ * associated with a particular house within a defined community.
  * 	- houseId (String): in the House class represents a unique identifier for each
- * house within a community, as defined by the class definition.
- * 	- name (String): in the House class represents a string value that uniquely
- * identifies a specific house within a community.
+ * house within a specific community, as defined by the class definition.
+ * 	- name (String): represents a string value that uniquely identifies a specific
+ * house within a community defined by the class definition.
  */
 @Entity
 @NoArgsConstructor

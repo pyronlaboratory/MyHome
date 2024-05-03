@@ -39,11 +39,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * in Spring Boot handles various operations related to communities, including
- * retrieving community details, listing all admins of a community, adding admins to
- * a community, and deleting admins from a community. The controller uses the
- * CommunityService class for fetching community details and adding/deleting admins
- * from/to a community.
+ * in Spring Boot handles requests related to managing communities and admins. The
+ * listCommunityAdmins method retrieves a list of admins for a specific community,
+ * while the addCommunityAdmin method allows clients to add admins to an existing
+ * community. Both methods return response entities with the updated admin set or the
+ * added admins, respectively.
  */
 @RestController
 @Slf4j
@@ -61,12 +61,7 @@ public class CommunityController {
   /**
    * returns the string "Working".
    * 
-   * @returns "Working".
-   * 
-   * 	- "Working": This is the value returned by the function, indicating that it is
-   * currently working on something.
-   * 	- Type: The return type of the function is a String, which means it returns a
-   * textual representation of the status.
+   * @returns the string "Working".
    */
   @GetMapping("/communities/status")
   public String status() {
@@ -74,33 +69,38 @@ public class CommunityController {
   }
 
   /**
-   * receives a JSON or XML request body containing a `CreateCommunityRequest`, maps
-   * it to a `CommunityDto`, creates a new community using the `CommunityDto`, and
-   * returns a `CreateCommunityResponse` in HTTP status code `CREATED`.
+   * maps a `CreateCommunityRequest` to a `CommunityDto`, creates a new community using
+   * the `communityService`, and maps the created community back to a `CreateCommunityResponse`.
+   * It returns a `ResponseEntity` with a `HttpStatus.CREATED` code and the mapped response.
    * 
-   * @param request CreateCommunityRequest object containing the data to create a new
-   * community, which is converted into a CommunityDto object by the communityApiMapper
-   * and then used to create the new community using the communityService.
+   * @param request CreateCommunityRequest object passed from the client to the server,
+   * which contains the data necessary for creating a new community.
    * 
-   * 	- `@Valid`: This annotation indicates that the input request must be validated
-   * using the Java validation framework.
-   * 	- `@RequestBody`: This annotation specifies that the input request should be sent
-   * as a body in the HTTP request, rather than as query parameters or headers.
-   * 	- `CreateCommunityRequest`: This is the class that defines the structure of the
-   * input request. It likely contains fields for various properties of the community
-   * to be created, such as its name, description, and category.
+   * 	- `@Valid`: The annotation indicates that the `CreateCommunityRequest` object
+   * must be validated using Java's bean validation framework.
+   * 	- `@RequestBody`: The annotation specifies that the `CreateCommunityRequest`
+   * object is passed as a request body in the HTTP request.
+   * 	- `MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE`: These
+   * annotations indicate the media types accepted for the request.
+   * 	- `var requestCommunityDto = communityApiMapper.createCommunityRequestToCommunityDto(request)`:
+   * This line of code maps the `CreateCommunityRequest` object to a `CommunityDto`
+   * object using the `communityApiMapper` class.
+   * 	- `var createdCommunity = communityService.createCommunity(requestCommunityDto)`:
+   * This line of code creates a new community instance using the `communityService` class.
+   * 	- `var createdCommunityResponse = communityApiMapper.communityToCreateCommunityResponse(createdCommunity)`:
+   * This line of code maps the newly created community instance to a `CreateCommunityResponse`
+   * object using the `communityApiMapper` class.
    * 
-   * @returns a `CreateCommunityResponse` object containing the created community details.
+   * @returns a `CreateCommunityResponse` object containing the newly created community
+   * details.
    * 
-   * 	- `ResponseEntity`: This is an instance of `ResponseEntity`, which represents the
-   * result of the HTTP request. It has a status code and a body, which contains the
-   * actual response data.
-   * 	- `HttpStatus`: This is the HTTP status code of the response, which indicates the
-   * result of the request. In this case, it is set to `HttpStatus.CREATED`.
-   * 	- `Body`: This is the main content of the response, which contains the created
-   * community details in the form of a `CreateCommunityResponse` object.
-   * 	- `CreateCommunityResponse`: This is a custom object that represents the created
-   * community. It has various properties, such as `id`, `name`, `description`, and `createdAt`.
+   * 	- `ResponseEntity`: This is an instance of `ResponseEntity`, which is a subclass
+   * of `AbstractEntity`. It represents a response to a HTTP request.
+   * 	- `status`: This property is an instance of `HttpStatus`, which represents the
+   * status code of the response. In this case, it is set to `CREATED`.
+   * 	- `body`: This property is an instance of `CreateCommunityResponse`, which is a
+   * custom class created specifically for this function. It contains the data returned
+   * by the function.
    */
   @PostMapping(
       path = "/communities",
@@ -118,21 +118,22 @@ public class CommunityController {
   }
 
   /**
-   * receives a request to list all communities and returns a response entity containing
-   * a set of `GetCommunityDetailsResponse` objects representing the listed communities,
-   * mapped by the `communityService` and converted into a response entity using `communityApiMapper`.
+   * receives a request to list all communities and returns a ResponseEntity with a Set
+   * of GetCommunityDetailsResponse containing the details of each community.
    * 
-   * @returns a set of `GetCommunityDetailsResponse` objects containing information
-   * about all communities.
+   * @returns a set of `GetCommunityDetailsResponse` objects representing the list of
+   * all communities.
    * 
-   * 	- `ResponseEntity`: This is the top-level class that represents the response to
-   * the request. It has an `HttpStatus` field that indicates the status code of the
-   * response (in this case, 200 OK).
-   * 	- `body`: This is a field that contains the actual response body, which in this
-   * case is a `Set` of `GetCommunityDetailsResponse` objects.
-   * 	- `GetCommunityDetailsResponse`: This class represents the individual community
-   * details responses returned in the set. It has several fields, including `id`,
-   * `name`, `description`, `imageUrl`, and `createdAt`.
+   * 	- `ResponseEntity`: This is an instance of the `ResponseEntity` class, which
+   * represents a response to a HTTP request. The `HttpStatus` field contains the status
+   * code of the response (in this case, 200), and the `body` field contains the actual
+   * data returned in the response.
+   * 	- `Set<GetCommunityDetailsResponse>`: This is a set of objects that represent the
+   * list of community details returned by the function. Each object in the set has
+   * properties such as the community ID, name, and URL.
+   * 	- `communityApiMapper`: This is an instance of a class that performs mapping
+   * between different data formats. In this case, it maps the list of community details
+   * returned by the function to the `GetCommunityDetailsResponse` interface.
    */
   @GetMapping(
       path = "/communities",
@@ -147,29 +148,32 @@ public class CommunityController {
   }
 
   /**
-   * receives a community ID and returns a response entity containing the details of
-   * the community, as well as the API response generated by `communityApiMapper`.
+   * receives a request to retrieve community details and returns a response entity
+   * with the details of the requested community in JSON or XML format, based on the
+   * producers parameter.
    * 
-   * @param communityId unique identifier of the community for which details are to be
-   * retrieved.
+   * @param communityId identifier of the community for which details are to be retrieved.
    * 
-   * @returns a `ResponseEntity` object containing the details of the requested community
-   * in JSON or XML format.
+   * @returns a response entity with the details of the specified community in JSON or
+   * XML format.
    * 
-   * 	- `ResponseEntity`: This is an instance of the `ResponseEntity` class, which
-   * represents a response object that contains both a status code and a body. In this
-   * case, the status code is `HttpStatus.OK`, indicating that the request was successful.
-   * 	- `body`: This is the body of the response entity, which contains the details of
-   * the community returned by the `communityService`. It is an instance of the
-   * `GetCommunityDetailsResponse` class, which defines the structure of the response
-   * data.
-   * 	- `getCommunityDetailsById`: This is a method of the `communityService` class
-   * that returns the details of a community with a given ID. The method takes a single
-   * parameter, `communityId`, which is passed as a path variable in the function call.
-   * 	- `communityApiMapper`: This is an instance of a class that defines a mapping
-   * between the structure of the community details and the format required by the API.
-   * In this case, it maps the community details to the `GetCommunityDetailsResponse`
-   * class.
+   * 	- `ResponseEntity`: This is a class that represents an HTTP response entity with
+   * a status code and a body. In this case, the status code is set to OK (HttpStatus.OK).
+   * 	- `body`: This is a property of the ResponseEntity class that contains the actual
+   * data returned in the response body. In this case, it contains an instance of the
+   * `GetCommunityDetailsResponse` class.
+   * 	- `GetCommunityDetailsResponse`: This is a class that represents the response
+   * data for the list community details request. It has several properties, including:
+   * 	+ `communityId`: The ID of the community whose details were retrieved.
+   * 	+ `name`: The name of the community.
+   * 	+ `description`: A brief description of the community.
+   * 	+ `createdAt`: The date and time when the community was created.
+   * 	+ `updatedAt`: The date and time when the community was last updated.
+   * 
+   * In summary, the output of the `listCommunityDetails` function is a ResponseEntity
+   * object with a body that contains an instance of the `GetCommunityDetailsResponse`
+   * class, which represents the details of the community retrieved in response to the
+   * list community details request.
    */
   @GetMapping(
       path = "/communities/{communityId}",
@@ -185,32 +189,25 @@ public class CommunityController {
   }
 
   /**
-   * receives a community ID and returns a set of `GetAdminDetailsResponse` objects
-   * containing information about the admins of that community.
+   * retrieves a set of admins for a given community ID through a service call and
+   * returns it as a ResponseEntity with HTTP status code 200 and the converted admin
+   * details set as its body.
    * 
-   * @param communityId ID of the community whose admins are to be listed.
+   * @param communityId identifier of the community for which the list of admins is to
+   * be retrieved.
    * 
    * @returns a set of `GetAdminDetailsResponse` objects containing information about
-   * the admins of a specific community.
+   * the admins of the specified community.
    * 
-   * 	- `ResponseEntity`: This is the base class for all HTTP responses in Spring
-   * WebFlux. It contains information about the status code, headers, and body of the
-   * response.
-   * 	- `status()`: This method returns the HTTP status code of the response, which is
-   * set to OK (200) in this case.
-   * 	- `body()`: This method returns the contents of the response body, which is a set
-   * of `GetAdminDetailsResponse` objects in this case.
-   * 	- `getCommunityDetailsById()`: This method retrieves the details of a community
-   * with the given ID. It returns a `Community` object containing the ID, name, and
-   * other properties of the community.
-   * 	- `getAdmins()`: This method retrieves the list of admins for a given community.
-   * It returns a list of `Admin` objects containing the admin's ID, username, email,
-   * and other properties.
-   * 	- `communityApiMapper`: This is an instance of the `CommunityApiMapper` class,
-   * which is responsible for mapping the community details to and from the API response
-   * format.
-   * 	- `GetAdminDetailsResponseSet`: This is a set of `GetAdminDetailsResponse` objects,
-   * each containing the details of a single admin.
+   * 	- `ResponseEntity`: This is the generic type of the response entity, indicating
+   * that it can be either an HTTP 200 OK response or a error response with a status code.
+   * 	- `HttpStatus`: This property holds the HTTP status code of the response, which
+   * in this case is always 200 OK.
+   * 	- `body`: This property holds the body of the response entity, which is a set of
+   * `GetAdminDetailsResponse` objects.
+   * 	- `getAdminDetailsResponseSet`: This property holds the set of `GetAdminDetailsResponse`
+   * objects contained within the response body. Each element in the set represents a
+   * single admin for the specified community.
    */
   @GetMapping(
       path = "/communities/{communityId}/admins",
@@ -226,38 +223,43 @@ public class CommunityController {
   }
 
   /**
-   * adds admins to a community based on a request from the client, updates the community's
-   * admin set, and returns a response with the updated admin set.
+   * adds admins to a community with a given ID, based on incoming request data. It
+   * returns a ResponseEntity object containing an AddCommunityAdminResponse object
+   * with the newly added admins' IDs.
    * 
-   * @param communityId identifier of the community to which an admin will be added.
+   * @param communityId identifier of the community to which the admin will be added.
    * 
-   * @param request AddCommunityAdminRequest object containing the information of the
-   * admin to be added to the community.
+   * @param request AddCommunityAdminRequest object containing the information about
+   * the admins to be added to the community, which is used by the method to add them
+   * to the community.
    * 
-   * 	- `@Valid`: This annotation indicates that the `AddCommunityAdminRequest` object
-   * must be validated using a bean validation framework before it can be processed by
-   * the method.
-   * 	- `@RequestBody`: This annotation indicates that the `AddCommunityAdminRequest`
-   * object should be serialized into the request body of the HTTP message, rather than
-   * being passed as a query parameter or a form submission.
-   * 	- `AddCommunityAdminRequest`: This is the class that represents the request payload
-   * for adding admins to a community. It contains properties such as `admins`, which
-   * is a list of admin IDs to be added to the community.
+   * 	- `@Valid`: Indicates that the `AddCommunityAdminRequest` instance is valid and
+   * can be processed further.
+   * 	- `@PathVariable String communityId`: The ID of the community to which the admin
+   * will be added.
+   * 	- `@RequestBody AddCommunityAdminRequest request`: The request body containing
+   * the details of the admin to be added to the community.
+   * 	- `var community = communityService.addAdminsToCommunity(communityId,
+   * request.getAdmins());`: The community is updated with the new admins.
+   * 	- `var response = new AddCommunityAdminResponse();`: A new instance of the
+   * `AddCommunityAdminResponse` class is created to hold the response data.
+   * 	- `var adminsSet = community.getAdmins().stream().map(CommunityAdmin::getAdminId).collect(Collectors.toSet());`:
+   * The set of admin IDs for the updated community is calculated by mapping the IDs
+   * of the admins in the community to a set using the `map` method and then collecting
+   * the result using `collect`.
+   * 	- `response.setAdmins(adminsSet);`: The response data is set to the set of admin
+   * IDs.
    * 
    * @returns a `ResponseEntity` object containing an `AddCommunityAdminResponse` object
    * with the updated admin set for the specified community.
    * 
-   * 	- `ResponseEntity`: This is a class that represents a response entity, which is
-   * a composite object that contains both a status and a body. In this case, the status
-   * is set to `HttpStatus.CREATED`, indicating that the request was successful and the
-   * community was created with the added admins.
-   * 	- `body`: This is a reference to an instance of the `AddCommunityAdminResponse`
-   * class, which contains information about the added admins.
-   * 	- `AddCommunityAdminResponse`: This is a class that represents the response to
-   * the add admin request. It has several properties:
-   * 	+ `admins`: This is a set of admin IDs that were added to the community.
-   * 	+ `communityId`: This is the ID of the community that was updated with the added
-   * admins.
+   * 	- `AddCommunityAdminResponse`: This is the response object returned by the function,
+   * which contains information about the added admins to the community.
+   * 	- `setAdmins()`: This is a method in the `AddCommunityAdminResponse` class that
+   * sets the list of admins for the community. The list is a set of strings representing
+   * the admin IDs.
+   * 	- `HttpStatus.CREATED`: This is the status code returned by the function, indicating
+   * that the request was successful and the community was created with the added admins.
    */
   @PostMapping(
       path = "/communities/{communityId}/admins",

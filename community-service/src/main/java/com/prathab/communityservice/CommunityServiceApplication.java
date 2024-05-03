@@ -22,26 +22,22 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
  * is a Spring Boot application that enables Eureka client functionality and starts
- * the application upon command line invocation. It uses the `SpringBootApplication`
- * and `@EnableEurekaClient` annotations to enable Eureka client functionality. The
- * `main()` method runs the application instance of `CommunityServiceApplication`.
+ * the application upon command line invocation. It uses the `@SpringBootApplication`
+ * and `@EnableEurekaClient` annotations to enable Eureka client functionality, and
+ * the `main()` method runs the application instance of `CommunityServiceApplication`.
  */
 @SpringBootApplication
 @EnableEurekaClient
 public class CommunityServiceApplication {
 
   /**
-   * starts the Community Service Application by running the `SpringApplication.run()`
-   * method with the `CommunityServiceApplication.class` as the argument and the `args`
-   * array as additional arguments.
+   * runs a SpringApplication, which initiates the execution of the `CommunityServiceApplication`.
    * 
-   * @param args 1 or more command-line arguments passed to the `SpringApplication.run()`
-   * method when invoking the `main()` method.
+   * @param args array of command-line arguments passed to the `SpringApplication.run()`
+   * method when the application is launched.
    * 
-   * 	- `SpringApplication.run()` is called with the `CommunityServiceApplication.class`
-   * and `args` parameters.
-   * 	- The `args` parameter is an array of strings representing command-line arguments
-   * passed to the application.
+   * `args`: An array of strings representing command-line arguments passed to the
+   * application. Its length may vary depending on the invocation of the application.
    */
   public static void main(String[] args) {
     SpringApplication.run(CommunityServiceApplication.class, args);

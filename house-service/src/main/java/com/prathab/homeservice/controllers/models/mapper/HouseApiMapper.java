@@ -25,7 +25,7 @@ import org.mapstruct.Mapper;
 /**
  * defines a set of mappings between House entities and their corresponding DTOs, as
  * well as between HouseDto and House objects for various methods such as houseToHouseDto,
- * houseDtoToHouse, and houseToHouseDetailResponse.
+ * houseDtoToHouse, houseToHouseDetailResponse, and houseSetToHouseDetailResponseSet.
  */
 @Mapper
 public interface HouseApiMapper {

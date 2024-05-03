@@ -30,12 +30,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 /**
- * from the file performs authentication on HTTP requests by retrieving the authorization
- * header name and prefix from environment variables, checking if the header is present
- * and starts with the prefix, and then setting the authentication object and forwarding
- * the request to the next filter in the chain. It also creates a
- * `UsernamePasswordAuthenticationToken` object representing the authenticated user
- * based on the decoded JSON Web Token (JWT) from the authorization header.
+ * in Spring Security is a filter that extracts an authentication token from a HTTP
+ * request header and parses it to retrieve the user's information. The filter uses
+ * the `getAuthentication` method to perform this task, which retrieves the authentication
+ * header from the request, replaces any prefix, and then parses the remaining token
+ * using the `Jwts.parser()` method to extract the subject of the token. If no token
+ * is present in the request, the filter returns a `null` value for the `username`
+ * and `authorities` properties.
  */
 public class AuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -49,70 +50,43 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
   }
 
   /**
-   * filters incoming requests based on authentication headers. It sets the
-   * SecurityContextHolder with the obtained authentication and then passes the request
-   * to the next filter in the chain.
+   * filters incoming HTTP requests based on authentication tokens in the request
+   * headers. It sets the SecurityContextHolder with the authenticated authentication
+   * and passes the request to the next filter chain stage for further processing.
    * 
-   * @param request HTTP request being filtered.
+   * @param request HTTP request that is being filtered and passed through the chain
+   * of filters.
    * 
-   * 	- `authHeaderName`: String property representing the name of the HTTP header that
-   * contains the authentication token.
-   * 	- `authHeaderPrefix`: String property representing the prefix of the authentication
-   * token in the HTTP header.
-   * 	- `request`: The original HTTP request object, which may be deserialized and
-   * accessed for various properties/attributes, such as:
-   * 	+ `getHeader()`: Returns the value of a specific HTTP header.
-   * 	+ `getMethod()`: Returns the HTTP method (e.g., GET, POST, PUT, DELETE) used in
-   * the request.
-   * 	+ `getParameter()`: Returns the value of a specific HTTP parameter (e.g., query
-   * string or form data).
-   * 	+ `getRemoteAddr()`: Returns the client's IP address.
-   * 	+ `getUserAgent()`: Returns the user agent string sent with the request.
+   * 	- `request`: This is an instance of `HttpServletRequest`, which contains information
+   * about the incoming HTTP request. It has various attributes such as `getMethod()`,
+   * `getPathInfo()`, `getQueryString()`, and `getHeader()`.
+   * 	- `authHeaderName`: This is a string property that represents the name of the
+   * HTTP header containing the authentication token.
+   * 	- `authHeaderPrefix`: This is a string property that represents the prefix of the
+   * authentication token in the HTTP header.
    * 
-   * Note that the `request` object is deserialized from the incoming HTTP request, and
-   * its properties/attributes may be accessed and used in the function to perform
-   * authentication-related tasks.
+   * @param response HttpServletResponse object that will receive the filtered response
+   * after passing through the filter chain.
    * 
-   * @param response HTTP response object that is being filtered by the servlet.
+   * 	- `request`: The HTTP request object that triggered the filter chain execution.
+   * 	- `chain`: The filter chain that is being executed.
+   * 	- `authHeaderName`: The name of the authorization header.
+   * 	- `authHeaderPrefix`: The prefix of the authorization header.
+   * 	- `authentication`: The authentication object obtained through the `getAuthentication`
+   * method.
+   * 	- `SecurityContextHolder`: The security context holder where the authentication
+   * object is stored.
    * 
-   * 	- `request`: The incoming HTTP request, passed as an argument to the filter.
-   * 	- `chain`: The chain of filters that the current filter belongs to, which is
-   * passed as an argument to the filter.
-   * 	- `IOException`, `ServletException`: Thrown if an I/O error or a Servlet exception
-   * occurs while executing the filter.
-   * 	- `SecurityContextHolder`: A class that provides a way to access and manage
-   * security context objects in a Java application.
-   * 	- `getAuthentication()`: A method that returns an authentication object based on
-   * the incoming HTTP request.
+   * @param chain 3rd party filter chain that is being executed in the `doFilterInternal()`
+   * method.
    * 
-   * The `response` object has various properties/attributes, including:
-   * 
-   * 	- `getHeader()`: Returns the value of a header field in the HTTP request or response.
-   * 	- `getMethod()`: Returns the HTTP method (GET, POST, PUT, DELETE, etc.) of the
-   * incoming request.
-   * 	- `getPathInfo()`: Returns the path info of the incoming request (the portion of
-   * the URL after the question mark).
-   * 	- `getPathTranslated()`: Returns the path translated (the original path without
-   * the server-side prefix).
-   * 	- `getQueryString()`: Returns the query string of the incoming request (the portion
-   * of the URL after the ampersand).
-   * 	- `getRemoteAddr()`: Returns the remote address of the client making the request.
-   * 	- `getScheme()`: Returns the scheme (http or https) of the incoming request.
-   * 	- `getServerName()`: Returns the server name and port number of the server hosting
-   * the current application.
-   * 	- `getServerPort()`: Returns the port number of the server hosting the current application.
-   * 
-   * @param chain next filter in the chain that will be executed after the current
-   * filter has performed its operations on the request and response.
-   * 
-   * 	- `request`: The original HTTP request object that triggered the filter chain execution.
-   * 	- `response`: The response object that will be sent to the client after processing
-   * through the filter chain.
-   * 	- `FilterChain`: The chain of filters that must be executed in sequence for this
-   * particular request.
-   * 	- `chain.doFilter()`: The method called when the filter chain is invoked, which
-   * passes the original request and response objects to the next filter in the chain
-   * for further processing.
+   * 	- `request`: The HTTP request object that triggered the filter chain execution.
+   * 	- `response`: The HTTP response object that will be used to send the filtered
+   * response back to the client.
+   * 	- `FilterChain`: An instance of the `FilterChain` interface, representing the
+   * chain of filters that need to be executed in sequence for this request.
+   * 	- `environment`: A reference to a `ServletEnvironment` object, providing configuration
+   * and other services for the servlet.
    */
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -133,34 +107,53 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
   /**
    * retrieves an authentication token from a HTTP request header and parses it to
-   * extract the subject's username, which is then used to create an `UsernamePasswordAuthenticationToken`.
+   * obtain the user ID, which is then used to create an AuthenticationToken object
+   * representing the user.
    * 
-   * @param request HTTP request object containing information about the incoming
-   * request, which is used to extract the authentication token from the request header.
+   * @param request HTTP request being processed and provides the necessary information
+   * for generating an authentication token.
    * 
-   * 	- `getHeader()` - Returns the value of a header field in the HTTP request message.
-   * 	- `getProperty()` - Returns the value of a property or configuration option.
-   * 	- `parseClaimsJws()` - Parses a JSON Web Signature (JWS) and extracts the claims
-   * from it.
-   * 	- `setSigningKey()` - Sets the signing key for JWT signing.
+   * 1/ `getHeader`: This method returns the value of a header field in the HTTP request.
+   * The specific header field used is specified by the
+   * `environment.getProperty("authorization.token.header.name")` property.
+   * 2/ `null`: This check is performed to verify if an authorization token is present
+   * in the request header. If the token is null, then the function returns null.
+   * 3/ `authHeader`: This variable stores the value of the authorization token from
+   * the request header. The token is obtained by replacing any prefix specified by the
+   * `environment.getProperty("authorization.token.header.prefix")` property with an
+   * empty string.
+   * 4/ `Jwts.parser()`: This method creates a JSON Web Token (JWT) parser instance.
+   * It takes the token string as input and returns a `ClaimsJws` object, which contains
+   * the parsed JWT claims.
+   * 5/ `.setSigningKey()`: This method sets the signing key for the JWT parser. The
+   * signing key is specified by the `environment.getProperty("token.secret")` property.
+   * 6/ `.parseClaimsJws()`: This method parses the JWT token string and returns a
+   * `ClaimsJws` object, which contains the parsed JWT claims.
+   * 7/ `.getBody()`: This method returns the JWT body, which contains the subject claim.
+   * 8/ `.getSubject()`: This method returns the subject claim from the JWT body.
+   * 9/ `null`: This check is performed to verify if the user ID is null. If it is null,
+   * then the function returns null.
+   * 10/ `new UsernamePasswordAuthenticationToken()`: This creates a new instance of
+   * the `UsernamePasswordAuthenticationToken` class, which takes the user ID and an
+   * empty list of credentials as input. The user ID is obtained from the JWT claims,
+   * and the list of credentials is empty because no credentials are provided by the JWT.
    * 
-   * @returns a `UsernamePasswordAuthenticationToken` object containing the subject and
-   * credentials of the authenticated user.
+   * In summary, the `getAuthentication` function parses the authorization token in the
+   * request header, extracts the subject claim from the JWT, and creates a new
+   * `UsernamePasswordAuthenticationToken` instance with the user ID and an empty list
+   * of credentials.
    * 
-   * 	- The variable `authHeader` represents the authentication header present in the
-   * HTTP request.
-   * 	- The variable `token` is the token extracted from the authentication header using
-   * the `replace()` method and the `environment.getProperty("authorization.token.header.prefix")`
-   * property.
-   * 	- The `Jwts.parser()` method is used to parse the token into a `ClaimsJws` object,
-   * which contains information about the user.
-   * 	- The `getBody()` method of the `ClaimsJws` object returns the subject of the token.
-   * 	- The variable `userId` represents the subject of the token.
-   * 	- The `null` value returned for the `username` and `authorities` properties
-   * indicates that no username or authorities are present in the token.
+   * @returns a `UsernamePasswordAuthenticationToken` object containing the user ID and
+   * an empty list of authorities.
    * 
-   * Overall, the `getAuthentication` function extracts the authentication header from
-   * the HTTP request and parses it into a `ClaimsJws` object to retrieve the user's information.
+   * 	- `var authHeader`: The value of the `Authorization` header in the HTTP request,
+   * which contains the authentication token.
+   * 	- `var token`: The extracted authentication token from the `authHeader`, consisting
+   * of a prefix and the remaining token after removing the prefix.
+   * 	- `var userId`: The subject of the authentication token, representing the user identity.
+   * 	- `return new UsernamePasswordAuthenticationToken(userId, null, Collections.emptyList());`:
+   * The constructed authentication token object, containing the user ID and an empty
+   * list of claims.
    */
   private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
     var authHeader = request.getHeader(environment.getProperty("authorization.token.header.name"));

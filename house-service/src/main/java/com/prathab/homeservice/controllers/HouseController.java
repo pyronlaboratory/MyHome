@@ -30,13 +30,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * in the provided file is a RESTful API controller that handles requests related to
- * houses. The class has several methods, including `listAllHouses`, which retrieves
- * all houses from the database and returns them in a response body. The `listAllHouses`
- * method takes in a `ListAllHouseRequestBody` object as input, validates it, and
- * then uses the `houseService` to retrieve all houses. The retrieved houses are then
- * converted into a response set using the `houseApiMapper`, and the function returns
- * a `ResponseEntity` with the list of houses in the response body.
+ * is a Spring WebFlux REST controller that handles requests related to houses in a
+ * system. The class has several methods, including `listAllHouses`, which receives
+ * a list of houses from the service and maps it to a response set containing house
+ * details using an API mapper. The method then returns a ResponseEntity with OK
+ * status and the mapped response set as body.
  */
 @RestController
 @Slf4j
@@ -51,9 +49,9 @@ public class HouseController {
   }
 
   /**
-   * returns a string indicating that it is working.
+   * returns the string "Working".
    * 
-   * @returns "Working".
+   * @returns the string "Working".
    */
   @GetMapping("/houses/status")
   public String status() {
@@ -61,35 +59,49 @@ public class HouseController {
   }
 
   /**
-   * receives a list of houses from the service and maps it to a response set containing
-   * house details using an API mapper. It then returns a ResponseEntity with OK status
-   * and the mapped response set as body.
+   * receives a list of houses from the service and maps them to a response set containing
+   * house details, before returning a ResponseEntity with a status code of OK and the
+   * response set as the body.
    * 
-   * @param request ListAllHouseRequestBody object that contains the required parameters
-   * for retrieving a list of houses, including the page number, page size, and sort criteria.
+   * @param request ListAllHouseRequestBody object containing the parameters required
+   * to fetch all houses from the database.
    * 
-   * 	- `@RequestBody`: Indicates that the request body is required and should be
-   * serialized and sent as the request entity.
-   * 	- `@Valid`: An annotation indicating that the request body must validate against
-   * a provided Java class (i.e., `ListAllHouseRequestBody`).
-   * 	- `request`: The request body, which contains properties such as `houseId`,
-   * `houseName`, `address`, etc.
+   * 	- `@RequestBody`: Indicates that the `request` object is expected to be passed
+   * in the request body as JSON or XML.
+   * 	- `@Valid`: Indicates that the `request` object must be validated using a validation
+   * framework, such as Spring WebFlux's built-in validation support.
+   * 	- `ListAllHouseRequestBody`: This class represents the request body for listing
+   * all houses. It contains various properties/attributes, including:
+   * 	+ `houseId`: The ID of the house to be listed.
+   * 	+ `houseName`: The name of the house.
+   * 	+ `address`: The address of the house.
+   * 	+ `city`: The city where the house is located.
+   * 	+ `state`: The state where the house is located.
+   * 	+ `zipCode`: The zip code of the house.
+   * 	+ `latitude`: The latitude coordinate of the house.
+   * 	+ `longitude`: The longitude coordinate of the house.
    * 
-   * @returns a `ListAllHouseResponse` object containing the details of all houses found.
+   * These properties/attributes are used to construct the `HouseDetailResponseSet` and
+   * then the `ListAllHouseResponse`.
    * 
-   * 	- `ResponseEntity`: This is the base class for all response entities in Spring
-   * WebFlux. It contains the HTTP status code and the body of the response.
-   * 	- `body`: This is a reference to the actual response object that will be sent
-   * back to the client. In this case, it's a `ListAllHouseResponse` object.
-   * 	- `HttpStatus.OK`: This is the HTTP status code associated with the response. It
-   * indicates that the request was successful and the server has successfully processed
-   * the request.
-   * 	- `listAllHouseResponse`: This is the main response object returned by the function.
-   * It contains a list of `HouseDetailResponse` objects, which are explained below:
+   * @returns a `ListAllHouseResponse` object containing the list of houses and their
+   * details.
    * 
-   * In summary, the `listAllHouses` function returns a response object with an HTTP
-   * status code of 200 (OK) and a body containing a list of `HouseDetailResponse`
-   * objects, which represent the details of each house in the system.
+   * 	- `ResponseEntity`: This is the class that represents the response entity, which
+   * contains the list of houses.
+   * 	- `status`: This property represents the HTTP status code of the response, which
+   * is set to OK in this case.
+   * 	- `body`: This property represents the content of the response, which is a
+   * `ListAllHouseResponse` object.
+   * 	- `ListAllHouseResponse`: This class represents the list of houses returned by
+   * the function. It has several properties:
+   * 	+ `setHouseDetails`: This property represents the list of house details, which
+   * is a set of objects containing information about each house.
+   * 	+ `getHouseDetails`: This property returns the list of house details.
+   * 
+   * The `ListAllHouseResponse` class has several attributes that describe the houses
+   * in the list, including their names, addresses, and sizes. The `houseService` and
+   * `houseApiMapper` classes are used to retrieve the data for the response.
    */
   @GetMapping(
       path = "/houses",

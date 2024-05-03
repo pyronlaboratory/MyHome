@@ -20,18 +20,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * is a Spring Boot test class for testing the Community Service application. It uses
- * the `@SpringBootTest` annotation to indicate that it should be executed as part
- * of the Spring Boot testing framework, and has a single test method marked with the
- * `void contextLoads()` method signature, which tests the loading of the application
- * context.
+ * is a Spring Boot test class designed to load the application's context and enable
+ * access to resources for testing purposes. The class has a single test method marked
+ * with the `@Test` annotation, which tests the loading of the application context.
  */
 @SpringBootTest
 class CommunityServiceApplicationTests {
 
   /**
-   * is designed to load the application's context, enabling it to access resources and
-   * perform necessary operations.
+   * is called when the application starts and initializes the application's resources
+   * and components.
    */
   @Test
   void contextLoads() {

@@ -20,16 +20,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * is a Spring Boot test class for testing the Home Service Application. The class
- * contains a single test method, `contextLoads()`, which verifies that the application
- * context is properly loaded when the class is run.
+ * is a Spring Boot test class designed to load the application's context and verify
+ * its proper loading. The single test method, `contextLoads()`, checks that the
+ * application has access to necessary resources for operation.
  */
 @SpringBootTest
 class HomeServiceApplicationTests {
 
   /**
-   * is designed to load the Spring Boot application's context, enabling it to access
-   * necessary resources and perform operations.
+   * is likely responsible for initializing or loading necessary components or data for
+   * the application's context, ensuring a smooth and efficient startup process.
    */
   @Test
   void contextLoads() {

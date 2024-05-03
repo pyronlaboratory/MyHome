@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * is used to hold a set of community administrators.
+ * holds a set of strings representing community administrators.
  * Fields:
  * 	- admins (Set<String>): in the AddCommunityAdminRequest class holds a set of
  * strings representing community administrators.

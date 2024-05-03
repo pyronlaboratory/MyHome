@@ -25,8 +25,8 @@ import lombok.Setter;
  * represents a response with an administrator's unique identifier within a system
  * or organization.
  * Fields:
- * 	- adminId (String): in the GetAdminDetailsResponse class represents a unique
- * identifier for an administrator within a system or organization.
+ * 	- adminId (String): represents a unique identifier for an administrator within a
+ * system or organization.
  */
 @AllArgsConstructor
 @NoArgsConstructor

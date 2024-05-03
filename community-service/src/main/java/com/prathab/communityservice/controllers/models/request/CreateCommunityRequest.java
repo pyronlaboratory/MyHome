@@ -26,10 +26,10 @@ import lombok.Setter;
  * has two mandatory fields: name and district, which are validated using Lombok's
  * @NotBlank annotation.
  * Fields:
- * 	- name (String): in the CreateCommunityRequest class represents a required string
- * value for identifying a community.
+ * 	- name (String): in the CreateCommunityRequest class is a required string value
+ * for identifying a community.
  * 	- district (String): in the CreateCommunityRequest class is a non-empty string
- * value that is mandated by Lombok's @NotBlank annotation.
+ * value mandated by Lombok's @NotBlank annotation.
  */
 @AllArgsConstructor
 @NoArgsConstructor

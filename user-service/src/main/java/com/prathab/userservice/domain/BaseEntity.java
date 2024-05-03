@@ -28,10 +28,10 @@ import lombok.Setter;
 
 /**
  * serves as a base class for all JPA Entities and provides an identifier (id) through
- * generation using the Identity strategy.
+ * automatic generation using the Identity strategy.
  * Fields:
  * 	- id (Long): in the BaseEntity class is an automatically generated unique identifier
- * for each entity instance.
+ * for each entity instance using the Identity strategy provided by JPA.
  */
 @Getter
 @Setter

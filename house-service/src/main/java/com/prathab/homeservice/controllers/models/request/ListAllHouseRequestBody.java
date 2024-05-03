@@ -23,8 +23,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * is a Java class with a single field, communityId, which is annotated as non-blank
- * and required in the constructor.
+ * has a single field (communityId) annotated as non-blank and required in the
+ * constructor, which is a non-empty string used to identify a specific community.
  * Fields:
  * 	- communityId (String): in the ListAllHouseRequestBody class is a non-empty string
  * used to identify a specific community.

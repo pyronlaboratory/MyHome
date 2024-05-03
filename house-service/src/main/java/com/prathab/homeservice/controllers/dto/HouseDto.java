@@ -22,12 +22,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * represents a data transfer object for housing-related information, including a
- * unique identifier for a specific community or neighborhood associated with the
- * house or property.
+ * represents a data transfer object for housing-related information with a unique
+ * identifier for a specific community or neighborhood associated with the house or
+ * property.
  * Fields:
  * 	- communityId (String): in the HouseDto class represents a unique identifier for
- * a specific community or neighborhood associated with the house or property.
+ * a specific community or neighborhood associated with a house or property.
  */
 @AllArgsConstructor
 @NoArgsConstructor

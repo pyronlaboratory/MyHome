@@ -25,9 +25,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * loads data into a Community and CommunityAdmin repository by persistings a community
- * and an admin to the repository, updating the community with the saved admin, and
- * saving the admin to the repository.
+ * loads data into a Community and CommunityAdmin repository by persistently creating
+ * and linking a new community and its admin to the repository, updating the community
+ * with the saved admin, and saving both entities to the database.
  */
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -49,8 +49,8 @@ public class DataLoader implements CommandLineRunner {
   }
 
   /**
-   * persistently creates and links a new community and its admin to the repository,
-   * updates the community with the saved admin, and saves both entities to the database.
+   * persist community and admin data to the repository, updates the community with
+   * saved admin, and saves the admin to the repository.
    */
   private void loadData() {
     // Persist community to repo

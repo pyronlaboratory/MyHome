@@ -22,13 +22,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * has four fields representing a community ID, name, district, and is marked with
- * annotations for AllArgsConstructor, NoArgsConstructor, Getter, and Setter.
+ * represents a response containing the unique identifier of a community along with
+ * its name and district information, marked with annotations for AllArgsConstructor,
+ * NoArgsConstructor, Getter, and Setter methods.
  * Fields:
- * 	- communityId (String): represents a unique identifier for a specific community.
- * 	- name (String): in the `GetCommunityDetailsResponse` class represents a string
- * value that contains the name of the community associated with the given community
- * ID.
+ * 	- communityId (String): represents a unique identifier for a specific community
+ * within the context of the GetCommunityDetailsResponse class in Java.
+ * 	- name (String): represents a string value that contains the name of the community
+ * associated with the given community ID.
  * 	- district (String): represents the name of the district where the community
  * associated with the given community ID is located.
  */
