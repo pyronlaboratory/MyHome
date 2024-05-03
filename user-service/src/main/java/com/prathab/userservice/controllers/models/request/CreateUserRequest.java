@@ -25,14 +25,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * represents a model for creating a new user with required fields and validation
- * constraints to ensure proper input.
+ * is a Java class that models a user creation request with mandatory fields and
+ * validation constraints for name, email, and password.
  * Fields:
- * 	- name (String): requires a non-empty string value.
- * 	- email (String): in the `CreateUserRequest` model requires a valid email address
+ * 	- name (String): in the CreateUserRequest model requires a non-empty string value.
+ * 	- email (String): in the CreateUserRequest model requires a valid email address
  * as input.
- * 	- password (String): requires a non-empty string value between 8 and 80 characters
- * long, with an error message provided if the input does not match these constraints.
+ * 	- password (String): in the CreateUserRequest model requires a non-empty string
+ * value between 8 and 80 characters long, with an error message provided if the input
+ * does not match these constraints.
  */
 @AllArgsConstructor
 @NoArgsConstructor
