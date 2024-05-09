@@ -30,7 +30,7 @@ import lombok.Setter;
  * Fields:
  * 	- name (String): requires a non-empty string value.
  * 	- email (String): in the `CreateUserRequest` model requires a valid email address
- * as input.
+ * input from users.
  * 	- password (String): requires a non-empty string value between 8 and 80 characters
  * long, with an error message provided if the input does not match these constraints.
  */
