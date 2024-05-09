@@ -32,12 +32,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * is a RESTful API controller that handles user-related operations, including sign-up
- * and status queries. It uses dependency injection to inject a UserService and
- * UserApiMapper interface, and an Environment object for property retrieval. The
- * class contains two methods: `status()` which returns "Working" and `signUp()` which
- * creates a new user using the provided request and returns the created user details
- * in a response entity with HTTP status code `CREATED`.
+ * is a RESTful API controller that handles user-related operations, including signing
+ * up new users and retrieving the status of the sign-up request. The class uses the
+ * `@RestController`, `@Slf4j`, and `@EnableJwt` annotations and depends on the
+ * `UserService`, `UserApiMapper`, and `Environment` classes for functionality.
  */
 @RestController
 @Slf4j
@@ -54,8 +52,7 @@ public class UserController {
   }
 
   /**
-   * logs information using the `trace` method and returns a string indicating that it
-   * is working.
+   * logs information to the server log and returns the string "Working".
    * 
    * @returns "Working".
    */
@@ -68,34 +65,41 @@ public class UserController {
   }
 
   /**
-   * maps a `CreateUserRequest` to a `UserDto` and then creates a new user using the
-   * `userService`. It then maps the created user back to a `CreateUserResponse` and
-   * returns it as a `ResponseEntity`.
+   * receives a `CreateUserRequest` object from the client, converts it to a `UserDto`
+   * using the `userApiMapper`, creates a new user in the database using the `userService`,
+   * and then converts the created user back to a `CreateUserResponse` using the
+   * `userApiMapper`. It returns a `ResponseEntity` with a status code of `CREATED` and
+   * the `CreateUserResponse`.
    * 
-   * @param request CreateUserRequest object that contains the user's information to
-   * be created.
+   * @param request `CreateUserRequest` object passed from the client, which contains
+   * the user details to be created.
    * 
-   * 	- `@Valid`: Indicates that the input request body must be validated by the `@
-   * Validator ` annotation.
-   * 	- `@RequestBody`: Marks the `request` parameter as a JSON or XML body from the client.
-   * 	- `CreateUserRequest`: Represents the request body, which contains the user details
-   * to be created.
-   * 	- `userApiMapper`: A mapping object used to transform the `CreateUserRequest` to
-   * a `UserDto`.
-   * 	- `userService`: An object that creates a new user in the system.
-   * 	- `createdUserDto`: Represents the resulting user data after creation, transformed
-   * by the `userApiMapper`.
-   * 	- `createdUserResponse`: Represents the response body, which contains the created
-   * user details.
+   * 	- `@Valid`: Indicates that the `request` object has been validated by the `@Valid`
+   * annotation.
+   * 	- `@RequestBody`: The request body is expected to be in JSON or XML format.
+   * 	- `CreateUserRequest`: The type of the request object, which contains user details
+   * for creation.
+   * 	- `userApiMapper`: A mapping service used to transform the `request` object into
+   * a `UserDto` object.
+   * 	- `userService`: An API service used to create a new user in the system.
+   * 	- `createdUserDto`: The transformed `UserDto` object created by the `userService`.
+   * 	- `createdUserResponse`: The transformed response object created by mapping the
+   * `createdUserDto` back to the original response format.
    * 
-   * @returns a `CreateUserResponse` object containing the newly created user's details.
+   * @returns a `ResponseEntity` with a status of `HttpStatus.CREATED` and a body
+   * containing the created user response.
    * 
-   * 	- `ResponseEntity`: This is the top-level class in Spring Web that represents a
-   * response object. It has a `status` property that specifies the HTTP status code
-   * of the response (in this case, `HttpStatus.CREATED`).
-   * 	- `body`: This property contains the actual response body as an instance of `CreateUserResponse`.
-   * 	- `createdUserResponse`: This is the actual response body, which contains the
-   * created user details in the form of a `UserDto` object.
+   * 	- `ResponseEntity`: This is a class that represents a response entity with a
+   * status code and a body. The status code indicates the outcome of the request (e.g.,
+   * 201 for created) and the body contains the response data.
+   * 	- `HttpStatus`: This is an enum that represents the HTTP status code of the
+   * response. In this case, it is set to `CREATED`, indicating that the user was
+   * successfully created.
+   * 	- `CreateUserResponse`: This is a class that represents the response data for the
+   * sign-up operation. It contains attributes such as the user ID, username, email,
+   * and password.
+   * 	- `body`: This is a reference to the `CreateUserResponse` object contained in the
+   * body of the `ResponseEntity`.
    */
   @PostMapping(
       path = "/users",
