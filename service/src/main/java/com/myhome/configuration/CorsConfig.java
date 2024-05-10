@@ -1,18 +1,3 @@
-/*
- * Copyright 2020 Prathab Murugan
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package com.myhome.configuration;
 
@@ -101,29 +86,10 @@ public class CorsConfig {
        * credentials (i.e., authentication information) in the responses it sends to clients.
        */
       /**
-       * adds CORS mappings to a registry, allowing incoming requests from any origin and
-       * specifying which methods and headers are allowed, as well as enabling credentials
-       * for authenticated access.
+       * Adds CORS mappings to a registry, specifying allowed origins, methods, headers,
+       * and credentials.
        * 
-       * @param registry Cors registry that is being modified by adding mappings to allow
-       * cross-origin resource sharing (CORS) for specific origins, methods, headers, and
-       * credentials.
-       * 
-       * 	- `registry`: This is an instance of the `CorsRegistry` class, which represents
-       * a registry of CORS (Cross-Origin Resource Sharing) mappings.
-       * 	- `addMapping`: This method adds a new mapping to the registry for the specified
-       * URL pattern ("/**").
-       * 	- `allowedOrigins`: An array of origins that are allowed to make requests to the
-       * protected resource.
-       * 	- `allowedMethods`: An array of HTTP methods (such as GET, POST, PUT, DELETE)
-       * that are allowed to be used with the protected resource.
-       * 	- `allowedHeaders`: An array of headers that are allowed to be included in responses
-       * from the protected resource.
-       * 	- `exposedHeaders`: An array of headers that are exposed to clients making requests
-       * to the protected resource.
-       * 	- `allowCredentials`: A boolean value indicating whether credentials (such as
-       * cookies, authentication headers) should be allowed or required for requests to the
-       * protected resource.
+       * @param registry Cors registry that can be used to manage CORS settings for the server.
        */
       @Override
       public void addCorsMappings(CorsRegistry registry) {
