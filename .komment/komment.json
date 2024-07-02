@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "version": "1",
+    "updated_at": "2024-07-02T14:06:18.393Z",
+    "created_at": "2024-07-02T14:06:24.442Z",
+    "pipelines": [
+      "8bc300ed-8b56-4176-810a-e3b92372cc77"
+    ]
+  },
+  "lookup": [
+    [
+      "service/src/main/java/com/myhome/controllers/exceptions/AuthenticationException.java"
+    ]
+  ]
+}
