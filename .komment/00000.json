@@ -1,0 +1,32 @@
+[
+  {
+    "name": "UserApiMapper.java",
+    "path": "service/src/main/java/com/myhome/controllers/mapper/UserApiMapper.java",
+    "content": {
+      "structured": {
+        "description": "An interface `UserApiMapper` that provides mapping functions between business objects (`UserDto` and `User`) and REST API responses (`GetUserDetailsResponseUser`). The interface includes methods for converting a `CreateUserRequest` to a `UserDto`, a `Set<User>` to a `GetUserDetailsResponseUser` set, a `UserDto` to a `CreateUserResponse`, and a `UserDto` to a `GetUserDetailsResponseUser`.",
+        "items": [
+          {
+            "id": "3ad83420-0b0b-18be-aa46-996b6b654031",
+            "ancestors": [],
+            "description": "Defines a set of mapping functions between business objects and REST API responses, using Mapstruct's automated mapping capabilities.",
+            "name": "UserApiMapper",
+            "location": {
+              "start": 34,
+              "insert": 30,
+              "offset": " ",
+              "indent": 0,
+              "comment": {
+                "start": 29,
+                "end": 33
+              }
+            },
+            "item_type": "interface",
+            "length": 12,
+            "docLength": 4
+          }
+        ]
+      }
+    }
+  }
+]
