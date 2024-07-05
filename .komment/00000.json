@@ -4,14 +4,12 @@
     "path": "user-service/src/main/java/com/prathab/userservice/UserServiceApplication.java",
     "content": {
       "structured": {
-        "description": "A `UserServiceApplication` class that enables Eureka client functionality and uses BCrypt PasswordEncoder for password encryption. The class provides a `getPasswordEncoder()` method that returns a BCryptPasswordEncoder instance, which is used to encrypt passwords using the bcrypt algorithm.",
-        "diagram": "digraph G {\n    label=\"com.prathab.userservice.UserServiceApplication\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n}\n",
+        "description": "A Spring Boot application that enables Eureka client functionality and uses BCrypt PasswordEncoder for password encryption. The `getPasswordEncoder()` method returns an instance of `BCryptPasswordEncoder`, which encodes and hashes passwords securely using the BCrypt algorithm.",
         "items": [
           {
-            "id": "13a33b93-0b18-5492-c64f-709ef3beea0e",
+            "id": "9d9b89d4-eadc-9e81-e74b-2888d3c1fed0",
             "ancestors": [],
-            "type": "function",
-            "description": "is a Spring Boot application that enables Eureka client functionality and uses BCrypt PasswordEncoder for password encryption. The class provides a `getPasswordEncoder()` method that returns a BCryptPasswordEncoder instance, which encrypts passwords securely using the BCrypt algorithm.",
+            "description": "Is a Spring Boot application that enables Eureka client functionality and uses BCrypt PasswordEncoder for password encryption. The class provides a `getPasswordEncoder()` method that returns a BCryptPasswordEncoder instance, which securely hashes and compares passwords using the BCrypt algorithm.",
             "name": "UserServiceApplication",
             "location": {
               "start": 32,
@@ -24,71 +22,69 @@
               }
             },
             "item_type": "class",
-            "length": 44,
+            "length": 36,
             "docLength": 6
           },
           {
-            "id": "f0b0a7f7-8b54-afb5-7f4c-0c1d20ae4ccb",
+            "id": "bd6ffa3c-d5b1-17ba-9a42-a81cb9e277fc",
             "ancestors": [
-              "13a33b93-0b18-5492-c64f-709ef3beea0e"
+              "9d9b89d4-eadc-9e81-e74b-2888d3c1fed0"
             ],
-            "type": "function",
-            "description": "starts a Spring application by running the `UserServiceApplication`.",
+            "description": "Runs a Spring application, specifically the `UserServiceApplication`.",
             "params": [
               {
                 "name": "args",
                 "type_name": "String[]",
-                "description": "1 or more command-line arguments passed to the `SpringApplication.run()` method when executing the application.\n\n* `args`: an array of strings representing command-line arguments passed to the application.",
-                "complex_type": true
+                "description": "command-line arguments passed to the `SpringApplication.run()` method when executing the application.",
+                "complex_type": false
               }
             ],
             "name": "main",
             "location": {
-              "start": 49,
+              "start": 45,
               "insert": 36,
               "offset": " ",
               "indent": 2,
               "comment": {
                 "start": 35,
-                "end": 48
+                "end": 44
               }
             },
             "item_type": "method",
             "length": 3,
-            "docLength": 13
+            "docLength": 9
           },
           {
-            "id": "5f6b35ad-b1bb-9f97-ba4c-74dc6574d7d5",
+            "id": "4702641e-e0c8-cba7-574d-6eded4885d97",
             "ancestors": [
-              "13a33b93-0b18-5492-c64f-709ef3beea0e"
+              "9d9b89d4-eadc-9e81-e74b-2888d3c1fed0"
             ],
-            "type": "function",
-            "description": "retrieves a `BCryptPasswordEncoder` instance, which is a password encryption algorithm used to hash and compare passwords securely.",
+            "description": "Returns a `BCryptPasswordEncoder` instance, which is a widely-used and secure password hashing algorithm.",
             "params": [],
             "returns": {
               "type_name": "BCryptPasswordEncoder",
-              "description": "a BCryptPasswordEncoder instance, which is used to securely store and validate passwords.\n\n* The `BCryptPasswordEncoder` object is an instance of the `PasswordEncoder` interface, which provides methods for encoding and hashing passwords securely.\n* The `BCryptPasswordEncoder` class implements the `BCrypt` algorithm, a widely used password hashing algorithm that is considered to be secure and fast.\n* The `getPasswordEncoder` function returns an instance of `BCryptPasswordEncoder`, which can be used to encrypt passwords in the application.",
-              "complex_type": true
+              "description": "a `BCryptPasswordEncoder` instance for password encryption.",
+              "complex_type": false
             },
             "usage": {
               "language": "java",
-              "code": "@Bean \npublic PasswordEncoder getPasswordEncoder() {\n   return new BCryptPasswordEncoder();\n}\n",
-              "description": "\nIn this example, a new instance of the BCryptPasswordEncoder class is created and returned as a PasswordEncoder bean. The getPasswordEncoder method annotated with @Bean is used to register the password encoder for use by Spring Security. This makes it available to the application as a whole."
+              "code": "@Bean\n  public PasswordEncoder getPasswordEncoder() {\n    return new BCryptPasswordEncoder();\n  }\n}\n",
+              "description": ""
             },
             "name": "getPasswordEncoder",
             "location": {
-              "start": 71,
-              "insert": 53,
+              "start": 63,
+              "insert": 49,
               "offset": " ",
               "indent": 2,
               "comment": {
-                "start": 52,
-                "end": 70
+                "start": 48,
+                "end": 62
               }
             },
             "item_type": "method",
             "length": 4,
-            "docLength": 18
+            "docLength": 14
           }
         ]
       }
@@ -99,101 +95,97 @@
     "path": "user-service/src/main/java/com/prathab/userservice/controllers/UserController.java",
     "content": {
       "structured": {
-        "description": "a Rest API endpoint for creating new users in an application. The endpoint accepts a `CreateUserRequest` object as input, which is validated using bean validation and then mapped to a corresponding `UserDto` object using a mapping interface. The resulting `UserDto` object is then used to create a new user in the system using a service layer, and the resulting `User` object is converted back to a `UserDto` object for return as a response to the client. The output returned by the endpoint is a `ResponseEntity` object with a status code of `HttpStatus.CREATED` and a body containing an instance of the `CreateUserResponse` class, which contains information about the created user.",
-        "diagram": "digraph G {\n    label=\"com.prathab.userservice.controllers.UserController\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"models\"\n        color=\"#33363A\"\n        subgraph cluster_1 {\n            label=\"request\"\n            color=\"#33363A\"\n            CreateUserRequest\n        }\n        subgraph cluster_2 {\n            label=\"response\"\n            color=\"#33363A\"\n            CreateUserResponse\n        }\n    }\n    subgraph cluster_main {\n        // style=filled;\n        color=\"#00000000\"; \n        UserController [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n        label = \"\"\n    }\n    CreateUserRequest -> UserController \n    UserController -> CreateUserResponse \n}\n",
+        "description": "A `UserController` class responsible for handling user-related endpoints in a Spring Boot application. It has constructors that take instances of `UserService` and `UserApiMapper`, which provide methods for creating and manipulating users in the system. The class also has a log4j2 logger that logs information at the trace level. The `signUp` method is the main endpoint for creating new users in the system, which takes a `CreateUserRequest` object as a request body, validates it using Bean Validation, and maps it to a `CreatedUserResponse` object using the `userApiMapper`.",
         "items": [
           {
-            "id": "ddec02c2-025a-318b-7549-4b1519a70055",
+            "id": "cb0d42f9-d17a-abbf-654c-9f326a5a80cb",
             "ancestors": [],
-            "type": "function",
-            "description": "is responsible for handling user-related endpoints in a Spring Boot application. It provides a REST API for creating, reading, updating, and deleting users. The class has a constructor that takes an instance of the `UserService` interface, which provides methods for creating and manipulating users in the system, and an instance of the `UserApiMapper` interface, which maps between the user request body and the resulting user response. The class also has a log4j2 logger that logs information at the trace level.\n\nThe `signUp` method is the main endpoint for creating new users in the system. It takes a `CreateUserRequest` object as a request body, validates it using Bean Validation, and then maps it to a `CreatedUserResponse` object using the `userApiMapper`. The resulting response is then generated and returned as a `ResponseEntity` with a status code of `HttpStatus.CREATED` and a body containing the created user response.",
+            "description": "Is responsible for handling user sign-up requests and returning the created user details in a response entity with an HTTP status code of \"CREATED\". The class uses dependency injection to inject a `UserService` and `UserApiMapper`, which are used to create a new user in the system based on the provided request. The `signUp()` method maps the `CreateUserRequest` to a `CreatedUserResponse` using the `userApiMapper`, creates a new user using the `UserService`, and returns the created user details in a response entity with an HTTP status code of \"CREATED\".",
             "name": "UserController",
             "location": {
-              "start": 42,
+              "start": 50,
               "insert": 34,
               "offset": " ",
               "indent": 0,
               "comment": {
                 "start": 33,
-                "end": 41
+                "end": 49
               }
             },
             "item_type": "class",
-            "length": 100,
-            "docLength": 8
+            "length": 72,
+            "docLength": 16
           },
           {
-            "id": "699fb7eb-cbde-7c8e-0044-bde1f7bcf527",
+            "id": "311e9393-f7c8-d4a4-2945-ec84d52b0da3",
             "ancestors": [
-              "ddec02c2-025a-318b-7549-4b1519a70055"
+              "cb0d42f9-d17a-abbf-654c-9f326a5a80cb"
             ],
-            "type": "function",
-            "description": "logs a message using the `log.trace()` method and returns the string \"Working\".",
+            "description": "Logs an event and returns a string indicating that it is working.",
             "params": [],
             "returns": {
-              "type_name": "String",
+              "type_name": "string",
               "description": "\"Working\".",
               "complex_type": false
             },
             "usage": {
               "language": "java",
-              "code": "@RestController\npublic class ExampleController {\n    private final Environment environment;\n    private final UserApiMapper userApiMapper;\n    private final UserService userService;\n\n    @Autowired\n    public ExampleController(Environment environment, UserApiMapper userApiMapper, UserService userService) {\n        this.environment = environment;\n        this.userApiMapper = userApiMapper;\n        this.userService = userService;\n    }\n\n    @GetMapping(\"/users/status\")\n    public String status() {\n        log.trace(\"Running on port{} with jwt_secret{}\",\n            environment.getProperty(\"local.server.port\"),\n            environment.getProperty(\"token.secret\"));\n        return \"Working\";\n    }\n}\n",
-              "description": "\nIn this example, the controller has a single method `status()` which returns `\"Working\"`. This method is annotated with `@GetMapping(\"/users/status\")`, indicating that it should handle GET requests on the URL `/users/status` and return the string \"Working\". The arguments to the constructor are injected using Spring's autowiring system.\n\nHere is an example of how the controller would be used in a test:\n"
+              "code": "@GetMapping(\"/users/status\")\npublic String status() {\n  log.trace(\"Running on port{} with jwt_secret{}\", environment.getProperty(\"local.server.port\"), environment.getProperty(\"token.secret\"));\n  return \"Working\";\n}\n",
+              "description": "\nThe method `status()` is decorated with the `@GetMapping` annotation, which indicates that this endpoint handles GET requests to the path `/users/status`. The method returns a string value `\"Working\"`, which is logged at the trace level by the line `log.trace(\"Running on port{} with jwt_secret{}\", environment.getProperty(\"local.server.port\"), environment.getProperty(\"token.secret\"));`"
             },
             "name": "status",
             "location": {
-              "start": 71,
-              "insert": 56,
+              "start": 69,
+              "insert": 64,
               "offset": " ",
               "indent": 2,
               "comment": {
-                "start": 55,
-                "end": 70
+                "start": 63,
+                "end": 68
               }
             },
             "item_type": "method",
             "length": 7,
-            "docLength": 15
+            "docLength": 5
           },
           {
-            "id": "2fbbcfce-9e2f-d580-1640-ee47d8e179c3",
+            "id": "4bca214c-c55e-fa8a-d94f-103c600aaae6",
             "ancestors": [
-              "ddec02c2-025a-318b-7549-4b1519a70055"
+              "cb0d42f9-d17a-abbf-654c-9f326a5a80cb"
             ],
-            "type": "function",
-            "description": "maps a `CreateUserRequest` to a `CreatedUserResponse`. It creates a new user using the provided request and returns the created user details in a response entity with HTTP status code `CREATED`.",
+            "description": "Creates a new user in the system by receiving a `CreateUserRequest` object from the client, mapping it to a `UserDto`, creating a new `User` entity using the `UserDto`, and then returning the created user's details as a `CreateUserResponse`.",
             "params": [
               {
                 "name": "request",
                 "type_name": "CreateUserRequest",
-                "description": "user sign-up request body containing the user details to be created.\n\n* `@Valid`: Indicates that the input is validated using the `@Valid` annotation.\n* `@RequestBody`: Marks the input as a JSON or XML body in the HTTP request message.\n* `CreateUserRequest`: Represents the request body, which contains the data required to create a new user.\n* `userApiMapper`: An interface or class that maps the request body to a corresponding UserDto object.\n* `userService`: An interface or class that creates a new user in the system.\n* `createdUserDto`: Represents the resulting UserDto object after creating a new user.\n* `createdUserResponse`: Represents the response body, which contains the created user details.",
+                "description": "CreateUserRequest object passed from the client to the server, which contains the user's information that is used to create a new user account.\n\n* `requestBody`: The request body contains the user details in JSON format.",
                 "complex_type": true
               }
             ],
             "returns": {
               "type_name": "CreateUserResponse",
-              "description": "a `ResponseEntity` with a status of `HTTP_CREATED` and a body containing the created user response.\n\n* `ResponseEntity`: This is a class that represents an HTTP response entity, which is a combination of a status code and an entity body. In this case, the status code is set to `HttpStatus.CREATED`, which indicates that the request was successful and resulted in the creation of a new resource.\n* `body`: This attribute contains the entity body of the response, which is a `CreateUserResponse` object in this case.\n* `CreateUserResponse`: This class represents the response to the sign-up request, containing information about the newly created user. It has several attributes, including `id`, `name`, `email`, and `password`.",
+              "description": "a `ResponseEntity` with a status of `HttpStatus.CREATED` and a body containing the created user response.\n\n* `ResponseEntity`: This is the outermost class representing the response entity, which has a status code and a body containing the created user response.\n* `body`: The body of the response contains the created user response, which is represented by the `CreateUserResponse` class.",
               "complex_type": true
             },
             "usage": {
               "language": "java",
-              "code": "@Test\nvoid signUp_validRequest() {\n    // Setup\n    var createUserRequest = new CreateUserRequest(\n        \"username\",\n        \"password\",\n        \"name\",\n        \"email\"\n    );\n    \n    // Action\n    ResponseEntity<CreateUserResponse> response = userController.signUp(createUserRequest);\n    \n    // Assertion\n    assertEquals(HttpStatus.CREATED, response.getStatusCode());\n    assertNotNull(response.getBody().getId());\n}\n",
-              "description": "\nIn this example, the test method first sets up a `CreateUserRequest` object with valid input data. Then it calls the `signUp` method and asserts that the status code returned is `HttpStatus.CREATED`. Finally, it checks if the body of the response contains an ID which is not null.\n\nThis test ensures that the `signUp` method works correctly when given valid input data."
+              "code": "@Autowired\nprivate UserController userController;\n\n// Example request body to create a new user\nCreateUserRequest createUserRequest = CreateUserRequest(username, email, password);\n\nResponseEntity<CreateUserResponse> responseEntity = userController.signUp(createUserRequest);\n\n// Get the status code of the response\nHttpStatus statusCode = responseEntity.getStatusCode();\n\n// Get the body of the response\nCreateUserResponse createUserResponse = responseEntity.getBody();\n",
+              "description": "\nThe above code creates an instance of `UserController`, which is a spring bean that contains the signUp method we want to use, and then creates an instance of `CreateUserRequest` with the required fields for creating a new user. The signUp method is called with the request body as input, and the response is stored in a `ResponseEntity<CreateUserResponse>` object. The status code of the response can be obtained using the `getStatusCode()` method, and the body of the response can be obtained using the `getBody()` method. In this example, we are assuming that the request body contains the required fields for creating a new user.\nIt's worth noting that this is just an example, you should always validate your inputs and make sure that they meet your requirements before using them in any operation."
             },
             "name": "signUp",
             "location": {
-              "start": 129,
-              "insert": 79,
+              "start": 109,
+              "insert": 77,
               "offset": " ",
               "indent": 2,
               "comment": {
-                "start": 78,
-                "end": 128
+                "start": 76,
+                "end": 108
               }
             },
             "item_type": "method",
             "length": 12,
-            "docLength": 50
+            "docLength": 32
           }
         ]
       }
@@ -204,14 +196,12 @@
     "path": "user-service/src/main/java/com/prathab/userservice/controllers/models/mapper/UserApiMapper.java",
     "content": {
       "structured": {
-        "description": "An interface `UserApiMapper` using Mapstruct, a dependency injection framework for Java. The interface provides mappings between objects of types `UserDto`, `CreateUserRequest`, and `CreateUserResponse`. It maps `UserDto` to `CreateUserRequest` and vice versa, and also maps `UserDto` to `CreateUserResponse` and vice versa.",
-        "diagram": "digraph G {\n    label=\"com.prathab.userservice.controllers.models.mapper.UserApiMapper\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"request\"\n        color=\"#33363A\"\n        CreateUserRequest\n    }\n    subgraph cluster_1 {\n        label=\"mapper\"\n        color=\"#33363A\"\n        subgraph cluster_main {\n            // style=filled;\n            color=\"#00000000\"; \n            UserApiMapper [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n            label = \"\"\n        }\n    }\n    subgraph cluster_2 {\n        label=\"response\"\n        color=\"#33363A\"\n        CreateUserResponse\n    }\n    CreateUserResponse -> UserApiMapper \n    CreateUserRequest -> UserApiMapper \n    UserApiMapper -> CreateUserResponse \n    UserApiMapper -> CreateUserRequest \n}\n",
+        "description": "A mapping between objects of the `UserDto` and `CreateUserRequest` types using Mapstruct's automatic conversion capabilities. The `UserApiMapper` interface implements the mappings: `userDtoToCreateUserRequest`, `createUserRequestToUserDto`, `userDtoToCreateUserResponse`, and `createUserResponseToUserDto`.",
         "items": [
           {
-            "id": "ea83393c-f41f-7ab9-8544-beba389fc2aa",
+            "id": "1dc55213-6056-f7a4-564a-e69dc3e60d76",
             "ancestors": [],
-            "type": "function",
-            "description": "defines a mapping between objects of the UserDto and CreateUserRequest types to corresponding objects in the CreateUserResponse type using Mapstruct's automatic conversion capabilities.",
+            "description": "Defines a mapping between objects of different types to convert them to corresponding objects in another type using Mapstruct's automatic conversion capabilities.",
             "name": "UserApiMapper",
             "location": {
               "start": 29,
@@ -236,14 +226,12 @@
     "path": "user-service/src/main/java/com/prathab/userservice/controllers/models/request/CreateUserRequest.java",
     "content": {
       "structured": {
-        "description": "A model class called `CreateUserRequest` for creating a new user with required fields and validation constraints. The class has three fields: `name`, `email`, and `password`. The `name` field is not blank, the `email` field is an email address, and the `password` field is a non-empty string between 8 and 80 characters long. The class uses Lombok packages to provide getter and setter methods, as well as constructor injection for simplicity.",
-        "diagram": "digraph G {\n    label=\"com.prathab.userservice.controllers.models.request.CreateUserRequest\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"models\"\n        color=\"#33363A\"\n        subgraph cluster_1 {\n            label=\"response\"\n            color=\"#33363A\"\n            CreateUserResponse\n        }\n        subgraph cluster_2 {\n            label=\"mapper\"\n            color=\"#33363A\"\n            UserApiMapper\n        }\n        subgraph cluster_3 {\n            label=\"request\"\n            color=\"#33363A\"\n            subgraph cluster_main {\n                // style=filled;\n                color=\"#00000000\"; \n                CreateUserRequest [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n                label = \"\"\n            }\n        }\n    }\n    UserController\n    CreateUserRequest -> CreateUserResponse [style=\"dashed\"]\n    UserApiMapper -> CreateUserRequest \n    CreateUserRequest -> UserApiMapper \n    CreateUserRequest -> UserController \n}\n",
+        "description": "A class called `CreateUserRequest` that represents a model for creating a new user with required fields and validation constraints. The class has three fields: `name`, `email`, and `password`. The `name` field must contain a non-empty string, the `email` field must be a valid email address, and the `password` field must be a non-empty string between 8 and 80 characters long. The class uses Lombok packages to provide getter, setter, and constructor functionality with annotations.",
         "items": [
           {
-            "id": "e74f14d5-7d36-759a-7342-9a25aee0bfd4",
+            "id": "ca4d3ae7-c1d1-a68c-0945-496be7858915",
             "ancestors": [],
-            "type": "function",
-            "description": "represents a model for creating a new user with required fields and validation constraints to ensure proper input.\nFields:\n\t- name (String): requires a non-empty string value.\n\t- email (String): in the `CreateUserRequest` model requires a valid email address as input.\n\t- password (String): requires a non-empty string value between 8 and 80 characters long, with an error message provided if the input does not match these constraints.\n\n",
+            "description": "Represents a model for creating a new user with required fields and validation constraints to ensure proper input.\nFields:\n\t- name (String): in the `CreateUserRequest` model requires a non-empty string value.\n\t- email (String): in the CreateUserRequest class requires a valid email address as input.\n\t- password (String): in the `CreateUserRequest` model requires a non-empty string value between 8 and 80 characters long, with an error message provided if the input does not match these constraints.\n\n",
             "fields": [
               {
                 "name": "name",
@@ -251,7 +239,7 @@
                 "value": null,
                 "constant": false,
                 "class_name": "CreateUserRequest",
-                "description": "requires a non-empty string value."
+                "description": "in the `CreateUserRequest` model requires a non-empty string value."
               },
               {
                 "name": "email",
@@ -259,7 +247,7 @@
                 "value": null,
                 "constant": false,
                 "class_name": "CreateUserRequest",
-                "description": "in the `CreateUserRequest` model requires a valid email address as input."
+                "description": "in the CreateUserRequest class requires a valid email address as input."
               },
               {
                 "name": "password",
@@ -267,7 +255,7 @@
                 "value": null,
                 "constant": false,
                 "class_name": "CreateUserRequest",
-                "description": "requires a non-empty string value between 8 and 80 characters long, with an error message provided if the input does not match these constraints."
+                "description": "in the `CreateUserRequest` model requires a non-empty string value between 8 and 80 characters long, with an error message provided if the input does not match these constraints."
               }
             ],
             "name": "CreateUserRequest",
@@ -294,14 +282,12 @@
     "path": "user-service/src/main/java/com/prathab/userservice/controllers/models/request/LoginUserRequest.java",
     "content": {
       "structured": {
-        "description": "A `LoginUserRequest` model that represents a request for logging into a service with email and password parameters. The model is constructed using Lombok's `@AllArgsConstructor` and `@NoArgsConstructor` annotations, which enable automatic generation of getters and setters. The `email` and `password` fields are defined as Strings, indicating the user's login credentials.",
-        "diagram": "digraph G {\n    label=\"com.prathab.userservice.controllers.models.request.LoginUserRequest\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n}\n",
+        "description": "A `LoginUserRequest` model class for storing login credentials of a user attempting to log in to a service. The class has two fields: `email` and `password`, which are used to store the user's email address and login credentials, respectively. The class follows the principles of dependency injection using Lombok, an automated programming tool.",
         "items": [
           {
-            "id": "ea635aad-e875-2997-f241-3dfc03de7233",
+            "id": "817290dd-668b-96b5-3944-57537138a729",
             "ancestors": [],
-            "type": "function",
-            "description": "is a request model for logging into a service with email and password parameters.\nFields:\n\t- email (String): in the LoginUserRequest model represents an email address of a user attempting to log in to the service.\n\t- password (String): in the LoginUserRequest model stores a user's login credentials.\n\n",
+            "description": "Models a request for logging into a service with email and password parameters.\nFields:\n\t- email (String): represents an email address of a user attempting to log in to the service.\n\t- password (String): in the LoginUserRequest model stores a user's login credentials.\n\n",
             "fields": [
               {
                 "name": "email",
@@ -309,7 +295,7 @@
                 "value": null,
                 "constant": false,
                 "class_name": "LoginUserRequest",
-                "description": "in the LoginUserRequest model represents an email address of a user attempting to log in to the service."
+                "description": "represents an email address of a user attempting to log in to the service."
               },
               {
                 "name": "password",
@@ -344,14 +330,12 @@
     "path": "user-service/src/main/java/com/prathab/userservice/controllers/models/response/CreateUserResponse.java",
     "content": {
       "structured": {
-        "description": "A response model for creating a user request, containing unique identifier, name, and email details. The CreateUserResponse class has three fields: userId, name, and email, which are annotated with Lombok annotations for no-args constructor, getter, and setter methods.",
-        "diagram": "digraph G {\n    label=\"com.prathab.userservice.controllers.models.response.CreateUserResponse\"\n    bgcolor=\"#151719\"\n    fontcolor=\"#ECEDED\"\n    splines=ortho\n    fontname=\"Courier New\"\n    edge [color=\"#26de81\"]\n    node [style=filled,color=\"#717D86\", shape=rectangle, fontname=\"Courier New\"];\n    \n    subgraph cluster_0 {\n        label=\"models\"\n        color=\"#33363A\"\n        subgraph cluster_1 {\n            label=\"response\"\n            color=\"#33363A\"\n            subgraph cluster_main {\n                // style=filled;\n                color=\"#00000000\"; \n                CreateUserResponse [style=filled,color=\"#26de81\",shape=rectangle, fontname=\"Courier New\"];\n                label = \"\"\n            }\n        }\n        subgraph cluster_2 {\n            label=\"mapper\"\n            color=\"#33363A\"\n            UserApiMapper\n        }\n        subgraph cluster_3 {\n            label=\"request\"\n            color=\"#33363A\"\n            CreateUserRequest\n        }\n    }\n    UserController\n    UserApiMapper -> CreateUserResponse \n    CreateUserResponse -> UserApiMapper \n    UserController -> CreateUserResponse \n    CreateUserRequest -> CreateUserResponse [style=\"dashed\"]\n}\n",
+        "description": "A response model for creating a user request containing unique identifier, name, and email details using Lombok packages. The `CreateUserResponse` class has three fields: `userId`, `name`, and `email`.",
         "items": [
           {
-            "id": "38ae0213-6e95-9a9b-8a40-6b8ca2da861d",
+            "id": "c3ea5745-7fbb-a28f-6649-f613a237e588",
             "ancestors": [],
-            "type": "function",
-            "description": "is a response model for creating a user request containing unique identifier, name, and email details.\nFields:\n\t- userId (String): represents a unique identifier for a created user.\n\t- name (String): in the `CreateUserResponse` class represents a string value containing the user's name.\n\t- email (String): represents a string value containing an email address.\n\n",
+            "description": "Serves as a response model for creating a user request containing unique identifier, name, and email details.\nFields:\n\t- userId (String): represents a unique identifier for a created user.\n\t- name (String): represents a string value containing the user's name.\n\t- email (String): in the `CreateUserResponse` class contains a string value representing an email address.\n\n",
             "fields": [
               {
                 "name": "userId",
@@ -367,7 +351,7 @@
                 "value": null,
                 "constant": false,
                 "class_name": "CreateUserResponse",
-                "description": "in the `CreateUserResponse` class represents a string value containing the user's name."
+                "description": "represents a string value containing the user's name."
               },
               {
                 "name": "email",
@@ -375,23 +359,23 @@
                 "value": null,
                 "constant": false,
                 "class_name": "CreateUserResponse",
-                "description": "represents a string value containing an email address."
+                "description": "in the `CreateUserResponse` class contains a string value representing an email address."
               }
             ],
             "name": "CreateUserResponse",
             "location": {
-              "start": 33,
+              "start": 34,
               "insert": 25,
               "offset": " ",
               "indent": 0,
               "comment": {
                 "start": 24,
-                "end": 32
+                "end": 33
               }
             },
             "item_type": "class",
             "length": 9,
-            "docLength": 8
+            "docLength": 9
           }
         ]
       }
