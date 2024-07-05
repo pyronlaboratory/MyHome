@@ -32,20 +32,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * is responsible for handling user-related endpoints in a Spring Boot application.
- * It provides a REST API for creating, reading, updating, and deleting users. The
- * class has a constructor that takes an instance of the `UserService` interface,
- * which provides methods for creating and manipulating users in the system, and an
- * instance of the `UserApiMapper` interface, which maps between the user request
- * body and the resulting user response. The class also has a log4j2 logger that logs
- * information at the trace level.
- * 
- * The `signUp` method is the main endpoint for creating new users in the system. It
- * takes a `CreateUserRequest` object as a request body, validates it using Bean
- * Validation, and then maps it to a `CreatedUserResponse` object using the
- * `userApiMapper`. The resulting response is then generated and returned as a
- * `ResponseEntity` with a status code of `HttpStatus.CREATED` and a body containing
- * the created user response.
+ * Is responsible for handling user sign-up requests and returning the created user
+ * details in a response entity with an HTTP status code of "CREATED". The class uses
+ * dependency injection to inject a `UserService` and `UserApiMapper`, which are used
+ * to create a new user in the system based on the provided request. The `signUp()`
+ * method maps the `CreateUserRequest` to a `CreatedUserResponse` using the
+ * `userApiMapper`, creates a new user using the `UserService`, and returns the created
+ * user details in a response entity with an HTTP status code of "CREATED".
  */
 @RestController
 @Slf4j
@@ -62,7 +55,7 @@ public class UserController {
   }
 
   /**
-   * logs a message using the `log.trace()` method and returns the string "Working".
+   * Logs an event and returns a string indicating that it is working.
    * 
    * @returns "Working".
    */
@@ -75,36 +68,22 @@ public class UserController {
   }
 
   /**
-   * maps a `CreateUserRequest` to a `CreatedUserResponse`. It creates a new user using
-   * the provided request and returns the created user details in a response entity
-   * with HTTP status code `CREATED`.
+   * Creates a new user in the system by receiving a `CreateUserRequest` object from
+   * the client, mapping it to a `UserDto`, creating a new `User` entity using the
+   * `UserDto`, and then returning the created user's details as a `CreateUserResponse`.
    * 
-   * @param request user sign-up request body containing the user details to be created.
+   * @param request CreateUserRequest object passed from the client to the server, which
+   * contains the user's information that is used to create a new user account.
    * 
-   * 	- `@Valid`: Indicates that the input is validated using the `@Valid` annotation.
-   * 	- `@RequestBody`: Marks the input as a JSON or XML body in the HTTP request message.
-   * 	- `CreateUserRequest`: Represents the request body, which contains the data
-   * required to create a new user.
-   * 	- `userApiMapper`: An interface or class that maps the request body to a corresponding
-   * UserDto object.
-   * 	- `userService`: An interface or class that creates a new user in the system.
-   * 	- `createdUserDto`: Represents the resulting UserDto object after creating a new
-   * user.
-   * 	- `createdUserResponse`: Represents the response body, which contains the created
-   * user details.
+   * * `requestBody`: The request body contains the user details in JSON format.
    * 
-   * @returns a `ResponseEntity` with a status of `HTTP_CREATED` and a body containing
-   * the created user response.
+   * @returns a `ResponseEntity` with a status of `HttpStatus.CREATED` and a body
+   * containing the created user response.
    * 
-   * 	- `ResponseEntity`: This is a class that represents an HTTP response entity, which
-   * is a combination of a status code and an entity body. In this case, the status
-   * code is set to `HttpStatus.CREATED`, which indicates that the request was successful
-   * and resulted in the creation of a new resource.
-   * 	- `body`: This attribute contains the entity body of the response, which is a
-   * `CreateUserResponse` object in this case.
-   * 	- `CreateUserResponse`: This class represents the response to the sign-up request,
-   * containing information about the newly created user. It has several attributes,
-   * including `id`, `name`, `email`, and `password`.
+   * * `ResponseEntity`: This is the outermost class representing the response entity,
+   * which has a status code and a body containing the created user response.
+   * * `body`: The body of the response contains the created user response, which is
+   * represented by the `CreateUserResponse` class.
    */
   @PostMapping(
       path = "/users",
