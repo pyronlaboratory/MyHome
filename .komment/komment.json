@@ -1,15 +1,17 @@
 {
   "meta": {
     "version": "1",
-    "updated_at": "2024-07-03T10:54:06.697Z",
+    "updated_at": "2024-07-05T08:09:56.624Z",
     "created_at": "2024-07-03T10:54:07.551Z",
     "pipelines": [
-      "36a53d14-8cb9-4eba-a6d2-ca79ad7e3782"
+      "36a53d14-8cb9-4eba-a6d2-ca79ad7e3782",
+      "606e0f99-7c68-402b-ba36-baa76c779b6d"
     ]
   },
   "lookup": [
     [
-      "service/src/main/java/com/myhome/controllers/mapper/UserApiMapper.java"
+      "service/src/main/java/com/myhome/controllers/mapper/UserApiMapper.java",
+      "service/src/main/java/com/myhome/controllers/exceptions/AuthenticationException.java"
     ]
   ]
 }

@@ -28,5 +28,42 @@
         ]
       }
     }
+  },
+  {
+    "name": "AuthenticationException.java",
+    "path": "service/src/main/java/com/myhome/controllers/exceptions/AuthenticationException.java",
+    "content": {
+      "structured": {
+        "description": "An `AuthenticationException` class that extends `RuntimeException`. The class has a default constructor that sets the error message to \"Credentials are incorrect or user does not exists\". The class also uses Spring's `ResponseStatus` annotation to set the HTTP status code to `HttpStatus.UNAUTHORIZED`.",
+        "items": [
+          {
+            "id": "6c5c0ffe-13a6-3880-0e45-7b8ba3ef85fe",
+            "ancestors": [],
+            "description": "Provides a customized exception response with a specific HTTP status code and error message when credentials are incorrect or the user does not exist.\nFields:\n\t- ERROR_MESSAGE (String): is a static string containing the message \"Credentials are incorrect or user does not exist.\"\n\n",
+            "fields": [
+              {
+                "name": "ERROR_MESSAGE",
+                "type_name": "String",
+                "value": "\"Credentials are incorrect or user does not exists\"",
+                "constant": true,
+                "class_name": "AuthenticationException",
+                "description": "is a static string containing the message \"Credentials are incorrect or user does not exist.\""
+              }
+            ],
+            "name": "AuthenticationException",
+            "location": {
+              "start": 7,
+              "insert": 7,
+              "offset": " ",
+              "indent": 0,
+              "comment": null
+            },
+            "item_type": "class",
+            "length": 8,
+            "docLength": null
+          }
+        ]
+      }
+    }
   }
 ]
