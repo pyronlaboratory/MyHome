@@ -48,7 +48,11 @@ import javax.validation.constraints.NotNull;
  * Controller for facilitating user actions.
  */
 /**
- * TODO
+ * Is responsible for handling user-related requests and operations such as creating
+ * a new user, listing all users, retrieving a specific user's details, and verifying
+ * email confirmations. It utilizes various services to perform these tasks, including
+ * UserService, HouseService, and UserApiMapper. The class returns ResponseEntity
+ * objects with different status codes to indicate the success or failure of each operation.
  */
 @RestController
 @Slf4j
@@ -61,31 +65,22 @@ public class UserController implements UsersApi {
   private final HouseMemberMapper houseMemberMapper;
 
   /**
-   * receives a `CreateUserRequest` object, converts it into a `UserDto`, creates a new
-   * user in the system, and returns the created user as a `CreateUserResponse`.
-   * 
-   * @param request user's sign-up request, which includes the user's information and
-   * other relevant details.
-   * 
-   * 	- `@Valid`: This annotation indicates that the input `request` is validated by
-   * Spring Security's security context.
-   * 	- `CreateUserRequest`: This is the class that represents the request body for
-   * creating a new user. It has various attributes/properties, such as `username`,
-   * `email`, `password`, etc.
-   * 
-   * @returns a `ResponseEntity` object with a status code of either `CREATED` or
-   * `CONFLICT`, depending on whether the user was created successfully or not.
-   * 
-   * 	- `ResponseEntity`: This is an instance of the `ResponseEntity` class, which
-   * represents a response to a HTTP request. The status code of the response is
-   * `HttpStatus.CREATED`, indicating that the user has been created successfully.
-   * 	- `body`: This is a reference to the `CreateUserResponse` object that contains
-   * information about the newly created user.
-   * 	- `map`: This method is used to map the `Optional<UserDto>` result of the
-   * `createUser()` method to a `CreateUserResponse` object. If the `Optional<UserDto>`
-   * is present, the `map` method returns a `ResponseEntity` with a status code of
-   * `HttpStatus.CREATED` and a body containing the `CreateUserResponse`. Otherwise,
-   * the `map` method returns a `ResponseEntity` with a status code of `HttpStatus.CONFLICT`.
+   * Maps a given `CreateUserRequest` to a `UserDto`, creates a new user with the
+   * `UserService`, and returns a `ResponseEntity` containing a `CreateUserResponse`.
+   * If creation fails, it returns a conflict response; otherwise, it returns a created
+   * response with the newly created user.
+   *
+   * @param request @Valid CreateUserRequest object that contains the user data to be
+   * signed up and validated.
+   *
+   * Validates the `CreateUserRequest` object, which contains fields for username,
+   * email, password and confirmPassword.
+   *
+   * @returns a response entity containing a user creation response.
+   *
+   * Returns a ResponseEntity object with either a CreateUserResponse body and a CREATED
+   * status or an empty response body and a CONFLICT status. The ResponseEntity contains
+   * an optional UserDto that was created by the userService.
    */
   @Override
   public ResponseEntity<CreateUserResponse> signUp(@Valid CreateUserRequest request) {
@@ -101,36 +96,22 @@ public class UserController implements UsersApi {
   }
 
   /**
-   * receives a `Pageable` parameter and returns a `GetUserDetailsResponse` object
-   * containing a list of users fetched from the user service using the `listAll` method,
-   * and then maps the users to a REST API response format using the `userApiMapper`.
-   * 
-   * @param pageable pagination information for retrieving all users, allowing the
-   * listAllUsers method to retrieve a subset of users based on the current page number
-   * and page size.
-   * 
-   * 	- `log.trace("Received request to list all users")`: This line logs a message
-   * indicating that the method has received a request to list all users.
-   * 
-   * The `pageable` parameter is a `Pageable` object representing a page of user details
-   * to be retrieved. Its properties/attributes include:
-   * 
-   * 	- `pageNumber`: The current page number being requested (int)
-   * 	- `pageSize`: The number of users per page (int)
-   * 	- `sort`: The field by which the users are sorted (string, e.g., "username")
-   * 	- `direction`: The direction of the sort (string, e.g., "asc" or "desc")
-   * 
-   * @returns a list of `GetUserDetailsResponse` objects containing the details of all
-   * users.
-   * 
-   * 	- `response`: This is the top-level object representing the response to the
-   * request. It contains a list of `User` objects, which are converted from the domain
-   * service's `Set<User>` return value using the `userApiMapper`.
-   * 	- `users`: This is a list of `User` objects, each containing attributes such as
-   * the user ID, username, email, and password.
-   * 
-   * The `listAllUsers` function returns a `ResponseEntity` object with an HTTP status
-   * code of OK (200) and the response body containing the list of users.
+   * Retrieves a set of user details using the provided page information, maps these
+   * details to a corresponding REST API response, and returns a ResponseEntity containing
+   * an HTTP OK status and the transformed response data.
+   *
+   * @param pageable parameters for pagination, which are used to fetch specific pages
+   * of user data from the database when calling the `listAll` method on the `userService`.
+   *
+   * Sort - specifies the sorting criteria for the result set; Size - defines the maximum
+   * number of elements to return in the page; Pageable - allows for pagination of large
+   * data sets.
+   *
+   * @returns a `GetUserDetailsResponse` object.
+   *
+   * Returns a ResponseEntity with an HTTP status code of OK (200) and a body containing
+   * GetUserDetailsResponse. The GetUserDetailsResponse object contains a set of users
+   * in the form of GetUserDetailsResponseUser objects.
    */
   @Override
   public ResponseEntity<GetUserDetailsResponse> listAllUsers(Pageable pageable) {
@@ -147,29 +128,14 @@ public class UserController implements UsersApi {
   }
 
   /**
-   * receives a user ID and queries the user service to retrieve the user's details.
-   * It maps the response to a `GetUserDetailsResponse` object and returns it as a `ResponseEntity`.
-   * 
-   * @param userId unique identifier of the user whose details are requested.
-   * 
-   * 	- `log.trace()`: This line logs a message with the format `{}"Received request
-   * to get details of user with Id[{}"]`, where `userId` is the variable passed as an
-   * argument.
-   * 	- `userService.getUserDetails(userId)`: This line calls the `getUserDetails`
-   * method of the `userService` class, passing in `userId` as a parameter. This method
-   * retrieves the details of the user with the specified ID.
-   * 
-   * @returns a `ResponseEntity` object with a status code of `OK` and a body containing
-   * the details of the user.
-   * 
-   * 	- `ResponseEntity`: This is an instance of `ResponseEntity`, which represents the
-   * response to the request. The status code of the response is set to `HttpStatus.OK`
-   * by default, indicating that the request was successful.
-   * 	- `body`: This property contains the actual response body, which in this case is
-   * a `GetUserDetailsResponseUser` object.
-   * 	- `map`: This method is used to map the `userDtoToGetUserDetailsResponse` function
-   * to the `ResponseEntity` instance. This function takes the `UserDTO` object as input
-   * and returns the corresponding `GetUserDetailsResponseUser` object.
+   * Retrieves user details based on a provided `userId`. It calls the `userService`
+   * to get the user details, maps the response to a `GetUserDetailsResponseUser`, and
+   * returns it in an HTTP response with a status of OK if found or NOT_FOUND if not.
+   *
+   * @param userId identifier of the user whose details are to be retrieved and processed
+   * by the function.
+   *
+   * @returns a `ResponseEntity` with user details or an error response.
    */
   @Override
   public ResponseEntity<GetUserDetailsResponseUser> getUserDetails(String userId) {
@@ -182,63 +148,22 @@ public class UserController implements UsersApi {
   }
 
   /**
-   * processes password reset requests by parsing the action type and executing the
-   * appropriate reset or request operation, returning an `ok` response if successful,
-   * or a `badRequest` response otherwise.
-   * 
-   * @param action password action to be performed, which can be either "FORGOT" or "RESET".
-   * 
-   * 	- `@NotNull`: The `action` parameter must not be null.
-   * 	- `@Valid`: The `action` parameter is validated to ensure it meets certain criteria.
-   * 	- `String`: The `action` parameter is a string representing the password action
-   * type.
-   * 	- `PasswordActionType parsedAction = PasswordActionType.valueOf(action)`: This
-   * line of code parses the `action` parameter into its corresponding `PasswordActionType`.
-   * 	- `parsedAction == PasswordActionType.FORGOT`: If the parsed `action` value is
-   * equal to `PasswordActionType.FORGOT`, then the method execution continues to the
-   * next line.
-   * 	- `parsedAction == PasswordActionType.RESET`: If the parsed `action` value is
-   * equal to `PasswordActionType.RESET`, then the method execution continues to the
-   * next line.
-   * 
-   * In summary, the `action` parameter is a string that represents the password action
-   * type and is used to determine the appropriate response to return.
-   * 
-   * @param forgotPasswordRequest Forgot Password Request object that contains information
-   * required to reset the user's password.
-   * 
-   * 	- `action`: A string parameter indicating the password action to be performed
-   * (either `FORGOT` or `RESET`).
-   * 	- `forgotPasswordRequest`: An object containing details about the password reset
-   * request, including the user's email address and a unique token.
-   * 
-   * @returns a `ResponseEntity` object with an `ok` status code indicating successful
-   * execution of the function.
-   * 
-   * 	- `ResponseEntity`: This is an instance of the `ResponseEntity` class, which
-   * represents a response to a HTTP request. It contains information about the status
-   * code, body, and headers of the response.
-   * 	- `ok`: This is a boolean property of the `ResponseEntity` object, indicating
-   * whether the response is successful (true) or not (false).
-   * 	- `build`: This is a method of the `ResponseEntity` class that returns a new
-   * instance of the response with the specified status code, body, and headers.
-   * 
-   * The function itself takes two parameters: `action` and `@Valid @RequestBody
-   * ForgotPasswordRequest forgotPasswordRequest`. The `action` parameter is a string
-   * that represents the type of password action being performed (either `FORGOT` or
-   * `RESET`). The `forgotPasswordRequest` parameter is an instance of the
-   * `ForgotPasswordRequest` class, which contains information about the user and the
-   * password reset request.
-   * 
-   * The function then uses the `parsedAction` variable to determine the appropriate
-   * action to take based on the value of `action`. If `parsedAction` is equal to
-   * `PasswordActionType.FORGOT`, the function calls the `userService.requestResetPassword()`
-   * method to initiate the password reset process. Otherwise, if `parsedAction` is
-   * equal to `PasswordActionType.RESET`, the function calls the `userService.resetPassword()`
-   * method to complete the password reset process.
-   * 
-   * Finally, the function returns a new instance of the `ResponseEntity` class with a
-   * status code of 200 (OK) and a body containing the response message.
+   * Handles password-related requests for users, processing either a forgotten or reset
+   * password request based on the provided action. It returns a successful response
+   * if the request is processed successfully, otherwise it returns a bad request error.
+   *
+   * @param action type of password action to be performed, either Forgot or Reset, and
+   * its value is used to determine which corresponding service method should be invoked.
+   *
+   * @param forgotPasswordRequest request to reset or change the user's password,
+   * containing the necessary information for the requested action.
+   *
+   * It has one property named `email`.
+   *
+   * @returns a ResponseEntity with either an OK status or a Bad Request status.
+   *
+   * Returns a ResponseEntity object with a Void type, which contains either an HTTP
+   * OK response or an HTTP Bad Request response based on the result variable.
    */
   @Override
   public ResponseEntity<Void> usersPasswordPost(@NotNull @Valid String action, @Valid @RequestBody ForgotPasswordRequest forgotPasswordRequest) {
@@ -258,42 +183,23 @@ public class UserController implements UsersApi {
   }
 
   /**
-   * receives a user ID and pageable parameter, then uses the `houseService` to list
-   * all house members for the specified user, maps the result to a `RestApiResponseHouseMemberSet`,
-   * and returns a `ResponseEntity` with the list of house members.
-   * 
-   * @param userId user for whom the list of all housemates is being requested.
-   * 
-   * 	- `userId`: This represents the unique identifier for a user in the system. It
-   * is likely an instance of `Long`.
-   * 
-   * @param pageable pagination information for the list of house members, allowing for
-   * efficient retrieval of a subset of the total number of house members belonging to
-   * the user.
-   * 
-   * 	- `userId`: the user ID for whom the housemembers are being listed (String)
-   * 	- `pageable`: a Pageable object specifying the pagination parameters (Pageable)
-   * 
-   * @returns a `ResponseEntity` representing a list of house members for a given user.
-   * 
-   * 	- `ResponseEntity<ListHouseMembersResponse>` represents an entity that contains
-   * a list of `HouseMemberSet` objects in a response format.
-   * 	- `ListHouseMembersResponse` is a class that contains a list of `HouseMember`
-   * objects, each representing a member of a house.
-   * 	- `map(houseService::listHouseMembersForHousesOfUserId)`: This method calls the
-   * `listHouseMembersForHousesOfUserId` method of the `houseService` class, which
-   * returns a list of `HouseMember` objects for all houses associated with the user
-   * ID passed in the request.
-   * 	- `map(HashSet::new)`: This method creates a new `HashSet` object to store the
-   * returned list of `HouseMember` objects.
-   * 	- `map(house MemberMapper::houseMemberSetToRestApiResponseHouseMemberSet)`: This
-   * method converts each `HouseMember` object in the input list into a corresponding
-   * `HouseMemberSet` object, which is then added to the `HashSet`.
-   * 	- `map(ResponseEntity::ok)`: This method returns an `ResponseEntity` object with
-   * a status code of `200 OK`, indicating that the request was successful.
-   * 	- `orElse(ResponseEntity::notFound().build())`: This method provides an alternative
-   * return value in case the `listHouseMembersForHousesOfUserId` method fails, which
-   * is represented by a `ResponseEntity` object with a status code of `404 Not Found`.
+   * Retrieves a list of house members for a given user's houses, maps the result to a
+   * REST API response, and returns it as a ResponseEntity. If no results are found,
+   * it returns a 404 status code.
+   *
+   * @param userId identifier of the user for whom the list of all house members is
+   * being retrieved from their respective houses.
+   *
+   * @param pageable pagination criteria for retrieving the list of house members,
+   * allowing the API to handle large result sets by splitting them into pages.
+   *
+   * Sort - specifies sorting criteria and direction; Size - defines the number of
+   * elements to return per page; PageNumber - specifies the current page.
+   *
+   * @returns a ResponseEntity containing a List of house members.
+   *
+   * The output is a ResponseEntity of type ListHouseMembersResponse. The response
+   * contains a list of house members as its attributes.
    */
   @Override
   public ResponseEntity<ListHouseMembersResponse> listAllHousemates(String userId, Pageable pageable) {
@@ -308,31 +214,17 @@ public class UserController implements UsersApi {
   }
 
   /**
-   * verifies the email confirmation token for a given user ID and returns a response
-   * entity indicating whether the email was confirmed successfully or not.
-   * 
-   * @param userId user whose email is being confirmed.
-   * 
-   * 	- `userService`: This is the service class that manages user-related operations
-   * in the application.
-   * 	- `emailConfirmToken`: A unique token generated for the user to confirm their
-   * email address.
-   * 
-   * @param emailConfirmToken 16-digit token that was sent to the user's email address
-   * for confirmation of their email address.
-   * 
-   * 	- `userId`: The unique identifier of the user whose email is being confirmed.
-   * 	- `emailConfirmToken`: A token provided by the system to confirm the user's email
-   * address.
-   * 
-   * @returns a `ResponseEntity` object with an `ok` status and a built-in `Void` body.
-   * 
-   * 	- `ResponseEntity.ok().build()`: This is a response entity that indicates a
-   * successful execution of the function. It has an `OK` status code and a `build()`
-   * method that returns the entity with the specified status code.
-   * 	- `ResponseEntity.badRequest().build()`: This is a response entity that indicates
-   * an error in the function execution. It has a `BAD_REQUEST` status code and a
-   * `build()` method that returns the entity with the specified status code.
+   * Verifies whether an email has been confirmed for a given user by the `userService`.
+   * If the confirmation is successful, it returns a successful HTTP response. Otherwise,
+   * it returns a bad request error.
+   *
+   * @param userId identification of a user whose email confirmation is being processed.
+   *
+   * @param emailConfirmToken confirmation token sent to the user's email address, used
+   * by the `userService` to verify whether the provided token matches the one stored
+   * for the specified `userId`.
+   *
+   * @returns a HTTP response with either a successful or failed confirmation status.
    */
   @Override
   public ResponseEntity<Void> confirmEmail(String userId, String emailConfirmToken) {
@@ -345,24 +237,13 @@ public class UserController implements UsersApi {
   }
 
   /**
-   * resends an email confirmation to a user if one was previously sent and failed,
-   * returning a `ResponseEntity` with a status of either `ok` or `badRequest` depending
-   * on the result of the resending operation.
-   * 
-   * @param userId identifier of the user whose email confirmation is being resent.
-   * 
-   * 	- `userService`: A service class that performs user-related operations, including
-   * resending email confirmations.
-   * 	- `resendEmailConfirm(userId)`: An operation called by the `resendConfirmEmailMail`
-   * function to resend an email confirmation to the specified `userId`. The method
-   * returns a boolean value indicating whether the resending was successful or not.
-   * 
-   * @returns a `ResponseEntity` object with a status code of either `ok` or `badRequest`,
-   * indicating whether the email confirmation resend was successful or not.
-   * 
-   * 	- `ResponseEntity.ok()`: indicates that the email confirmation was resent successfully.
-   * 	- `ResponseEntity.badRequest()`: indicates that there was an error while resending
-   * the email confirmation.
+   * Sends a confirmation email to a user with a given ID, using the `userService`. If
+   * the resend operation is successful, it returns a successful response; otherwise,
+   * it returns an error response.
+   *
+   * @param userId user ID for which the confirm email resend operation is performed.
+   *
+   * @returns either an OK response or a BAD REQUEST response.
    */
   @Override
   public ResponseEntity<Void> resendConfirmEmailMail(String userId) {
